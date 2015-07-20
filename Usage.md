@@ -68,6 +68,20 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
 1. [Session Support](#session-support)
   1. [Session Filter](#session-filter)
 1. [SSL](#ssl)
+  1. [SSL invalid hostname](#ssl-invalid-hostname)
+1. [URL Encoding](#url-encoding)
+1. [Proxy Configuration](#proxy-configuration)
+  1. [Static Proxy Configuration](#static-proxy-configuration)
+  1. [Request Specificaiton Proxy Configuration](#request-specificaiton-proxy-configuration)
+1. [Detailed configuration](#detailed-configuration)
+  1. [Encoder Config](#encoder-config)
+  1. [Decoder Config](#decoder-config)
+  1. [Session Config](#session-config)
+  1. [Redirect DSL](#redirect-dsl)
+  1. [Connection Config](#connection-config)
+  1. [JSON Config](#json-config)
+  1. [HTTP Client Config](#http-client-config)
+  1. [SSL Config](#ssl-config)
 
 ## Static imports ##
 
