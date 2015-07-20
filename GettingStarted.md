@@ -86,7 +86,7 @@ Gradle:
 testCompile 'com.jayway.restassured:json-schema-validator:2.4.1'
 ```
 
-Refer to the [documentation](https://code.google.com/p/rest-assured/wiki/Usage#JSON_Schema_validation) for more info.
+Refer to the [documentation](Usage#json-schema-validation) for more info.
 
 ### Spring Mock Mvc ###
 If you're using Spring Mvc you can now unit test your controllers using the [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) API in the [spring-mock-mvc](Usage#Spring_Mock_Mvc_Module) module. For this to work you need to depend on the `spring-mock-mvc` module:
