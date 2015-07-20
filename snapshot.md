@@ -1,6 +1,6 @@
 In order to try out REST Assured versions before they are released you need to add the following repository in your Maven `pom.xml` file:
 
-```
+```xml
 <repositories>
         <repository>
             <id>sonatype</id>
