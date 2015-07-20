@@ -1,7 +1,7 @@
 # FAQ #
 
 1. Q: I'm running into exceptions like the one below after having upgraded to REST Assured 1.8+
-	```java
+   ```java
 	java.lang.IncompatibleClassChangeError: Found interface org.objectweb.asm.MethodVisitor, but class was expected
 	  at org.codehaus.groovy.runtime.callsite.CallSiteGenerator.genConstructor(CallSiteGenerator.java:141)
 	  at org.codehaus.groovy.runtime.callsite.CallSiteGenerator.genPojoMetaMethodSite(CallSiteGenerator.java:181)
