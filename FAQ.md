@@ -13,7 +13,7 @@ java.lang.IncompatibleClassChangeError: Found interface org.objectweb.asm.Method
   at org.codehaus.groovy.runtime.callsite.CallSiteArray.createPojoSite(CallSiteArray.java:129)
 ...
 ```
-	> A: This is because you have conflicting versions of [asm](http://asm.ow2.org/) in your classpath. Groovy depends on version 4 and something else in your classpath require asm 3. The solution is to exclude `groovy` form REST Assured and depend on `groovy-all` instead. If you're using Maven you can do like this:
+	>A: This is because you have conflicting versions of [asm](http://asm.ow2.org/) in your classpath. Groovy depends on version 4 and something else in your classpath require asm 3. The solution is to exclude `groovy` form REST Assured and depend on `groovy-all` instead. If you're using Maven you can do like this:
 	```xml
 	<dependency>
 	    <groupId>com.jayway.restassured</groupId>
