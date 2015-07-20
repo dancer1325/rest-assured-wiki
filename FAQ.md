@@ -36,7 +36,7 @@ A: This is because you have conflicting versions of [asm](http://asm.ow2.org/) i
     <scope>test</scope>
 </dependency>
 ```
-> If you're using Gradle do like this:
+If you're using Gradle do like this:
 ```groovy
 testCompile (group: 'com.jayway.restassured', name: 'rest-assured', version:'2.4.1') {
         exclude(module: 'groovy')
