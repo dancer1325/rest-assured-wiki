@@ -38,6 +38,21 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Content-Type](#content-type-1)
   1. [Full body/content matching](#full-bodycontent-matching)
   1. [Use the response to verify other parts of the response](#use-the-response-to-verify-other-parts-of-the-response)
+1. [Authentication](#authentication)
+  1. [OAuth](#oauth)
+1. [Multi-part form data](#multi-part-form-data)
+1. [Object Mapping](#object-mapping)
+  1. [Serialization](#serialization)
+    1. [Content-Type based Serialization](#content-type-based-serialization)
+    1. [Create JSON from a HashMap](#create-json-from-a-hashmap)
+    1. [Using an Explicit Serializer](#using-an-explicit-serializer)
+  1. [Deserialization](#deserialization)
+    1. [Content-Type based Deserialization](#content-type-based-deserialization)
+    1. [Custom Content-Type Deserialization](#custom-content-type-deserialization)
+    1. [Using an Explicit Deserializer](#using-an-explicit-deserializer)
+  1. [Configuration](#configuration)
+  1. [Custom](#custom)
+
 
 ## Static imports ##
 
