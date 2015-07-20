@@ -1,4 +1,3 @@
-# Installation #
 ## Maven / Gradle Users ##
 Add the following dependency to your pom.xml:
 
