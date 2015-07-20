@@ -61,18 +61,15 @@
     "size": 1
  }
   ```
- To verify that the `records` list contains the attribute `Phone` (even though it's null) we can do like this:
- 
+ To verify that the `records` list contains the attribute `Phone` (even though it's null) we can do like this: 
  ```java
  get("/json").then().assertThat().body("records.any { it.containsKey('Phone') }", is(true));
  ```
  Likewise we can check that `records` doesn't contain an attribute called `x`:
- 
  ```java
  get("/json").then().assertThat().body("records.any { it.containsKey('x') }", is(false));
  ```
  To verify that a JSON object contains an element, for example to check that "size" is defined in the example above you can do like this:
- 
  ```java
  get("/json").then().assertThat().body("any { it.key == 'size' }", is(true));
  ```
