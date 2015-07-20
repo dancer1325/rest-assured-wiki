@@ -26,6 +26,18 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Multi-value Parameter](#multi-value-parameter)
   1. [No-value Parameter](#no-value-parameter)
   1. [Path Parameters](#path-parameters)
+  1. [Cookies](#cookies)
+  1. [Headers](#headers)
+  1. [Content-Type](#content-type)
+  1. [Request Body](#request-body)
+1. [Verifying Response Data](#verifying-response-data)
+  1. [Response Body](#response-body)
+  1. [Cookies](#cookies-1)
+  1. [Status](#status)
+  1. [Headers](#headers-1)
+  1. [Content-Type](#content-type-1)
+  1. [Full body/content matching](#full-bodycontent-matching)
+  1. [Use the response to verify other parts of the response](#use-the-response-to-verify-other-parts-of-the-response)
 
 ## Static imports ##
 
