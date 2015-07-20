@@ -3,6 +3,8 @@
   1. [REST Assured](#rest-assured)
   1. [JsonPath](#jsonpath)
   1. [XmlPath](#xmlpath)
+  1. [JSON Schema Validation](#json-schema-validation)
+  1. [Spring Mock MVC](#spring-mock-mvc)
 1. [Usage examples](#usage-examples)
   1. [Simple](#example-1---simple)
   1. [Better reuse](#example-2---better-reuse)
