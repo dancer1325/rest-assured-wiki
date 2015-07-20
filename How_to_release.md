@@ -14,14 +14,11 @@
   1. Upload the artifacts to [bintray](http://bintray.com).
     1. Run the `./deploy_bintray.sh` script and enter the API Key (found on Bintray on the user profile page when pressing the edit button) and version to release.
     1. Login to [bintray](http://bintray.com) and add release notes and publish the release.
-  1. Upload the javadoc to googlecode:
-    1. Checkout the newly released version in git (`git co <version_tag>`)
-    1. Run `mvn  clean javadoc:aggregate`
-    1. Copy everything from REST Assured `target/site/apidocs` into `tags/X/apidocs` (in svn)
-    1. Run `svn add X"
-    1. Run `find . -name '*.html' | xargs svn propset svn:mime-type text/html`
-    1. Run `find . -name '*.css' | xargs svn propset svn:mime-type text/css`
-    1. svn ci -m "Uploading javadocs for version X"
+  1. Generate javadoc by accessing the following URIs:
+    1. http://www.javadoc.io/doc/com.jayway.restassured/json-path/<version>
+    1. http://www.javadoc.io/doc/com.jayway.restassured/xml-path/<version>
+    1. http://www.javadoc.io/doc/com.jayway.restassured/rest-assured/<version>
+    1. http://www.javadoc.io/doc/com.jayway.restassured/spring-mock-mvc/<version>
   1. Update the front page, usage page, download page and the getting started page.
   1. Send a message to the mailing-list and twitter announcing the new release.
 
