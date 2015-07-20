@@ -1,3 +1,10 @@
+# Contents
+1. [Maven / Gradle](#static-imports)
+1. [Usage examples](#usage-examples)
+  1. [Simple](#example-1---simple)
+  1. [Better reuse](#example-2---better-reuse)
+  1. [Proxy based conditions](#example-3---proxy-based-conditions)
+
 ## Maven / Gradle Users ##
 Add the following dependency to your pom.xml:
 
