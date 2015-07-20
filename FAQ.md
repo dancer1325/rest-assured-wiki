@@ -1,7 +1,8 @@
 # FAQ #
 
 1. Q: I'm running into exceptions like the one below after having upgraded to REST Assured 1.8+
-   ```java
+
+ ```java
 	java.lang.IncompatibleClassChangeError: Found interface org.objectweb.asm.MethodVisitor, but class was expected
 	  at org.codehaus.groovy.runtime.callsite.CallSiteGenerator.genConstructor(CallSiteGenerator.java:141)
 	  at org.codehaus.groovy.runtime.callsite.CallSiteGenerator.genPojoMetaMethodSite(CallSiteGenerator.java:181)
@@ -12,7 +13,7 @@
 	  at groovy.lang.MetaClassImpl.createPojoCallSite(MetaClassImpl.java:3082)
 	  at org.codehaus.groovy.runtime.callsite.CallSiteArray.createPojoSite(CallSiteArray.java:129)
 	...
-	```
+ ```
 	A: This is because you have conflicting versions of [asm](http://asm.ow2.org/) in your classpath. Groovy depends on version 4 and something else in your classpath require asm 3. The solution is to exclude `groovy` form REST Assured and depend on `groovy-all` instead. If you're using Maven you can do like this:
 	```xml
 	<dependency>
