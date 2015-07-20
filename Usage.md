@@ -4,14 +4,22 @@ Note that if you're using version 1.9.0 or earlier please refer to the [legacy](
 
 REST Assured is a Java DSL for simplifying testing of REST based services built on top of HTTP Builder. It supports POST, GET, PUT, DELETE, OPTIONS, PATCH and HEAD requests and can be used to validate and verify the response of these requests.
 
-**Table of Contents**
-
+# Contents
+1. [Static imports](#static-imports)
+1. [Examples](#examples)
+  1. [JSON Example](#example-1---json)
+  1. [JSON Schema Validation](#json-schema-validation)
+  1. [XML Example](#example-2---xml)
+  1. [Advanced](#example-3---complex-parsing-and-validation)
+  1. [External Examples](#additional-examples)
+1. [Note on floats and doubles](#note-on-floats-and-doubles)
+1. [Note on syntax](#note-on-syntax) ([syntactic sugar](#syntactic-sugar))
 
 ## Static imports ##
 
 In order to use REST assured effectively it's recommended to statically import methods from the following classes:
 
-```
+```java
 com.jayway.restassured.RestAssured.*
 com.jayway.restassured.matcher.RestAssuredMatchers.*
 org.hamcrest.Matchers.*
@@ -19,17 +27,18 @@ org.hamcrest.Matchers.*
 
 If you want to use [Json Schema](http://json-schema.org/) validation you should also statically import these methods:
 
-```
+```java
 com.jayway.restassured.module.jsv.JsonSchemaValidator.*
 ```
 
-Refer to [Json Schema Validation](#JSON_Schema_validation) section for more info.
+Refer to [Json Schema Validation](#json-schema-validation) section for more info.
 
 If you're using Spring MVC you can use the [spring-mock-mvc](Usage#Spring_Mock_Mvc_Module) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `com.jayway.restassured.RestAssured`:
 
-```
+```java
 com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.*
 ```
+# Examples
 
 ## Example 1 - JSON ##
 Assume that the GET request (to http://localhost:8080/lotto) returns JSON as:
