@@ -1,7 +1,7 @@
 # FAQ #
 
   1. Q: I'm running into exceptions like the one below after having upgraded to REST Assured 1.8+
-```
+```java
 java.lang.IncompatibleClassChangeError: Found interface org.objectweb.asm.MethodVisitor, but class was expected
   at org.codehaus.groovy.runtime.callsite.CallSiteGenerator.genConstructor(CallSiteGenerator.java:141)
   at org.codehaus.groovy.runtime.callsite.CallSiteGenerator.genPojoMetaMethodSite(CallSiteGenerator.java:181)
@@ -14,7 +14,7 @@ java.lang.IncompatibleClassChangeError: Found interface org.objectweb.asm.Method
 ...
 ```
 > A: This is because you have conflicting versions of [asm](http://asm.ow2.org/) in your classpath. Groovy depends on version 4 and something else in your classpath require asm 3. The solution is to exclude `groovy` form REST Assured and depend on `groovy-all` instead. If you're using Maven you can do like this:
-```
+```xml
 <dependency>
     <groupId>com.jayway.restassured</groupId>
     <artifactId>rest-assured</artifactId>
@@ -37,7 +37,7 @@ java.lang.IncompatibleClassChangeError: Found interface org.objectweb.asm.Method
 </dependency>
 ```
 > If you're using Gradle do like this:
-```
+```groovy
 testCompile (group: 'com.jayway.restassured', name: 'rest-assured', version:'2.4.1') {
         exclude(module: 'groovy')
 }
@@ -45,7 +45,7 @@ testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.3'
 ```
 2. Q: How can I determine if a JSON response path exists or doesn't exist?
 > > A: Imagine that we have a resource called "/json" that returns the following JSON response:
-```
+```javascript
 {
     "done": true,
     "records": [
@@ -60,14 +60,14 @@ testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.3'
 }
 ```
 > > To verify that the `records` list contains the attribute `Phone` (even though it's null) we can do like this:
-```
+```java
 get("/json").then().assertThat().body("records.any { it.containsKey('Phone') }", is(true));
 ```
 > > Likewise we can check that `records` doesn't contain an attribute called `x`:
-```
+```java
 get("/json").then().assertThat().body("records.any { it.containsKey('x') }", is(false));
 ```
 > > To verify that a JSON object contains an element, for example to check that "size" is defined in the example above you can do like this:
-```
+```java
 get("/json").then().assertThat().body("any { it.key == 'size' }", is(true));
 ```
