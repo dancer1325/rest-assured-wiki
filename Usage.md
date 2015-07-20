@@ -52,7 +52,22 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
     1. [Using an Explicit Deserializer](#using-an-explicit-deserializer)
   1. [Configuration](#configuration)
   1. [Custom](#custom)
-
+1. Parsers
+  1. [Custom](#custom-parsers)
+  1. [Default](#default-parser)
+1. [Default Values](#default-values)
+1. [Specification Re-use](#specification-re-use)
+1. [Filters](#filters)
+  1. [Response Builder](#response-builder)
+1. [Logging](#logging)
+  1. [Request Logging](#request-logging)
+  1. [Response Logging](#response-logging)
+  1. [Log if validation fails](#log-if-validation-fails)
+1. [Root Path](#root-path)
+  1. [Path Arguments](#path-arguments)
+1. [Session Support](#session-support)
+  1. [Session Filter](#session-filter)
+1. [SSL](#ssl)
 
 ## Static imports ##
 
