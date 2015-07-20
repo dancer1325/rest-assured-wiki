@@ -89,7 +89,7 @@ testCompile 'com.jayway.restassured:json-schema-validator:2.4.1'
 Refer to the [documentation](https://code.google.com/p/rest-assured/wiki/Usage#JSON_Schema_validation) for more info.
 
 ### Spring Mock Mvc ###
-If you're using Spring Mvc you can now unit test your controllers using the [RestAssuredMockMvc](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) API in the [spring-mock-mvc](Usage#Spring_Mock_Mvc_Module) module. For this to work you need to depend on the `spring-mock-mvc` module:
+If you're using Spring Mvc you can now unit test your controllers using the [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) API in the [spring-mock-mvc](Usage#Spring_Mock_Mvc_Module) module. For this to work you need to depend on the `spring-mock-mvc` module:
 
 Maven:
 ```xml
@@ -127,7 +127,7 @@ com.jayway.restassured.module.jsv.JsonSchemaValidator.*
 
 Refer to [Json Schema Validation](#JSON_Schema_validation) section for more info.
 
-If you're using Spring MVC you can use the [spring-mock-mvc](Usage#Spring_Mock_Mvc_Module) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `com.jayway.restassured.RestAssured` and `com.jayway.restassured.matcher.RestAssuredMatchers`:
+If you're using Spring MVC you can use the [spring-mock-mvc](Usage#Spring_Mock_Mvc_Module) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `com.jayway.restassured.RestAssured` and `com.jayway.restassured.matcher.RestAssuredMatchers`:
 
 ```java
 com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.*
