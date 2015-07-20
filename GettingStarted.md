@@ -1,5 +1,6 @@
 # Contents
-1. [Maven / Gradle](#static-imports)
+1. [Maven / Gradle](#maven--gradle-users)
+  1. [REST Assured](#rest-assured)
 1. [Usage examples](#usage-examples)
   1. [Simple](#example-1---simple)
   1. [Better reuse](#example-2---better-reuse)
@@ -12,7 +13,7 @@ Add the following dependency to your pom.xml:
 Includes JsonPath and XmlPath
 
 Maven:
-```
+```xml
 <dependency>
       <groupId>com.jayway.restassured</groupId>
       <artifactId>rest-assured</artifactId>
@@ -22,7 +23,7 @@ Maven:
 ```
 
 Gradle:
-```
+```groovy
 testCompile 'com.jayway.restassured:rest-assured:2.4.1'
 ```
 
