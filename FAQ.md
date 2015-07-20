@@ -14,7 +14,7 @@
 	  at org.codehaus.groovy.runtime.callsite.CallSiteArray.createPojoSite(CallSiteArray.java:129)
 	...
  ```
-	> A: This is because you have conflicting versions of [asm](http://asm.ow2.org/) in your classpath. Groovy depends on version 4 and something else in your classpath require asm 3. The solution is to exclude `groovy` form REST Assured and depend on `groovy-all` instead. If you're using Maven you can do like this:
+	> This is because you have conflicting versions of [asm](http://asm.ow2.org/) in your classpath. Groovy depends on version 4 and something else in your classpath require asm 3. The solution is to exclude `groovy` form REST Assured and depend on `groovy-all` instead. If you're using Maven you can do like this:
 	```xml
 	<dependency>
 	    <groupId>com.jayway.restassured</groupId>
@@ -46,7 +46,7 @@
 	```
 2. Q: How can I determine if a JSON response path exists or doesn't exist?
 
- > A: Imagine that we have a resource called "/json" that returns the following JSON response:
+ > Imagine that we have a resource called "/json" that returns the following JSON response:
  ```javascript
  {
     "done": true,
@@ -59,17 +59,20 @@
         }
     ],
     "size": 1
-}
-```
-To verify that the `records` list contains the attribute `Phone` (even though it's null) we can do like this:
-```java
-get("/json").then().assertThat().body("records.any { it.containsKey('Phone') }", is(true));
-```
-Likewise we can check that `records` doesn't contain an attribute called `x`:
-```java
-get("/json").then().assertThat().body("records.any { it.containsKey('x') }", is(false));
-```
-To verify that a JSON object contains an element, for example to check that "size" is defined in the example above you can do like this:
-```java
-get("/json").then().assertThat().body("any { it.key == 'size' }", is(true));
-```
+ }
+  ```
+ To verify that the `records` list contains the attribute `Phone` (even though it's null) we can do like this:
+ 
+ ```java
+ get("/json").then().assertThat().body("records.any { it.containsKey('Phone') }", is(true));
+ ```
+ Likewise we can check that `records` doesn't contain an attribute called `x`:
+ 
+ ```java
+ get("/json").then().assertThat().body("records.any { it.containsKey('x') }", is(false));
+ ```
+ To verify that a JSON object contains an element, for example to check that "size" is defined in the example above you can do like this:
+ 
+ ```java
+ get("/json").then().assertThat().body("any { it.key == 'size' }", is(true));
+ ```
