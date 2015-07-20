@@ -2,7 +2,8 @@
 
 ## Highlights ##
   * Major improvements to XML expecations. It now uses Groovy syntax for the expectation string to allow for much better expectations! Note that this fix will break backward compatibility on some expectations. E.g. given
-```
+
+```java
 <greeting>
     <name>
 	<firstName>John</firstName>
@@ -10,19 +11,22 @@
     </name>
 </greeting>
 ```
-> you used to do:
-```
+
+you used to do:
+```java
 expect().body("greeting.name", hasItems("John", "Doe"))..
 ```
-> Now this will not work, instead you have to do:
-```
+
+Now this will not work, instead you have to do:
+```java
 expect().body("greeting.name.children()", hasItems("John", "Doe"))..
 ```
-> But this also means that you can do:
-```
+But this also means that you can do:
+```java
 expect().body("greeting.name.size()", equalTo(2))..
 ```
-> See [this](http://groovy.codehaus.org/Updating+XML+with+XmlSlurper) link for more info about the syntax.
+
+See [this](http://groovy.codehaus.org/Updating+XML+with+XmlSlurper) link for more info about the syntax.
   * Major improvements to JSON expectations. It now uses Groovy syntax for the expectation string to allow for much better expectations. Note that this fix will break backward compatibility on some expectations:
     1. JSON lists are always returned as Java lists which means that you should use the hasItem(..) hamcrest matcher and not hasItemsInArray(..) hamcrest matcher.
   * Added [XmlPath](http://rest-assured.googlecode.com/svn/tags/1.1/apidocs/com/jayway/restassured/path/xml/XmlPath.html) object which allows you to parse an XML response from a request easily. E.g.
