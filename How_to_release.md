@@ -19,6 +19,7 @@
     1. `http://www.javadoc.io/doc/com.jayway.restassured/xml-path/<version>`
     1. `http://www.javadoc.io/doc/com.jayway.restassured/rest-assured/<version>`
     1. `http://www.javadoc.io/doc/com.jayway.restassured/spring-mock-mvc/<version>`
+    1. `http://www.javadoc.io/doc/com.jayway.restassured/json-schema-validator/<version>`
   1. Update the front page, usage page, download page and the getting started page.
   1. Send a message to the mailing-list and twitter announcing the new release.
 
