@@ -1,6 +1,8 @@
 # Contents
 1. [Maven / Gradle](#maven--gradle-users)
   1. [REST Assured](#rest-assured)
+  1. [XmlPath](#xmlpath)
+  1. [JsonPath](#jsonpath)
 1. [Usage examples](#usage-examples)
   1. [Simple](#example-1---simple)
   1. [Better reuse](#example-2---better-reuse)
@@ -10,7 +12,7 @@
 Add the following dependency to your pom.xml:
 
 ### REST Assured ###
-Includes JsonPath and XmlPath
+Includes [JsonPath](#jsonpath) and [XmlPath](#xmlpath)
 
 Maven:
 ```xml
