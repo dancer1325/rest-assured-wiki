@@ -1,5 +1,3 @@
-# Usage Guide #
-
 Note that if you're using version 1.9.0 or earlier please refer to the [legacy](Usage_Legacy) documentation.
 
 REST Assured is a Java DSL for simplifying testing of REST based services built on top of HTTP Builder. It supports POST, GET, PUT, DELETE, OPTIONS, PATCH and HEAD requests and can be used to validate and verify the response of these requests.
@@ -14,6 +12,12 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [External Examples](#additional-examples)
 1. [Note on floats and doubles](#note-on-floats-and-doubles)
 1. [Note on syntax](#note-on-syntax) ([syntactic sugar](#syntactic-sugar))
+1. [Getting Response Data](#getting-response-data)
+  1. [Extracting values from the Response after validation](#extracting-values-from-the-response-after-validation)
+  1. [JSON (using JsonPath)](#json-using-jsonpath)
+  1. [XML (using XmlPath)](#xml-using-xmlpath)
+  1. [Single Path](#single-path)
+1. [Headers, cookies, status etc](#headers-cookies-status-etc)
 
 ## Static imports ##
 
