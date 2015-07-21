@@ -1617,7 +1617,7 @@ RestAssured.proxy = host("localhost").withPort(8888);
 ## Request Specification Proxy Configuration ##
 You can also create a request specification and specify the proxy there:
 
-```
+```java
 RequestSpecification specification = new RequestSpecBuilder().setProxy("localhost").build();
 given().spec(specification). ..
 ```
@@ -1626,70 +1626,70 @@ given().spec(specification). ..
 Detailed configuration is provided by the [RestAssuredConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/RestAssuredConfig.html) instance with which you can configure the parameters of [HTTP Client](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/HttpClientConfig.html) as well as [Redirect](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/RedirectConfig.html), [Log](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/LogConfig.html), [Encoder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/EncoderConfig.html), [Decoder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/DecoderConfig.html), [Session](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/SessionConfig.html), [ObjectMapper](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/ObjectMapperConfig.html), [Connection](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/ConnectionConfig.html) and [SSL](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/SSLConfig.html) settings. Examples:
 
 For a specific request:
-```
+```java
 given().config(newConfig().redirect(redirectConfig().followRedirects(false))). ..
 ```
 or using a RequestSpecBuilder:
-```
+```java
 RequestSpecification spec = new RequestSpecBuilder().setConfig(newConfig().redirect(redirectConfig().followRedirects(false))).build();
 ```
 or for all requests:
-```
+```java
 RestAssured.config = config().redirect(redirectConfig().followRedirects(true).and().maxRedirects(0));
 ```
 `config()` and `newConfig()` can be statically imported from `com.jayway.restassured.config.RestAssuredConfig`.
 
 ## Encoder Config ##
 With the [EncoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/EncoderConfig.html) you can specify the default content encoding charset (if it's not specified in the content-type header) and query parameter charset for all requests. If no content charset is specified then ISO-8859-1 is used and if no query parameter charset is specified then UTF-8 is used. Usage example:
-```
+```java
 RestAssured.config = newConfig().encoderConfig(encoderConfig().defaultContentCharset("US-ASCII"));
 ```
 
 ## Decoder Config ##
 With the [DecoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/DecoderConfig.html) you can set the default response content decoding charset for all responses. This is useful if you expect a different content charset than ISO-8859-1 (which is the default charset) and the response doesn't define the charset in the content-type header. Usage example:
-```
+```java
 RestAssured.config = newConfig().decoderConfig(decoderConfig().defaultContentCharset("UTF-8"));
 ```
 
 You can also use the `DecoderConfig` to specify which content decoders to apply. When you do this the `Accept-Encoding` header will be added automatically to the request and the response body will be decoded automatically. By default GZIP and DEFLATE decoders are enabled. To for example to remove GZIP decoding but retain DEFLATE decoding you can do the following:
-```
+```java
 given().config(newConfig().decoderConfig(decoderConfig().contentDecoders(DEFLATE))). ..
 ```
 
 ## Session Config ##
 With the session config you can configure the default session id name that's used by REST Assured. The default session id name is `JSESSIONID` and you only need to change it if the name in your application is different and you want to make use of REST Assured's [session support](#Session_support). Usage:
 
-```
+```java
 RestAssured.config = newConfig().sessionConfig(new SessionConfig().sessionIdName("phpsessionid"));
 ```
 
 ## Redirect DSL ##
 Redirect configuration can also be specified using the DSL. E.g.
-```
+```java
 given().redirects().max(12).and().redirects().follow(true).when(). .. 
 ```
 
 ## Connection Config ##
 Lets you configure connection settings for REST Assured. For example if you want to force-close the Apache HTTP Client connection after each response. You may want to do this if you make a lot of fast consecutive requests with small amount of data in the response. How ever if you're downloading large amount of (chunked) data you must not close connections after each response. By default connections are _not_ closed after each response.
 
-```
+```java
 RestAssured.config = newConfig().connectionConfig(connectionConfig().closeIdleConnectionsAfterEachResponse());
 ```
 
-## `Json Config` ##
+## Json Config ##
 [JsonPathConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/path/json/config/JsonPathConfig.html) allows you to configure the Json settings either when used by REST Assured or by [JsonPath](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/path/json/JsonPath.html). It let's you configure how JSON numbers should be treated.
-```
+```java
 RestAssured.config = newConfig().jsonConfig(jsonConfig().numberReturnType(NumberReturnType.BIG_DECIMAL))
 ```
 
 ## HTTP Client Config ##
 Let's you configure properties for the HTTP Client instance that REST Assured will be using when executing requests. By default REST Assured creates a new instance of http client for each "given" statement. To configure reuse do the following:
-```
+```java
 RestAssured.config = newConfig().httpClient(httpClientConfig().reuseHttpClientInstance());
 ```
 
 You can also supply a custom HTTP Client instance by using the `httpClientFactory` method, for example:
-```
+```java
 RestAssured.config = newConfig().httpClient(httpClientConfig().httpClientFactory(
          new HttpClientConfig.HttpClientFactory() {
 
@@ -1706,14 +1706,14 @@ It's also possible to configure default parameters etc.
 
 ## SSL Config ##
 The [SSLConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/SSLConfig.html) allows you to specify more advanced SSL configuration such as truststore, keystore type and host name verifier. For example:
-```
+```java
 RestAssured.config = RestAssured.config().sslConfig(sslConfig().with().keystoreType(<type>).and().strictHostnames());
 ```
 
 # Spring Mock Mvc Module #
 
 REST Assured 2.2.0 introduced support for [Spring Mock Mvc](http://docs.spring.io/spring/docs/4.0.0.RELEASE/javadoc-api/org/springframework/test/web/servlet/MockMvc.html) using the `spring-mock-mvc` module. This means that you can unit test Spring Mvc Controllers. For example given the following Spring controller:
-```
+```java
 @Controller
 public class GreetingController {
 
@@ -1727,8 +1727,8 @@ public class GreetingController {
     }
 }
 ```
-you can test it using [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) like this:
-```
+you can test it using [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) like this:
+```java
 given().
         standaloneSetup(new GreetingController()).
         param("name", "Johan").
@@ -1740,7 +1740,7 @@ then().
         body("content", equalTo("Hello, Johan!"));  
 ```
 i.e. it's very similar to the standard REST Assured syntax. This makes it really fast to run your tests and it's also easier to bootstrap the environment and use mocks (if needed) than standard REST Assured. Most things that you're used to in standard REST Assured works with RestAssured Mock Mvc as well. For example (certain) configuration, static specifications, logging etc etc. To use it you need to depend on the Spring Mock Mvc module:
-```
+```xml
 <dependency>
       <groupId>com.jayway.restassured</groupId>
       <artifactId>spring-mock-mvc</artifactId>
@@ -1748,31 +1748,31 @@ i.e. it's very similar to the standard REST Assured syntax. This makes it really
       <scope>test</scope>
 </dependency>
 ```
-Or [download](https://rest-assured.googlecode.com/files/spring-mock-mvc-2.4.1-dist.zip) it from the download page if you're not using Maven.
+Or [download](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-2.4.1-dist.zip) it from the download page if you're not using Maven.
 
 ## Bootstrapping RestAssuredMockMvc ##
 
 First of all you should statically import methods in:
-```
+```java
 com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.*
 com.jayway.restassured.module.mockmvc.matcher.RestAssuredMockMvcMatchers.*
 ```
 
 instead of those defined in
 
-```
+```java
 com.jayway.restassured.RestAssured.*
 com.jayway.restassured.matcher.RestAssuredMatchers.*
 ```
 
-Refer to [static import](Usage#Static_imports) section of the documentation for additional static imports.
+Refer to [static import](#static-imports) section of the documentation for additional static imports.
 
 In order to start a test using RestAssuredMockMvc you need to initialize it with a either a set of Controllers, a MockMvc instance or a WebApplicationContext from Spring. You can do this for a single request as seen in the previous example (`given().standaloneSetup(new GreetingController()). ..`) or you can do it statically:
-```
+```java
 RestAssuredMockMvc.standaloneSetup(new GreetingController());
 ```
 If defined statically you don't have to specify any Controllers (or MockMvc or WebApplicationContext instance) in the DSL. This means that the previous example can be written as:
-```
+```java
 given().
         param("name", "Johan").
 when().
@@ -1792,7 +1792,7 @@ where `print` is statically imported from `org.springframework.test.web.server.r
 
 ## Using Result Matchers ##
 Spring MockMvc provides a bunch of [Result Matchers](http://docs.spring.io/spring-framework/docs/4.0.0.RELEASE/javadoc-api/org/springframework/test/web/servlet/ResultMatcher.html) that you may find useful. RestAssuredMockMvc has support for these as well if needed. For example let's say that for some reason you want to verify that the status code is equal to 200 using a ResultMatcher:
-```
+```java
 given().
         param("name", "Johan").
 when().
@@ -1805,15 +1805,15 @@ then().
 where `status` is statically imported from `org.springframework.test.web.server.result.MockMvcResultMatchers`. Note that you can also use the `expect` method which is the same as `assertThat` but more close to the syntax of native MockMvc.
 
 ## Interceptors ##
-For more advanced use cases you can also get ahold of and modify the [MockHttpServletRequestBuilder](http://docs.spring.io/spring-framework/docs/4.0.0.RELEASE/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html) before the request is performed. To do this define a [MockHttpServletRequestBuilderInterceptor](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/module/mockmvc/intercept/MockHttpServletRequestBuilderInterceptor.html) and use it with RestAssuredMockMvc:
+For more advanced use cases you can also get ahold of and modify the [MockHttpServletRequestBuilder](http://docs.spring.io/spring-framework/docs/4.0.0.RELEASE/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html) before the request is performed. To do this define a [MockHttpServletRequestBuilderInterceptor](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/intercept/MockHttpServletRequestBuilderInterceptor.html) and use it with RestAssuredMockMvc:
 
-```
+```java
 given().interceptor(myInterceptor). ..
 ```
 
 ## Specifications ##
-Just as with standard Rest Assured you can use [specifications](Usage#Specification_Re-use) to allow for better re-use. Note that the request specification builder for RestAssuredMockMvc is called [MockMvcRequestSpecBuilder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/module/mockmvc/specification/MockMvcRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredMockMvc as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
-```
+Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredMockMvc is called [MockMvcRequestSpecBuilder](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/specification/MockMvcRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredMockMvc as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
+```java
 RestAssuredMockMvc.requestSpecification = new MockMvcRequestSpecBuilder().addQueryParam("name", "Johan").build();
 RestAssuredMockMvc.responseSpecification = new ResponseSpecBuilder().expectStatusCode(200).expectBody("content", equalTo("Hello, Johan!")).build();
 
@@ -1830,15 +1830,15 @@ If you've used any static configuration you can easily reset RestAssuredMockMvc 
 
 ## Spring MVC Authentication ##
 Version `2.3.0` of `spring-mock-mvc` supports authentication. For example:
-```
+```java
 given().auth().principal(..). ..
 ```
 Some authentication methods require Spring Security to be on the classpath (optional). It's also possible to define authentication statically:
-```
+```java
 RestAssuredMockMvc.authentication = principal("username", "password");
 ```
-where the `principal` method is statically imported from [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html). It's also possible to define an authentication scheme in a request builder:
-```
+where the `principal` method is statically imported from [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html). It's also possible to define an authentication scheme in a request builder:
+```java
 MockMvcRequestSpecification spec = new MockMvcRequestSpecBuilder.setAuth(principal("username", "password")).build();
 ```
 
@@ -1848,7 +1848,7 @@ MockMvc doesn't differentiate between different kinds of parameters so `param`, 
 # More info #
 For more information refer to the [javadoc](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/index.html):
   * [RestAssured](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/RestAssured.html)
-  * [RestAssuredMockMvc Javadoc](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html)
+  * [RestAssuredMockMvc Javadoc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html)
   * [Specification package](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/specification/package-summary.html)
 
 You can also have a look at some code examples:
