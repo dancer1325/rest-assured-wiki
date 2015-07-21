@@ -111,7 +111,7 @@ com.jayway.restassured.module.jsv.JsonSchemaValidator.*
 
 Refer to [Json Schema Validation](#json-schema-validation) section for more info.
 
-If you're using Spring MVC you can use the [spring-mock-mvc](#spring-mock-mvc-module) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `com.jayway.restassured.RestAssured`:
+If you're using Spring MVC you can use the [spring-mock-mvc](#spring-mock-mvc-module) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `com.jayway.restassured.RestAssured`:
 
 ```java
 com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.*
@@ -121,7 +121,7 @@ com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.*
 ## Example 1 - JSON ##
 Assume that the GET request (to http://localhost:8080/lotto) returns JSON as:
 
-```java
+```javascript
 {
 "lotto":{
  "lottoId":5,
@@ -156,7 +156,7 @@ Note that the "json path" syntax uses <a href='http://groovy.codehaus.org/GPath'
 
 You can configure Rest Assured and JsonPath to return BigDecimal's instead of float and double for Json Numbers. For example consider the following JSON document:
 
-```
+```javascript
 {
 
     "price":12.12 
@@ -165,13 +165,14 @@ You can configure Rest Assured and JsonPath to return BigDecimal's instead of fl
 ```
 
 By default  you validate that price is equal to 12.12 as a float like this:
-```
+
+```java
 get("/price").then().body("price", is(12.12f));
 ```
 
 but if you like you can configure REST Assured to use a JsonConfig that returns all Json numbers as BigDecimal:
 
-```
+```java
 given().
         config(newConfig().jsonConfig(jsonConfig().numberReturnType(BIG_DECIMAL))).
 when().
@@ -183,7 +184,7 @@ then().
 ### JSON Schema validation ###
 
 From version `2.1.0` REST Assured has support for [Json Schema](http://json-schema.org/) validation. For example given the following schema located in the classpath as `products-schema.json`:
-```
+```javascript
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "Product set",
@@ -231,11 +232,11 @@ From version `2.1.0` REST Assured has support for [Json Schema](http://json-sche
 }
 ```
 you can validate that a resource (`/products`) conforms with the schema:
-```
+```java
 get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
 ```
 `matchesJsonSchemaInClasspath` is statically imported from `com.jayway.restassured.module.jsv.JsonSchemaValidator` and it's recommended to statically import all methods from this class. However in order to use it you need to depend on the `json-schema-validator` module by either [downloading](https://rest-assured.googlecode.com/files/json-schema-validator-2.4.1-dist.zip) it from the download page or add the following dependency from Maven:
-```
+```xml
 <dependency>
     <groupId>com.jayway.restassured</groupId>
     <artifactId>json-schema-validator</artifactId>
@@ -247,7 +248,7 @@ get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products
 
 REST Assured's `json-schema-validator` module uses Francis Galiegue's [json-schema-validator](https://github.com/fge/json-schema-validator) (`fge`) library to perform validation. If you need to configure the underlying `fge` library you can for example do like this:
 
-```
+```java
 // Given
 JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
 
@@ -257,19 +258,19 @@ get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products
 
 The `using` method allows you to pass in a `jsonSchemaFactory` instance that REST Assured will use during validation. This allows fine-grained configuration for the validation.
 
-The `fge` library also allows the validation to be `checked` or `unchecked`. By default REST Assured uses `checked` validation but if you want to change this you can supply an instance of [JsonSchemaValidatorSettings](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/module/jsv/JsonSchemaValidatorSettings.html) to the matcher. For example:
+The `fge` library also allows the validation to be `checked` or `unchecked`. By default REST Assured uses `checked` validation but if you want to change this you can supply an instance of [JsonSchemaValidatorSettings](http://static.javadoc.io/com.jayway.restassured/json-schema-validator/2.4.1/com/jayway/restassured/module/jsv/JsonSchemaValidatorSettings.html) to the matcher. For example:
 
-```
+```java
 get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json").using(settings().with().checkedValidation(false)));
 ```
 
-Where the `settings` method is statically imported from the [JsonSchemaValidatorSettings](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/module/jsv/JsonSchemaValidatorSettings.html) class.
+Where the `settings` method is statically imported from the [JsonSchemaValidatorSettings](http://static.javadoc.io/com.jayway.restassured/json-schema-validator/2.4.1/com/jayway/restassured/module/jsv/JsonSchemaValidatorSettings.html) class.
 
 ### Json Schema Validation with static configuration ###
 
 Now imagine that you always want to use `unchecked` validation as well as setting the default json schema version to version 3. Instead of supplying this to all matchers throughout your code you can define it statically. For example:
 
-```
+```java
 JsonSchemaValidator.settings = settings().with().jsonSchemaFactory(
         JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV3).freeze()).freeze()).
         and().with().checkedValidation(false);
@@ -277,18 +278,18 @@ JsonSchemaValidator.settings = settings().with().jsonSchemaFactory(
 get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
 ```
 
-Now any `matcher` method imported from [JsonSchemaValidator](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/module/jsv/JsonSchemaValidator.html) will use `DRAFTV3` as default version and unchecked validation.
+Now any `matcher` method imported from [JsonSchemaValidator](http://static.javadoc.io/com.jayway.restassured/json-schema-validator/2.4.1/com/jayway/restassured/module/jsv/JsonSchemaValidatorSettings.html) will use `DRAFTV3` as default version and unchecked validation.
 
 To reset the `JsonSchemaValidator` to its default settings simply call the `reset` method:
 
-```
+```java
 JsonSchemaValidator.reset();
 ```
 
 ### Json Schema Validation without REST Assured ###
 You can also use the `json-schema-validator` module without depending on REST Assured. As long as you have a JSON document represented as a `String` you can do like this:
 
-```
+```java
 import org.junit.Test;
 import static com.jayway.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -307,7 +308,7 @@ public class JsonSchemaValidatorWithoutRestAssuredTest {
 }
 ```
 
-Refer to the [getting started](https://code.google.com/p/rest-assured/wiki/GettingStarted#JSON_Schema_Validation) page for more info on this.
+Refer to the [getting started](GattingStarted) page for more info on this.
 
 ### Anonymous JSON root validation ###
 
