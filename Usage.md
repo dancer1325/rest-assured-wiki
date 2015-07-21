@@ -438,7 +438,7 @@ Micha Kops has written a really good blog with several examples (including code 
 ## Note on floats and doubles ##
 Floating point numbers must be compared with a Java "float" primitive. For example, if we consider the following JSON object:
 
-```
+```javascript
 {
 
     "price":12.12 
@@ -447,19 +447,19 @@ Floating point numbers must be compared with a Java "float" primitive. For examp
 ```
 the following test will fail, because we compare with a "double" instead of a "float":
 
-```
+```java
 get("/price").then().assertThat().body("price", equalTo(12.12));
 ```
 
 Instead, compare with a float with:
 
-```
+```java
 get("/price").then().assertThat().body("price", equalTo(12.12f));
 ```
 
 ## Note on syntax ##
 When reading blogs about REST Assured you may see a lot of examples using the "given / expect / when" syntax, for example:
-```
+```java
 given().
         param("x", "y").
 expect().
@@ -470,7 +470,7 @@ when().
 
 This is the so called "legacy syntax" which was the de facto way of writing tests in REST Assured 1.x. While this works fine it turned out to be quite confusing and annoying for many users. The reason for not using "given / when / then" in the first place was mainly technical. So prior to REST Assured 2.0 there was no support "given / when / then" which is more or less the standard approach when you're doing some kind of BDD-like testing. The "given / expect / then" approach still works fine in 2.0 but "given / when / then" reads better and is easier to understand for most people and is thus recommended in most cases. There's however one benefit of using the "given / expect / then" approach and that is that ALL expectation errors can be displayed at the same time which is not possible with the new syntax (since the expectations are defined last). This means that if you would have had multiple expectations in the previous example such as
 
-```
+```java
 given().
         param("x", "y").
 expect().
@@ -482,7 +482,7 @@ when().
 
 REST Assured will report that both the status code expectation and the body expectation are wrong. Rewriting this with the new syntax
 
-```
+```java
 given().
         param("x", "y").
 when().
@@ -497,13 +497,13 @@ will only report an error at the first failed expectation / assertion (that stat
 ### Syntactic Sugar ###
 Another thing worth mentioning is that REST Assured contains some methods that are only there for syntactic sugar. For example the "and" method which can add readability if you're writing everything in a one-liner, for example:
 
-```
+```java
 given().param("x", "y").and().header("z", "w").when().get("/something").then().assertThat().statusCode(200).and().body("x.y", equalTo("z"));
 ```
 
 This is the same thing as:
 
-```
+```java
 given().
         param("x", "y").
         header("z", "w").
@@ -516,7 +516,7 @@ then().
 
 # Getting Response Data #
 You can also get the content of a response. E.g. let's say you want to return the body of a get request to "/lotto". You can get it a variety of different ways:
-```
+```java
 InputStream stream = get("/lotto").asInputStream(); // Don't forget to close this one when you're done
 byte[] byteArray = get("/lotto").asByteArray();
 String json = get("/lotto").asString();
@@ -524,7 +524,7 @@ String json = get("/lotto").asString();
 
 ## Extracting values from the Response after validation ##
 You can extract values from the response or return the response instance itself after you've done validating the response by using the `extract` method. This is useful for example if you want to use values from the response in sequent requests. For example given that a resource called `title` returns the following JSON
-```
+```javascript
  {
      "title" : "My Title",
       "_links": {
@@ -536,7 +536,7 @@ You can extract values from the response or return the response instance itself 
 and you want to validate that content type is equal to `JSON` and the title is equal to `My Title`
 but you also want to extract the link to the `next` title to use that in a subsequent request. This is how:
 
-```
+```java
 String nextTitleLink =
 given().
         param("param_name", "param_value").
@@ -552,7 +552,7 @@ get(nextTitleLink). ..
 ```
 
 You could also decide to instead return the entire response if you need to extract multiple valus from the response:
-```
+```java
 Response response = 
 given().
         param("param_name", "param_value").
@@ -568,16 +568,16 @@ String nextTitleLink = response.path("_links.next.href");
 String headerValue = response.header("headerName");
 ```
 
-## JSON (using `JsonPath`) ##
-Once we have the response body we can then use the [JsonPath](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/path/json/JsonPath.html) to get data from the response body:
+## JSON (using JsonPath) ##
+Once we have the response body we can then use the [JsonPath](http://static.javadoc.io/com.jayway.restassured/json-path/2.4.1/com/jayway/restassured/path/json/JsonPath.html) to get data from the response body:
 
-```
+```java
 int lottoId = from(json).getInt("lotto.lottoId");
 List<Integer> winnerIds = from(json).get("lotto.winners.winnerId");
 ```
 
 Or a bit more efficiently:
-```
+```java
 JsonPath jsonPath = new JsonPath(json).setRoot("lotto");
 int lottoId = jsonPath.getInt("lottoId");
 List<Integer> winnerIds = jsonPath.get("winners.winnderId");
@@ -585,15 +585,15 @@ List<Integer> winnerIds = jsonPath.get("winners.winnderId");
 
 Note that you can use `JsonPath` standalone without depending on REST Assured, see [getting started guide](GettingStarted) for more info on this.
 
-### `JsonPath` Configuration ###
+### JsonPath Configuration ###
 You can configure object de-serializers etc for JsonPath by configuring it, for example:
-```
+```java
 JsonPath jsonPath = new JsonPath(SOME_JSON).using(new JsonPathConfig("UTF-8"));
 ```
 
 It's also possible to configure JsonPath statically so that all instances of JsonPath will shared the same configuration:
 
-```
+```java
 JsonPath.config = new JsonPathConfig("UTF-8");
 ```
 
@@ -601,9 +601,10 @@ You can read more about JsonPath at [this blog](http://www.jayway.com/2013/04/12
 
 Note that the JsonPath implementation uses <a href='http://groovy.codehaus.org/GPath'>Groovy's GPath</a> syntax and is not to be confused with Jayway's other <a href='https://github.com/jayway/JsonPath'>JsonPath</a> implementation.
 
-## XML (using `XmlPath`) ##
-You also have the corresponding functionality for XML using  [XmlPath](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/path/xml/XmlPath.html):
-```
+## XML (using XmlPath) ##
+You also have the corresponding functionality for XML using  [XmlPath](http://static.javadoc.io/com.jayway.restassured/xml-path/2.4.1/com/jayway/restassured/path/xml/XmlPath.html):
+
+```java
 String xml = post("/greetXML?firstName=John&lastName=Doe").andReturn().asString();
 // Now use XmlPath to get the first and last name
 String firstName = from(xml).get("greeting.firstName");
@@ -617,15 +618,15 @@ String lastName = xmlPath.get("lastName");
 
 Note that you can use `XmlPath` standalone without depending on REST Assured, see [getting started guide](GettingStarted) for more info on this.
 
-### `XmlPath` Configuration ###
+### XmlPath Configuration ###
 You can configure object de-serializers and charset for XmlPath by configuring it, for example:
-```
+```java
 XmlPath xmlPath = new XmlPath(SOME_XML).using(new XmlPathConfig("UTF-8"));
 ```
 
 It's also possible to configure XmlPath statically so that all instances of XmlPath will shared the same configuration:
 
-```
+```java
 XmlPath.config = new XmlPathConfig("UTF-8");
 ```
 
@@ -633,13 +634,13 @@ You can read more about XmlPath at [this blog](http://www.jayway.com/2013/04/12/
 
 ## Single path ##
 If you only want to make a request and return a single path you can use a shortcut:
-```
+```java
 int lottoId = get("/lotto").path("lotto.lottoid");
 ```
 
-REST Assured will automatically determine whether to use JsonPath or XmlPath based on the content-type of the response. If no content-type is defined then REST Assured will try to look at the [default parser](http://code.google.com/p/rest-assured/wiki/Usage#Default_parser) if defined. You can also manually decide which path instance to use, e.g.
+REST Assured will automatically determine whether to use JsonPath or XmlPath based on the content-type of the response. If no content-type is defined then REST Assured will try to look at the [default parser](#default-parser) if defined. You can also manually decide which path instance to use, e.g.
 
-```
+```java
 String firstName = post("/greetXML?firstName=John&lastName=Doe").andReturn().xmlPath().getString("firstName");
 ```
 
@@ -648,7 +649,7 @@ Options are `xmlPath`, `jsonPath` and `htmlPath`.
 ## Headers, cookies, status etc ##
 
 You can also get headers, cookies, status line and status code:
-```
+```java
 Response response = get("/lotto");
 
 // Get all headers
