@@ -3,6 +3,7 @@
 ## Highlights ##
 * Better support for cookies:
 * You can now create multi-value cookies using e.g.
+
   ```java
       given().cookie("cookieName", "value1", "value2"). ..
   ```
@@ -10,12 +11,14 @@
 * Fixed a serious issue with the cookie parsing that caused cookie attributes to be parsed as a new cookie ([issue 130](https://code.google.com/p/rest-assured/issues/detail?id=130)).
 * Support for getting [detailed cookies](http://rest-assured.googlecode.com/svn/tags/1.4.5/apidocs/com/jayway/restassured/response/Cookie.html) using the [Response.getDetailedCookies()](http://rest-assured.googlecode.com/svn/tags/1.4.5/apidocs/com/jayway/restassured/response/Response.html#getDetailedCookies()) method. You can also get a single detailed cookie using the [Response.getDetailedCookie(java.lang.String)](http://rest-assured.googlecode.com/svn/tags/1.4.5/apidocs/com/jayway/restassured/response/Response.html#getDetailedCookie(java.lang.String)) method. Detailed cookies contains e.g. comment, path and expiry date.
 * Creation of detailed cookies:
-  ```
+
+  ```java
       Cookie someCookie = new Cookie.Builder("some_cookie", "some_value").setSecured(true).build();
       given().cookie(someCookie).and().expect().body(equalTo("x")).when().get("/cookie");
   ```
 * Better support for headers:
   You can now create multi-value headers using e.g.
+
   ```java
       given().header("headerName", "value1", "value2"). ..
   ```
@@ -26,6 +29,7 @@
 
 ## Other notable changes ##
 * Added support for serializing objects to a parameter if the content-type is set:
+  
   ```java
     given().
             contentType("application/json").
@@ -35,7 +39,8 @@
             post("/somewhere");
   ```
 * Added support for mapping a path to a Java object in [JsonPath](http://rest-assured.googlecode.com/svn/tags/1.4.5/apidocs/com/jayway/restassured/path/json/JsonPath.html), e.g:
-  ```java
+ 
+ ```java
   Book book = from(JSON).getObject("store.book[2]", Book.class);
   ```
 ## Minor changes ##
