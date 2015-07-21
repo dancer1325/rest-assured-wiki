@@ -4,8 +4,9 @@
 * Improved logging of content-type header. Before there could be situations where the logging of the content-type header didn't match what was actually sent to the server. This is now resolved.
 * Default Content-Type charset is now visible in the request log.
 * Default Content-Type charset is now appended to Content-Type header in Spring MockMvc module by default. Use
+
   ```java
-  given().config(RestAssuredMockMvcConfig.config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false))). ..
+given().config(RestAssuredMockMvcConfig.config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false))). ..
   ```
   to revert to previous behavior.
 * Content-Type is now correctly displayed in request log when not explicitly defined.
