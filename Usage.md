@@ -678,9 +678,9 @@ To get all values for a header you need to first get the [Headers](http://static
 To get all values for a cookie you need to first get the [Cookies](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/Cookies.html) object from the [Response](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/Response.html) object. From the `Cookies` instance you can get all values using the [Cookies.getValues(<cookie name>)](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/Cookies.html#getValues(java.lang.String)) method which returns a `List` with all cookie values.
 
 ## Detailed Cookies ##
-If you need to get e.g. the comment, path or expiry date etc from a cookie you need get a [detailed cookie](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/Cookie.html) from REST Assured. To do this you can use the [Response.getDetailedCookie(java.lang.String)](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/ResponseOptions.html#getDetailedCookie(java.lang.String)) method. The detailed cookie then contains all attributes from the cookie.
+If you need to get e.g. the comment, path or expiry date etc from a cookie you need get a [detailed cookie](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/Cookie.html) from REST Assured. To do this you can use the [Response.getDetailedCookie(java.lang.String)](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/ResponseOptions.html#getDetailedCookie-java.lang.String-) method. The detailed cookie then contains all attributes from the cookie.
 
-You can also get all detailed response [cookies](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/Cookies.html) using the [Response.getDetailedCookies()](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/ResponseOptions.html#getDetailedCookies()) method.
+You can also get all detailed response [cookies](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/Cookies.html) using the [Response.getDetailedCookies()](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/ResponseOptions.html#getDetailedCookies--) method.
 
 # Specifying Request Data #
 
@@ -689,7 +689,7 @@ Besides specifying request parameters you can also specify headers, cookies, bod
 ## Parameters ##
 Normally you specify parameters like this:
 
-```
+```java
 given().
        param("param1", "value1").
        param("param2", "value2").
@@ -699,7 +699,7 @@ when().
 
 REST Assured will automatically try to determine which parameter type (i.e. query or form parameter) based on the HTTP method. In case of GET query parameters will automatically be used and in case of POST form parameters will be used. In some cases it's however important to separate between form and query parameters in a PUT or POST. You can then do like this:
 
-```
+```java
 given().
        formParam("formParamName", "value1").
        queryParam("queryParamName", "value2").
@@ -708,22 +708,22 @@ when().
 ```
 
 Parameters can also be set directly on the url:
-```
+```java
 ..when().get("/name?firstName=John&lastName=Doe");
 ```
 
-For multi-part parameters please refer to the [Multi-part form data](http://code.google.com/p/rest-assured/wiki/Usage#Multi-part_form_data) section.
+For multi-part parameters please refer to the [Multi-part form data](#multi-part-form-data) section.
 
 ### Multi-value parameter ###
 Multi-value parameters are parameters with more then one value per parameter name (i.e. a list of values per name). You can specify these either by using var-args:
 
-```
+```java
 given().param("myList", "value1", "value2"). .. 
 ```
 
 or using a list:
 
-```
+```java
 List<String> values = new ArrayList<String>();
 values.add("value1");
 values.add("value2");
@@ -733,18 +733,18 @@ given().param("myList", values). ..
 
 ### No-value parameter ###
 You can also specify a query, request or form parameter without a value at all:
-```
+```java
 given().param("paramName"). ..
 ```
 
 ### Path parameters ###
 You can also specify so called path parameters in your request, e.g.
-```
+```java
 post("/reserve/{hotelId}/{roomNumber}", "My Hotel", 23);
 ```
 
 You can also use named path parameters:
-```
+```java
 given().
         pathParam("hotelId", "My Hotel").
         pathParam("roomNumber", 23).
