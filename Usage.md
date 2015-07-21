@@ -314,13 +314,13 @@ Refer to the [getting started](GattingStarted) page for more info on this.
 
 A JSON document doesn't necessarily need a named root attribute. This is for example valid JSON:
 
-```
+```javascript
 [1, 2, 3]
 ```
 
 An anonymous JSON root can be verified by using `$` or an empty string as path. For example let's say that this JSON document is exposed from `http://localhost:8080/json` then we can validate it like this with REST Assured:
 
-```
+```java
 when().
      get("/json").
 then().
@@ -329,14 +329,14 @@ then().
 
 ## Example 2 - XML ##
 XML can be verified in a similar way. Imagine that a POST request to `http://localhost:8080/greetXML` returns:
-```
+```xml
 <greeting>
    <firstName>{params("firstName")}</firstName>
    <lastName>{params("lastName")}</lastName>
 </greeting>
 ```
 i.e. it sends back a greeting based on the firstName and lastName parameter sent in the request. You can easily perform and verify e.g. the firstName with REST assured:
-```
+```java
 given().
          parameters("firstName", "John", "lastName", "Doe").
 when().
@@ -345,7 +345,7 @@ then().
          body("greeting.firstName", equalTo("John")).
 ```
 If you want to verify both firstName and lastName you may do like this:
-```
+```java
 given().
          parameters("firstName", "John", "lastName", "Doe").
 when().
@@ -355,15 +355,15 @@ then().
          body("greeting.lastName", equalTo("Doe"));
 ```
 or a little shorter:
-```
+```java
 with().parameters("firstName", "John", "lastName", "Doe").when().post("/greetXML").then().body("greeting.firstName", equalTo("John"), "greeting.lastName", equalTo("Doe"));
 ```
 
 See [this](http://groovy-lang.org/processing-xml.html#_gpath) link for more info about the syntax (it follows Groovy's [GPath](http://groovy.codehaus.org/GPath) syntax).
 
 ### XML namespaces ###
-To make body expectations take namespaces into account you need to declare the namespaces using the [com.jayway.restassured.config.XmlConfig](http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/config/XmlConfig.html). For example let's say that a resource called `namespace-example` located at `http://localhost:8080` returns the following XML:
-```
+To make body expectations take namespaces into account you need to declare the namespaces using the [com.jayway.restassured.config.XmlConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/XmlConfig.html). For example let's say that a resource called `namespace-example` located at `http://localhost:8080` returns the following XML:
+```xml
 <foo xmlns:ns="http://localhost/">
   <bar>sudo </bar>
   <ns:bar>make me a sandwich!</ns:bar>
@@ -371,7 +371,7 @@ To make body expectations take namespaces into account you need to declare the n
 ```
 
 You can then declare the `http://localhost/` uri and validate the response:
-```
+```java
 given().
         config(newConfig().xmlConfig(xmlConfig().declareNamespace("test", "http://localhost/"))).
 when().
@@ -388,18 +388,18 @@ The syntax follows Groovy's XmlSlurper syntax.
 
 You can also verify XML responses using x-path. For example:
 
-```
+```java
 given().parameters("firstName", "John", "lastName", "Doe").when().post("/greetXML").then().body(hasXPath("/greeting/firstName", containsString("Jo")));
 ```
 
 or
 
-```
+```java
 given().parameters("firstName", "John", "lastName", "Doe").post("/greetXML").then().body(hasXPath("/greeting/firstName[text()='John']"));
 ```
 
 To use namespaces in the XPath expression you need to enable them in the configuration, for example:
-```
+```java
 given().
         config(newConfig().xmlConfig(xmlConfig().with().namespaceAware(true))).
 when().
@@ -413,15 +413,20 @@ Where `namespaceContext` is an instance of [javax.xml.namespace.NamespaceContext
 ### Schema and DTD validation ###
 
 XML response bodies can also be verified against an XML Schema (XSD) or DTD.
-<p>
-<b>XSD example:</b>
-<pre><code>get("/carRecords").then().assertThat().body(matchesXsd(xsd));<br>
-</code></pre>
-<b>DTD example:</b>
-<pre><code>get("/videos").then().assertThat().body(matchesDtd(dtd));<br>
-</code></pre>
 
-The <code>matchesXsd</code> and <code>matchesDtd</code> methods are Hamcrest matchers which you can import from <a href='http://rest-assured.googlecode.com/svn/tags/2.4.1/apidocs/com/jayway/restassured/matcher/RestAssuredMatchers.html'>com.jayway.restassured.matcher.RestAssuredMatchers</a>.<br>
+#### XSD example
+
+```java
+get("/carRecords").then().assertThat().body(matchesXsd(xsd));
+```
+
+#### DTD example
+
+```java
+get("/videos").then().assertThat().body(matchesDtd(dtd));
+```
+
+The <code>matchesXsd</code> and <code>matchesDtd</code> methods are Hamcrest matchers which you can import from <a href="http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/matcher/RestAssuredMatchers.html">com.jayway.restassured.matcher.RestAssuredMatchers</a>.<br>
 </p>
 
 ## Example 3 - Complex parsing and validation ##
