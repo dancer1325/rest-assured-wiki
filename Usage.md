@@ -72,7 +72,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
 1. [URL Encoding](#url-encoding)
 1. [Proxy Configuration](#proxy-configuration)
   1. [Static Proxy Configuration](#static-proxy-configuration)
-  1. [Request Specificaiton Proxy Configuration](#request-specificaiton-proxy-configuration)
+  1. [Request Specification Proxy Configuration](#request-specification-proxy-configuration)
 1. [Detailed configuration](#detailed-configuration)
   1. [Encoder Config](#encoder-config)
   1. [Decoder Config](#decoder-config)
@@ -1289,7 +1289,7 @@ In many cases it can be useful to print the response and/or request details in o
 ## Request Logging ##
 Since version 1.5 REST Assured supports logging the _[request specification](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/specification/RequestSpecification.html)_ before it's sent to the server using the [RequestLoggingFilter](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/filter/log/RequestLoggingFilter.html). Note that the HTTP Builder and HTTP Client may add additional headers then what's printed in the log. The filter will _only_ log details specified in the request specification. I.e. you can NOT regard the details logged by the [RequestLoggingFilter](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/filter/log/RequestLoggingFilter.html) to be what's actually sent to the server. Also subsequent filters may alter the request _after_ the logging has taken place. If you need to log what's _actually_ sent on the wire refer to the [HTTP Client logging docs](http://hc.apache.org/httpcomponents-client-ga/logging.html) or use an external tool such [Wireshark](http://www.wireshark.org/). Examples:
 
-```
+```java
 given().log().all(). .. // Log all request specification details including parameters, headers and body
 given().log().params(). .. // Log only the parameters of the request
 given().log().body(). .. // Log only the request body
@@ -1302,31 +1302,31 @@ given().log().path(). .. // Log only the request path
 ## Response Logging ##
 If you want to print the response body regardless of the status code you can do:
 
-```
+```java
 get("/x").then().log().body() ..
 ```
 
 This will print the response body regardless if an error occurred. If you're only interested in printing the response body if an error occur then you can use:
 
-```
+```java
 get("/x").then().log().ifError(). .. 
 ```
 
 You can also log all details in the response including status line, headers and cookies:
 
-```
+```java
 get("/x").then().log().all(). .. 
 ```
 
 as well as only status line, headers or cookies:
-```
+```java
 get("/x").then().log().statusLine(). .. // Only log the status line
 get("/x").then().log().headers(). .. // Only log the response headers
 get("/x").then().log().cookies(). .. // Only log the response cookies
 ```
 
 You can also configure to log the response only if the status code matches some value:
-```
+```java
 get("/x").then().log().ifStatusCodeIsEqualTo(302). .. // Only log if the status code is equal to 302
 get("/x").then().log().ifStatusCodeMatches(matcher). .. // Only log if the status code matches the supplied Hamcrest matcher
 ```
@@ -1334,18 +1334,18 @@ get("/x").then().log().ifStatusCodeMatches(matcher). .. // Only log if the statu
 ## Log if validation fails ##
 
 Since REST Assured 2.3.1 you can log the request or response only if the validation fails. To log the request do:
-```
+```java
 given().log().ifValidationFails(). ..
 ```
 
 To log the response do:
-```
+```java
 .. .then().log().ifValidationFails(). ..
 ```
 
 It's also possible to enable this for both the request and the response at the same time using the [LogConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/LogConfig.html):
 
-```
+```java
 given().config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails(HEADERS))). ..
 ```
 
@@ -1353,13 +1353,13 @@ This will log only the headers if validation fails.
 
 There's also a shortcut for enabling logging of the request and response for all requests if validation fails:
 
-```
+```java
 RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 ```
 
 # Root path #
 To avoid duplicated paths in body expectations you can specify a root path. E.g. instead of writing:
-```
+```java
 when().
          get("/something").
 then().
@@ -1371,7 +1371,7 @@ then().
 
 you can use a root path and do:
 
-```
+```java
 when().
         get("/something").
 then().
@@ -1382,12 +1382,12 @@ then().
          body("gender", is(..));
 ```
 You can also set a default root path using:
-```
+```java
 RestAssured.rootPath = "x.y";
 ```
 
 In more advanced use cases it may also be useful to append additional root arguments to existing root arguments. To do this you can use the `appendRoot` method, for example:
-```
+```java
 when().
          get("/jsonStore").
 then().
@@ -1398,7 +1398,7 @@ then().
 ```
 
 It's also possible to detach a root. For example:
-```
+```java
 when().
          get("/jsonStore").
 then().
@@ -1410,7 +1410,7 @@ then().
 
 # Path arguments #
 Path arguments are useful in situations where you have e.g. pre-defined variables that constitutes the path. For example
-```
+```java
 String someSubPath = "else";
 int index = 1;
 get("/x").then().body("something.%s[%d]", withArgs(someSubPath, index), equalTo("some value")). ..
@@ -1419,7 +1419,7 @@ get("/x").then().body("something.%s[%d]", withArgs(someSubPath, index), equalTo(
 will expect that the body path "`something.else[0]`" is equal to "some value".
 
 Another usage is if you have complex [root paths](http://code.google.com/p/rest-assured/wiki/Usage#Root_path) and don't wish to duplicate the path for small variations:
-```
+```java
 when().
        get("/x").
 then().
@@ -1434,7 +1434,7 @@ The path arguments follows the standard [formatting syntax](http://download.orac
 Note that the `withArgs` method can be statically imported from the [com.jayway.restassured.RestAssured](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/RestAssured.html) class.
 
 Sometimes it's also useful to validate a body without any additional arguments when all arguments have already been specified in the root path. This is where `withNoArgs` come into play. For example:
-```
+```java
 when().
          get("/jsonStore").
 then().
@@ -1446,27 +1446,27 @@ then().
 
 # Session support #
 REST Assured provides a simplified way for managing sessions. You can define a session id value in the DSL:
-```
+```java
 given().sessionId("1234"). .. 
 ```
 
 This is actually just a short-cut for:
-```
+```java
 given().cookie("JSESSIONID", "1234"). .. 
 ```
 
 You can also specify a default `sessionId` that'll be supplied with all subsequent requests:
-```
+```java
 RestAssured.sessionId = "1234";
 ```
 
-By default the session id name is `JSESSIONID` but you can change it using the [SessionConfig](#Session_Config):
-```
+By default the session id name is `JSESSIONID` but you can change it using the [SessionConfig](#session-config):
+```java
 RestAssured.config = newConfig().sessionConfig(new SessionConfig().sessionIdName("phpsessionid"));
 ```
 
 You can also specify a sessionId using the `RequestSpecBuilder` and reuse it in many tests:
-```
+```java
 RequestSpecBuilder spec = new RequestSpecBuilder().setSessionId("value1").build();
    
 // Make the first request with session id equal to value1
@@ -1476,13 +1476,13 @@ given().spec(spec). ..
 ```
 
 It's also possible to get the session id from the response object:
-```
+```java
 String sessionId = get("/something").sessionId();
 ```
 
 ## Session Filter ##
 As of version 2.0.0 you can use a [session filter](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/filter/session/SessionFilter.html) to automatically capture and apply the session, for example:
-```
+```java
 SessionFilter sessionFilter = new SessionFilter();
 
 given().
@@ -1503,59 +1503,59 @@ then().
 ```
 
 To get session id caught by the `SessionFilter` you can do like this:
-```
+```java
 String sessionId = sessionFilter.getSessionId();
 ```
 
 # SSL #
 In most situations SSL should just work out of the box thanks to the excellent work of HTTP Builder and HTTP Client. There are how ever some cases where you'll run into trouble. You may for example run into a SSLPeerUnverifiedException if the server is using an invalid certificate. The easiest way to workaround this is to use "relaxed HTTPs validation". For example:
-```
+```java
 given().relaxedHTTPSValidation().when().get("https://some_server.com"). .. 
 ```
 You can also define this statically for all requests:
-```
+```java
 RestAssured.useRelaxedHTTPSValidation();
 ```
-or in a [request specification](Usage#Specification_Re-use).
+or in a [request specification](#specification-re-use).
 
 This will assume an SSLContext protocol of  `SSL`. To change to another protocol use an overloaded versionen of  `relaxedHTTPSValidation`. For example:
 
-```
+```java
 given().relaxedHTTPSValidation("TLS").when().get("https://some_server.com"). .. 
 ```
 
 You can also be more fine-grained and create Java keystore file and use it with REST Assured. It's not too difficult, first follow the guide [here](http://groovy.codehaus.org/modules/http-builder/doc/ssl.html) and then use the keystore in Rest Assured like this:
 
-```
+```java
 given().keystore("/pathToJksInClassPath", <password>). .. 
 ```
 
 or you can specify it for every request:
 
-```
+```java
 RestAssured.keystore("/pathToJksInClassPath", <password>);
 ```
 
 You can also define a keystore in a re-usable [specification](http://code.google.com/p/rest-assured/wiki/Usage#Specification_Re-use).
 
 If you already loaded a keystore with a password you can use it as a truststore:
-```
+```java
 RestAssured.trustStore(keystore);
 ```
 
 You can find a working example [here](https://github.com/jayway/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/com/jayway/restassured/itest/java/SSLTest.java).
 
-For more advanced SSL Configuration refer to the [SSL Configuration](https://code.google.com/p/rest-assured/wiki/Usage#SSL_Config) section.
+For more advanced SSL Configuration refer to the [SSL Configuration](#ssl-config) section.
 
 ## SSL invalid hostname ##
 If the certificate is specifying an invalid hostname you don't need to create and import a keystore. As of version `2.2.0` you can do:
-```
+```java
 RestAssured.config = RestAssured.config().sslConfig(sslConfig().allowAllHostnames());
 ```
 
 to allow all hostnames for all requests or:
 
-```
+```java
 given().config(RestAssured.config().sslConfig(sslConfig().allowAllHostnames()). .. ;
 ```
 for a single request.
@@ -1565,14 +1565,14 @@ Note that if you use "relaxed HTTPs validation" then `allowAllHostnames` is acti
 # URL Encoding #
 Usually you don't have to think about URL encoding since Rest Assured provides this automatically out of the box. In some cases though it may be useful to turn URL Encoding off. One reason may be that you already the have some parameters encoded before you supply them to Rest Assured. To prevent double URL encoding you need to tell Rest Assured to disable it's URL encoding. E.g.
 
-```
+```java
 String response = given().urlEncodingEnabled(false).get("https://jira.atlassian.com:443/rest/api/2.0.alpha1/search?jql=project%20=%20BAM%20AND%20issuetype%20=%20Bug").asString();
 ..
 ```
 
 or
 
-```
+```java
 RestAssured.baseURI = "https://jira.atlassian.com";
 RestAssured.port = 443;
 RestAssured.urlEncodingEnabled = false;
@@ -1583,19 +1583,19 @@ String response = get("/rest/api/2.0.alpha1/search?jql={q}", query);
 
 # Proxy Configuration #
 Starting from version 2.3.2 REST Assured has better support for proxies. For example if you have a proxy at localhost port 8888 you can do:
-```
+```java
 given().proxy("localhost", 8888). .. 
 ```
 
 Actually you don't even have to specify the hostname if the server is running on your local environment:
 
-```
+```java
 given().proxy(8888). .. // Will assume localhost
 ```
 
 To use HTTPS you need to supply a third parameter (scheme) or use the `com.jayway.restassured.specification.ProxySpecification`. For example:
 
-```
+```java
 given().proxy(host("localhost").withScheme("https")). ..
 ```
 
@@ -1604,17 +1604,17 @@ where `host` is statically imported from `com.jayway.restassured.specification.P
 ## Static Proxy Configuration ##
 
 It's also possible to configure a proxy statically for all requests, for example:
-```
+```java
 RestAssured.proxy("localhost", 8888);    
 ```
 
 or:
 
-```
+```java
 RestAssured.proxy = host("localhost").withPort(8888);
 ```
 
-## Request Specificaiton Proxy Configuration ##
+## Request Specification Proxy Configuration ##
 You can also create a request specification and specify the proxy there:
 
 ```
