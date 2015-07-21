@@ -5,7 +5,7 @@
 * You can now create multi-value cookies using e.g.
 
   ```java
-      given().cookie("cookieName", "value1", "value2"). ..
+  given().cookie("cookieName", "value1", "value2"). ..
   ```
   This will create _two_ cookies, `cookieName=value1` and `cookieName=value2`.
 * Fixed a serious issue with the cookie parsing that caused cookie attributes to be parsed as a new cookie ([issue 130](https://code.google.com/p/rest-assured/issues/detail?id=130)).
@@ -13,14 +13,14 @@
 * Creation of detailed cookies:
 
   ```java
-      Cookie someCookie = new Cookie.Builder("some_cookie", "some_value").setSecured(true).build();
-      given().cookie(someCookie).and().expect().body(equalTo("x")).when().get("/cookie");
+  Cookie someCookie = new Cookie.Builder("some_cookie", "some_value").setSecured(true).build();
+  given().cookie(someCookie).and().expect().body(equalTo("x")).when().get("/cookie");
   ```
 * Better support for headers:
   You can now create multi-value headers using e.g.
 
   ```java
-      given().header("headerName", "value1", "value2"). ..
+  given().header("headerName", "value1", "value2"). ..
   ```
   This will create _two_ headers, `headerName=value1` and `headerName=value2`.
 
@@ -31,12 +31,12 @@
 * Added support for serializing objects to a parameter if the content-type is set:
   
   ```java
-    given().
-            contentType("application/json").
-            queryParam("category", "Games").
-            formParam("object", new GameObject(..)). // GameObject will be serialized to JSON
-    when().
-            post("/somewhere");
+  given().
+          contentType("application/json").
+          queryParam("category", "Games").
+          formParam("object", new GameObject(..)). // GameObject will be serialized to JSON
+  when().
+          post("/somewhere");
   ```
 * Added support for mapping a path to a Java object in [JsonPath](http://rest-assured.googlecode.com/svn/tags/1.4.5/apidocs/com/jayway/restassured/path/json/JsonPath.html), e.g:
  
