@@ -1,5 +1,5 @@
 * [Getting Started](GettingStarted)
 * [Downloads](Downloads)
-* [User Manual](Usage) ([Legacy](Usage_Legacy))
+* [Usage Guide](Usage) ([Legacy](Usage_Legacy))
 * [Snapshot dependencies](snapshot)
 * [FAQ](FAQ)
