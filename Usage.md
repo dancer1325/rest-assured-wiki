@@ -1767,7 +1767,13 @@ com.jayway.restassured.matcher.RestAssuredMatchers.*
 
 Refer to [static import](#static-imports) section of the documentation for additional static imports.
 
-In order to start a test using RestAssuredMockMvc you need to initialize it with a either a set of Controllers, a MockMvc instance or a WebApplicationContext from Spring. You can do this for a single request as seen in the previous example (`given().standaloneSetup(new GreetingController()). ..`) or you can do it statically:
+In order to start a test using RestAssuredMockMvc you need to initialize it with a either a set of Controllers, a MockMvc instance or a WebApplicationContext from Spring. You can do this for a single request as seen in the previous example:
+
+```java
+given().standaloneSetup(new GreetingController()). ..
+```
+or you can do it statically:
+
 ```java
 RestAssuredMockMvc.standaloneSetup(new GreetingController());
 ```
