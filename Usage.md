@@ -758,24 +758,24 @@ Path parameters makes it easier to read the request path as well as enabling the
 
 ## Cookies ##
 In its simplest form you specify cookies like this:
-```
+```java
 given().cookie("username", "John").when().get("/cookie").then().body(equalTo("username"));
 ```
 
 You can also specify a multi-value cookie like this:
-```
+```java
 given().cookie("cookieName", "value1", "value2"). ..
 ```
 This will create _two_ cookies, `cookieName=value1` and `cookieName=value2`.
 
 You can also specify a detailed cookie using:
-```
+```java
 Cookie someCookie = new Cookie.Builder("some_cookie", "some_value").setSecured(true).setComment("some comment").build();
 given().cookie(someCookie).when().get("/cookie").then().assertThat().body(equalTo("x"));
 ```
 
 or several detailed cookies at the same time:
-```
+```java
 Cookie cookie1 = Cookie.Builder("username", "John").setComment("comment 1").build();
 Cookie cookie2 = Cookie.Builder("token", 1234).setComment("comment 2").build();
 Cookies cookies = new Cookies(cookie1, cookie2);
@@ -783,40 +783,41 @@ given().cookies(cookies).when().get("/cookie").then().body(equalTo("username, to
 ```
 
 ## Headers ##
-```
+```java
 given().header("MyHeader", "Something").and(). ..
 given().headers("MyHeader", "Something", "MyOtherHeader", "SomethingElse").and(). ..
 ```
 
 You can also specify a multi-value headers like this:
-```
+```java
 given().header("headerName", "value1", "value2"). ..
 ```
 This will create _two_ headers, `headerName=value1` and `headerName=value2`.
 
 ## Content Type ##
-```
+```java
 given().contentType(ContentType.TEXT). ..
 given().contentType("application/json"). ..
 ```
 
 
 ## Request Body ##
-```
+```java
 given().body("some body"). .. // Works for POST, PUT and DELETE requests
 given().request().body("some body"). .. // More explicit (optional)
 ```
-```
+
+```java
 given().body(new byte[]{42}). .. // Works for POST, PUT and DELETE
 given().request().body(new byte[]{42}). .. // More explicit (optional)
 ```
 
-You can also serialize a Java object to JSON or XML. Click [here](http://code.google.com/p/rest-assured/wiki/Usage#Serialization) for details.
+You can also serialize a Java object to JSON or XML. Click [here](#serialization) for details.
 
 # Verifying Response Data #
 You can also verify status code, status line, cookies, headers, content type and body.
 ## Response Body ##
-See Usage examples, e.g. [JSON](http://code.google.com/p/rest-assured/wiki/Usage?ts=1317978378&updated=Usage#Example_1_-_JSON) or [XML](http://code.google.com/p/rest-assured/wiki/Usage#Example_2_-_XML).
+See Usage examples, e.g. [JSON](#example-1---json) or [XML](#example-2---xml).
 
 You can also map a response body to a Java Object, click [here](http://code.google.com/p/rest-assured/wiki/Usage#Deserialization) for details.
 
