@@ -822,14 +822,14 @@ See Usage examples, e.g. [JSON](#example-1---json) or [XML](#example-2---xml).
 You can also map a response body to a Java Object, click [here](http://code.google.com/p/rest-assured/wiki/Usage#Deserialization) for details.
 
 ## Cookies ##
-```
+```java
 get("/x").then().assertThat().cookie("cookieName", "cookieValue"). ..
 get("/x").then().assertThat().cookies("cookieName1", "cookieValue1", "cookieName2", "cookieValue2"). ..
 get("/x").then().assertThat().cookies("cookieName1", "cookieValue1", "cookieName2", containsString("Value2")). ..
 ```
 
 ## Status ##
-```
+```java
 get("/x").then().assertThat().statusCode(200). ..
 get("/x").then().assertThat().statusLine("something"). ..
 get("/x").then().assertThat().statusLine(containsString("some")). ..
@@ -838,7 +838,7 @@ get("/x").then().assertThat().statusLine(containsString("some")). ..
 
 ## Headers ##
 
-```
+```java
 get("/x").then().assertThat().header("headerName", "headerValue"). ..
 get("/x").then().assertThat().headers("headerName1", "headerValue1", "headerName2", "headerValue2"). ..
 get("/x").then().assertThat().headers("headerName1", "headerValue1", "headerName2", containsString("Value2")). ..
@@ -846,25 +846,25 @@ get("/x").then().assertThat().headers("headerName1", "headerValue1", "headerName
 
 
 ## Content-Type ##
-```
+```java
 get("/x").then().assertThat().contentType(ContentType.JSON). ..
 ```
 
 
 ## Full body/content matching ##
 
-```
+```java
 get("/x").then().assertThat().body(equalTo("something")). ..
 get("/x").then().assertThat().content(equalTo("something")). .. // Same as above
 ```
 
 ## Use the response to verify other parts of the response ##
 You can use data from the response to verify another part of the response. For example consider the following JSON document returned from service x:
-```
+```javascript
 { "userId" : "some-id", "href" : "http://localhost:8080/some-id" }
 ```
 You may notice that the "href" attribute ends with the value of the "userId" attribute. If we want to verify this we can implement a `com.jayway.restassured.matcher.ResponseAwareMatcher` and use it like this:
-```
+```java
 get("/x").then().body("href", new ResponseAwareMatcher<Response>() {
                                   public Matcher<?> matcher(Response response) {
                                           return equalTo("http://localhost:8080/" + response.path("userId"));
@@ -872,28 +872,27 @@ get("/x").then().body("href", new ResponseAwareMatcher<Response>() {
                        });
 ```
 There are some predefined matchers that you can use defined in the `com.jayway.restassured.matcher.RestAssuredMatchers` (or `com.jayway.restassured.module.mockmvc.matcher.RestAssuredMockMvcMatchers` if using the spring-mock-mvc module). For example:
-```
+```java
 get("/x").then().body("href", endsWithPath("userId"));
 ```
 `ResponseAwareMatchers` can also be composed, either with another `ResponseAwareMatcher` or with a Hamcrest Matcher. For example:
-```
+```java
 get("/x").then().body("href", endsWithPath("userId").and(startsWith("http:/localhost:8080/")));
 ```
 
 # Authentication #
 REST assured also supports some authentication schemes, for example basic authentication:
 
-```
+```java
 given().auth().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
 ```
-
 
 Other supported schemes are OAuth, digest, certificate, form and preemptive basic authentication.
 
 ## OAuth ##
 
 In order to use OAuth 1 or 2 authentication you need to add [Scribe](https://github.com/fernandezpablo85/scribe-java) to your classpath (if you're using version 2.1.0 or older of REST Assured then please refer to the [legacy](Usage_Legacy#OAuth) documentation). In Maven you can simply add the following dependency:
-```
+```xml
 <dependency>
             <groupId>org.scribe</groupId>
             <artifactId>scribe</artifactId>
@@ -905,19 +904,19 @@ In order to use OAuth 1 or 2 authentication you need to add [Scribe](https://git
 If you're not using Maven [download](https://github.com/fernandezpablo85/scribe-java/releases) a Scribe release manually and put it in your classpath.
 
 To use auth 1 authentication you can do:
-```
+```java
 given().auth().oauth(..);
 ```
 
 And for oauth2:
-```
+```java
 given().auth().oauth2(..);
 ```
 
 # Multi-part form data #
 When sending larger amount of data to the server it's common to use the multipart form data technique. Rest Assured provide methods called `multiPart` that allows you to specify a file, byte-array, input stream or text to upload. In its simplest form you can upload a file like this:
 
-```
+```java
 given().
         multiPart(new File("/path/to/file")).
 when().
@@ -926,7 +925,7 @@ when().
 
 It will assume a control name called "file". In HTML the control name is the attribute name of the input tag. To clarify let's look at the following HTML form:
 
-```
+```html
 <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
         <input type="file" name="file" size="40">
         <input type=submit value="Upload!">
@@ -935,7 +934,7 @@ It will assume a control name called "file". In HTML the control name is the att
 
 The control name in this case is the name of the input tag with name "file". If you have a different control name then you need to specify it:
 
-```
+```java
 given().
         multiPart("controlName", new File("/path/to/file")).
 when().
@@ -944,7 +943,7 @@ when().
 
 It's also possible to supply multiple "multi-parts" entities in the same request:
 
-```
+```java
 byte[] someData = ..
 given().
         multiPart("controlName1", new File("/path/to/file")).
@@ -962,7 +961,7 @@ REST Assured supports mapping Java objects to and from JSON and XML. For JSON yo
 ## Serialization ##
 Let's say we have the following Java object:
 
-```
+```java
 public class Message {
     private String message;
 
@@ -980,7 +979,7 @@ and you want to serialize this object to JSON and send it with the request. Ther
 
 ### Content-Type based Serialization ###
 
-```
+```java
 Message message = new Message();
 message.setMessage("My messagee");
 given().
@@ -998,7 +997,7 @@ In this example REST Assured will serialize the object to JSON since the request
 
 REST Assured also respects the charset of the content-type. E.g.
 
-```
+```java
 Message message = new Message();
 message.setMessage("My messagee");
 given().
@@ -1009,7 +1008,7 @@ when().
 ```
 
 You can also serialize the `Message` instance as a form parameter:
-```
+```java
 Message message = new Message();
 message.setMessage("My messagee");
 given().
@@ -1025,7 +1024,7 @@ The message object will be serialized to JSON using Jackson (if present) or Gson
 ### Create JSON from a HashMap ###
 
 You can also create a JSON document by supplying a Map to REST Assured.
-```
+```java
 Map<String, Object>  jsonAsMap = new HashMap<>();
 map.put("firstName", "John");
 map.put("lastName", "Doe");
@@ -1041,14 +1040,14 @@ then().
 
 This will provide a JSON payload as:
 
-```
+```javascript
 { "firstName" : "John", "lastName" : "Doe" }
 ```
 
 ### Using an Explicit Serializer ###
 If you have multiple object mappers in the classpath at the same time or don't care about setting the content-type you can specify a serializer explicity. E.g.
 
-```
+```java
 Message message = new Message();
 message.setMessage("My messagee");
 given().
@@ -1062,7 +1061,7 @@ In this example the Message object will be serialized to XML using JAXB.
 ## Deserialization ##
 Again let's say we have the following Java object:
 
-```
+```java
 public class Message {
     private String message;
 
@@ -1080,18 +1079,18 @@ and we want the response body to be deserialized into a Message object.
 
 ### Content-Type based Deserialization ###
 Let's assume then that the server returns a JSON body like this:
-```
+```javascript
 {"message":"My message"}
 ```
 
 To deserialize this to a Message object we simply to like this:
-```
+```java
 Message message = get("/message").as(Message.class);
 ```
 
 For this to work the response content-type must be "application/json" (or something that contains "json"). If the server instead returned
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <message>
       <message>My message</message>
@@ -1099,36 +1098,36 @@ For this to work the response content-type must be "application/json" (or someth
 ```
 
 and a content-type of "application/xml" you wouldn't have to change the code at all:
-```
+```java
 Message message = get("/message").as(Message.class);
 ```
 
 #### Custom Content-Type Deserialization ####
 If the server returns a custom content-type, let's say "application/something", and you still want to use the object mapping in REST Assured there are a couple of different ways to go about. You can either use the [explicit](http://code.google.com/p/rest-assured/wiki/Usage#Using_an_Explicit_Deserializer) approach or register a parser for the custom content-type:
 
-```
+```java
 Message message = expect().parser("application/something", Parser.XML).when().get("/message").as(Message.class);
 ```
 
 or
 
-```
+```java
 Message message = expect().defaultParser(Parser.XML).when().get("/message").as(Message.class);
 ```
 
-You can also register a default or custom parser [statically](http://code.google.com/p/rest-assured/wiki/Usage#Default_values) or using [specifications](http://code.google.com/p/rest-assured/wiki/Usage#Specification_Re-use).
+You can also register a default or custom parser [statically](#default-values) or using [specifications](#specification-re-use).
 
 ### Using an Explicit Deserializer ###
 If you have multiple object mappers in the classpath at the same time  or don't care about the response content-type you can specify a deserializer explicitly. E.g.
 
-```
+```java
 Message message = get("/message").as(Message.class, ObjectMapperType.GSON);
 ```
 
 ## Configuration ##
-You can configure the pre-defined object mappers by using a [ObjectMapperConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/ObjectMapperConfig.html) and pass it to [detailed configuration](https://code.google.com/p/rest-assured/wiki/Usage#Detailed_configuration). For example to change GSON to use lower case with underscores as field naming policy you can do like this:
+You can configure the pre-defined object mappers by using a [ObjectMapperConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/config/ObjectMapperConfig.html) and pass it to [detailed configuration](#detailed-configuration). For example to change GSON to use lower case with underscores as field naming policy you can do like this:
 
-```
+```java
 RestAssured.config = RestAssuredConfig.config().objectMapperConfig(objectMapperConfig().gsonObjectMapperFactory(
                 new GsonObjectMapperFactory() {
                     public Gson create(Class cls, String charset) {
@@ -1144,12 +1143,12 @@ There are pre-defined object mapper factories for GSON, JAXB, Jackson and Faster
 By default REST Assured will scan the classpath to find various object mappers. If you want to integrate an object mapper that is not supported by default or if you've rolled your own you can implement the
 [com.jayway.restassured.mapper.ObjectMapper](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/mapper/ObjectMapper.html) interface. You tell REST Assured to use your object mapper either by passing it as a second parameter to the body:
 
-```
+```java
 given().body(myJavaObject, myObjectMapper).when().post("..")
 ```
 
 or you can define it statically once and for all:
-```
+```java
 RestAssured.config = RestAssuredConfig.config().objectMapperConfig(new ObjectMapperConfig(myObjectMapper));
 ```
 
@@ -1157,50 +1156,50 @@ For an example see [here](https://github.com/jayway/rest-assured/blob/master/exa
 
 # Custom parsers #
 REST Assured providers predefined parsers for e.g. HTML, XML and JSON. But you can parse other kinds of content by registering a predefined parser for unsupported content-types by using:
-```
+```java
 RestAssured.registerParser(<content-type>, <parser>);
 ```
 E.g. to register that mime-type 'application/vnd.uoml+xml' should be parsed using the XML parser do:
-```
+```java
 RestAssured.registerParser("application/vnd.uoml+xml", Parser.XML);
 ```
 You can also unregister a parser using:
-```
+```java
 RestAssured.unregisterParser("application/vnd.uoml+xml");
 ```
 
 Parsers can also be specified per "request":
-```
+```java
 get(..).then().using().parser("application/vnd.uoml+xml", Parser.XML). ..;
 ```
 
-and using a [response specification](http://code.google.com/p/rest-assured/wiki/Usage#Specification_Re-use).
+and using a [response specification](sSpecification-re-use).
 
 # Default parser #
 Sometimes it's useful to specify a default parser, e.g. if the response doesn't contain a content-type at all:
 
-```
+```java
 RestAssured.defaultParser = Parser.JSON;
 ```
 
 You can also specify a default parser for a single request:
-```
+```java
 get("/x").then().using().defaultParser(Parser.JSON). ..
 ```
 
-or using a [response specification](http://code.google.com/p/rest-assured/wiki/Usage#Specification_Re-use).
+or using a [response specification](#specification-re-use).
 
 # Default values #
 By default REST assured assumes host localhost and port 8080 when doing a request. If you want a different port you can do:
-```
+```java
 given().port(80). ..
 ```
 or simply:
-```
+```java
 ..when().get("http://myhost.org:80/doSomething");
 ```
 You can also change the default base URI, base path, port and authentication scheme for all subsequent requests:
-```
+```java
 RestAssured.baseURI = "http://myhost.org";
 RestAssured.port = 80;
 RestAssured.basePath = "/resource";
@@ -1209,7 +1208,7 @@ RestAssured.rootPath = "x.y.z";
 ```
 This means that a request like e.g. `get("/hello")` goes to: http://myhost.org:80/resource/hello with basic authentication credentials "username" and "password". See [rootPath](http://code.google.com/p/rest-assured/wiki/Usage#Root_path) for more info about setting the root paths. Other default values you can specify are:
 
-```
+```java
 RestAssured.filters(..); // List of default filters
 RestAssured.requestContentType(..); // Specify the default request content type
 RestAssured.responseContentType(..); // Specify the default response content type
@@ -1219,11 +1218,10 @@ RestAssured.urlEncodingEnabled = .. // Specify if Rest Assured should URL encodi
 RestAssured.defaultParser = .. // Specify a default parser for response bodies if no registered parser can handle data of the response content-type
 RestAssured.registerParser(..) // Specify a parser for the given content-type
 RestAssured.unregisterParser(..) // Unregister a parser for the given content-type
-
 ```
 
 You can reset to the standard baseURI (localhost), basePath (empty), standard port (8080), standard root path (""), default authentication scheme (none) and url encoding enabled (true) using:
-```
+```java
 RestAssured.reset();
 ```
 
@@ -1232,7 +1230,7 @@ Instead of having to duplicate response expectations and/or request parameters f
 
 E.g. let's say you want to make sure that the expected status code is 200 and that the size of the JSON array "x.y" has size 2 in several tests you can define a ResponseSpecBuilder like this:
 
-```
+```java
 ResponseSpecBuilder builder = new ResponseSpecBuilder();
 builder.expectStatusCode(200);
 builder.expectBody("x.y.size()", is(2));
@@ -1249,7 +1247,7 @@ then().
 In this example the data defined in "responseSpec" is merged with the additional body expectation and all expectations must be fulfilled in order for the test to pass.
 
 You can do the same thing if you need to re-use request data in different tests. E.g.
-```
+```java
 RequestSpecBuilder builder = new RequestSpecBuilder();
 builder.addParameter("parameter1", "parameterValue");
 builder.addHeader("header1", "headerValue");
@@ -1267,9 +1265,9 @@ then().
 Here the request's data is merged with the data in the "requestSpec" so the request will contain two parameters ("parameter1" and "parameter2") and one header ("header1").
 
 # Filters #
-A filter allows you to inspect and alter a request before it's actually committed and also inspect and [alter](#Response_Builder) the response before it's returned to the expectations. You can regard it as an "around advice" in AOP terms. Filters can be used to implement custom authentication schemes, session management, logging etc. To create a filter you need to implement the [com.jayway.restassured.filter.Filter](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/filter/Filter.html) interface. To use a filter you can do:
+A filter allows you to inspect and alter a request before it's actually committed and also inspect and [alter](#response-builder) the response before it's returned to the expectations. You can regard it as an "around advice" in AOP terms. Filters can be used to implement custom authentication schemes, session management, logging etc. To create a filter you need to implement the [com.jayway.restassured.filter.Filter](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/filter/Filter.html) interface. To use a filter you can do:
 
-```
+```java
 given().filter(new MyFilter()). ..
 ```
 
@@ -1281,7 +1279,7 @@ There are a couple of filters provided by REST Assured that are ready to use:
 ## Response Builder ##
 
 If you need to change the [Response](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/response/Response.html) from a filter you can use the [ResponseBuilder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.4.1/com/jayway/restassured/builder/ResponseBuilder.html) to create a new Response based on the original response. For example if you want to change the body of the original response to something else you can do:
-```
+```java
 Response newResponse = new ResponseBuilder().clone(originalResponse).setBody("Something").build();
 ```
 
