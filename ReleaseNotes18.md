@@ -13,7 +13,7 @@
   ```java
   JsonPath.config = new JsonPathConfig("UTF-8");
   ```
- See [JsonPathConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/1.8.0/com/jayway/restassured/path/json/config/JsonPathConfig.html) and [XmlPathConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/1.8.0/com/jayway/restassured/path/xml/config/XmlPathConfig.html) for more details.
+ See [JsonPathConfig](http://static.javadoc.io/com.jayway.restassured/json-path/1.8.0/com/jayway/restassured/path/json/config/JsonPathConfig.html) and [XmlPathConfig](http://static.javadoc.io/com.jayway.restassured/xml-path/1.8.0/com/jayway/restassured/path/xml/config/XmlPathConfig.html) for more details.
 
 ## Non-backward compatible changes ##
 * Third party dependencies have been updated, download the corresponding distribution zip file from the [download page](http://code.google.com/p/rest-assured/downloads/list).
