@@ -5,6 +5,6 @@
 * [Usage Guide](Usage) ([Legacy documentation](Usage_Legacy) (prior to v2.0))
 * [Release Notes](ReleaseNotes)
 * [Snapshot dependencies](snapshot)
-* [FAQ](FAQ)
 * [Change Log](https://raw.githubusercontent.com/jayway/rest-assured/master/changelog.txt)
+* [FAQ](FAQ)
 * [Support](http://groups.google.com/group/rest-assured) (google group/mailing list)
