@@ -1,7 +1,7 @@
 # Release Notes for REST Assured 1.8.0 #
 
 ## Highlights ##
-* [XmlPath](http://static.javadoc.io/com.jayway.restassured/rest-assured/1.8.0/com/jayway/restassured/path/xml/XmlPath.html) and [JsonPath](http://static.javadoc.io/com.jayway.restassured/rest-assured/1.8.0/com/jayway/restassured/path/json/JsonPath.html) have been extracted to their own projects which means that you can use them without depending on REST Assured. See the [getting started](GettingStarted) page for more details on how to start using them.
+* [XmlPath](http://static.javadoc.io/com.jayway.restassured/xml-path/1.8.0/com/jayway/restassured/path/xml/XmlPath.html) and [JsonPath](http://static.javadoc.io/com.jayway.restassured/json-path/1.8.0/com/jayway/restassured/path/json/JsonPath.html) have been extracted to their own projects which means that you can use them without depending on REST Assured. See the [getting started](GettingStarted) page for more details on how to start using them.
 * Both XmlPath and JsonPath can now be configured independently. For example you can config custom object serializers and charset etc. JsonPath example:
 
   ```java
