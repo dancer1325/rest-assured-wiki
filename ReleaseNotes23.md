@@ -23,7 +23,7 @@
   ```java
   RestAssuredMockMvc.authentication = principal("username", "password");
   ```
-  where the `principal` method is statically imported from [RestAssuredMockMvc](http://rest-assured.googlecode.com/svn/tags/2.3.0/apidocs/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html). It's also possible to define an authentication scheme in a request builder:
+  where the `principal` method is statically imported from [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.3.0/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html). It's also possible to define an authentication scheme in a request builder:
   
   ```java
   MockMvcRequestSpecification spec = new MockMvcRequestSpecBuilder.setAuth(principal("username", "password")).build();
