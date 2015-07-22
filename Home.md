@@ -6,4 +6,5 @@
 * [Release Notes](ReleaseNotes)
 * [Snapshot dependencies](snapshot)
 * [FAQ](FAQ)
+* [Change Log](https://raw.githubusercontent.com/jayway/rest-assured/master/changelog.txt)
 * [Support](http://groups.google.com/group/rest-assured) (google group/mailing list)
