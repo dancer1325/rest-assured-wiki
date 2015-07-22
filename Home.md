@@ -5,4 +5,4 @@
 * [Usage Guide](Usage) ([Legacy documentation](Usage_Legacy) (prior to v2.0))
 * [Snapshot dependencies](snapshot)
 * [FAQ](FAQ)
-* [Support](http://groups.google.com/group/rest-assured)
+* [Support](http://groups.google.com/group/rest-assured) (google group/mailing list)
