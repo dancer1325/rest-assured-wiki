@@ -1,7 +1,7 @@
 # Release Notes for REST Assured 1.7 #
 
 ## Highlights ##
-* Support for [configuring pre-defined](Usage#configuration) object mappers
+* Support for [configuring](Usage#configuration) pre-defined object mappers
 * Support for creating [custom](Usage#custom) object mappers
 * Support for two new HTTP verbs: PATCH and OPTIONS
 * Support for Faster Jackson (Jackson 2.0)
