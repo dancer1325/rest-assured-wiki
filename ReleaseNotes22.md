@@ -17,7 +17,7 @@
       }
   }
   ```
-  you can test it using [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) like this:
+  you can test it using [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.2.0/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) like this:
   
   ```java
   given().
