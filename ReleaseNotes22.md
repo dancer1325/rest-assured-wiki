@@ -30,7 +30,7 @@
           body("id", equalTo(1)).
           body("content", equalTo("Hello, Johan!"));  
   ```
-  i.e. it's very similar to the standard REST Assured syntax. This makes it really fast to run your tests and it's also easier to bootstrap the environment and use mocks (if needed) than standard REST Assured. Most things that you're used to in standard REST Assured works with RestAssured Mock Mvc as well. For example (certain) configuration, static specifications, logging etc etc. For more info refer to the [usage guide](Usage#Spring_Mock_Mvc_Module). To use it you need to depend on the Spring Mock Mvc module:
+  i.e. it's very similar to the standard REST Assured syntax. This makes it really fast to run your tests and it's also easier to bootstrap the environment and use mocks (if needed) than standard REST Assured. Most things that you're used to in standard REST Assured works with RestAssured Mock Mvc as well. For example (certain) configuration, static specifications, logging etc etc. For more info refer to the [usage guide](Usage#spring-mock-mvc-module). To use it you need to depend on the Spring Mock Mvc module:
   
   ```xml
   <dependency>
