@@ -2,5 +2,6 @@
 * [Downloads](Downloads)
 * [Usage Guide](Usage) ([Legacy](Usage_Legacy))
 * [Snapshot dependencies](snapshot)
+* [Release Notes](ReleaseNotes)
 * [FAQ](FAQ)
 * [Support](http://groups.google.com/group/rest-assured)
