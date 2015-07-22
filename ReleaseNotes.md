@@ -13,3 +13,5 @@
 * [Release Notes 1.5](ReleaseNotes15)
 * [Release Notes 1.4.5](ReleaseNotes145)
 * [Release Notes 1.1](ReleaseNotes11)
+
+For minor changes see [change log](https://raw.githubusercontent.com/jayway/rest-assured/master/changelog.txt).
