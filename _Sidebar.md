@@ -3,3 +3,4 @@
 * [Usage Guide](Usage) ([Legacy](Usage_Legacy))
 * [Snapshot dependencies](snapshot)
 * [FAQ](FAQ)
+* [Support](http://groups.google.com/group/rest-assured)
