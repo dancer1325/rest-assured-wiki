@@ -81,6 +81,6 @@
 ## Minor changes ##
 * It's now possible to call asString() on a Response object after asByteArray() has been called and vice versa.
 * Fixed so that JsonPath and XmlPath and path expressions work after the "prettyPrint" and "print" methods have been called on a Response instance.
-* Fixed several regression bugs introduce in version 1.9.0.
+* Fixed several regression bugs introduced in version 1.9.0.
 
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details
