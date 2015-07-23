@@ -15,11 +15,7 @@
     1. Run the `./deploy_bintray.sh` script and enter the API Key (found on Bintray on the user profile page when pressing the edit button) and version to release.
     1. Login to [bintray](http://bintray.com) and add release notes and publish the release.
   1. Generate javadoc by accessing the following URIs:
-    1. `http://www.javadoc.io/doc/com.jayway.restassured/json-path/<version>`
-    1. `http://www.javadoc.io/doc/com.jayway.restassured/xml-path/<version>`
-    1. `http://www.javadoc.io/doc/com.jayway.restassured/rest-assured/<version>`
-    1. `http://www.javadoc.io/doc/com.jayway.restassured/spring-mock-mvc/<version>`
-    1. `http://www.javadoc.io/doc/com.jayway.restassured/json-schema-validator/<version>`
+    1. `http://www.javadoc.io/doc/org.powermock/powermock/<version>`
   1. Update the front page, usage page, download page and the getting started page.
   1. Send a message to the mailing-list and twitter announcing the new release.
 
