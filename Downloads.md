@@ -1,6 +1,4 @@
-# Downloads #
-
-Google no longer accepts uploading of new binaries to the Google Code page so the files are now hosted at [Bintray](https://bintray.com/johanhaleby/generic/rest-assured).
+Files are hosted at [Bintray](https://bintray.com/johanhaleby/generic/rest-assured).
 
 ## Current direct downloads ##
 | File | Description |
