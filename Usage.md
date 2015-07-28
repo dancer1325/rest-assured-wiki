@@ -593,7 +593,7 @@ First we get all the authors (`store.book.author`) and invoke the collect method
 What it does is to call the `length()` method on each author in the list and returns the result to a new list. 
 On this list we simply call the `sum()` method to sum all the length's. 
 The end result is `53` and we assert that it's greater than 50 by using the `greaterThan` matcher. 
-But it's actually possible to simplify this even further. Consider the words example from the beginning of the article again:
+But it's actually possible to simplify this even further. Consider the "[words](#example-3---complex-parsing-and-validation)" example again:
 
 ```groovy
 def words = ['ant', 'buffalo', 'cat', 'dinosaur']
