@@ -9,6 +9,8 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [JSON Schema Validation](#json-schema-validation)
   1. [XML Example](#example-2---xml)
   1. [Advanced](#example-3---complex-parsing-and-validation)
+    1. [XML](#xml-example)
+    2. [JSON](#json-example)
   1. [External Examples](#additional-examples)
 1. [Note on floats and doubles](#note-on-floats-and-doubles)
 1. [Note on syntax](#note-on-syntax) ([syntactic sugar](#syntactic-sugar))
@@ -430,7 +432,193 @@ The <code>matchesXsd</code> and <code>matchesDtd</code> methods are Hamcrest mat
 </p>
 
 ## Example 3 - Complex parsing and validation ##
-This is where REST Assured really starts to shine! Refer to the blog post at the [Jayway team blog](http://blog.jayway.com/2011/10/09/simple-parsing-of-complex-json-and-xml-documents-in-java/) for examples and more info. Highly recommended reading!
+This is where REST Assured really starts to shine! Since REST Assured is implemented in Groovy it can be really beneficial to take advantage of Groovy’s collection API. Let’s begin by looking at an example in Groovy:
+
+```groovy
+def words = ['ant', 'buffalo', 'cat', 'dinosaur']
+def wordsWithSizeGreaterThanFour = words.findAll { it.length() > 4 }
+```
+
+At the first line we simply define a list with some words but the second line is more interesting. 
+Here we search the words list for all words that are longer than 4 characters by calling the findAll with a Groovy closure. 
+The closure has an implicit variable called `it` which represents the current item in the list. 
+The result is a new list, `wordsWithSizeGreaterThanFour`, containing `buffalo` and `dinosaur`. Pretty nice and simple! 
+There are other interesting methods that we can use on collections in Groovy as well, for example:
+
+* find – finds the first item matching a closure predicate
+* collect – collect the return value of calling a closure on each item in a collection
+* sum – Sum all the items in the collection
+* max/min – returns the max/min values of the collection
+
+So how do we take advantage of this when validating our XML or JSON responses with REST Assured?
+
+### XML Example
+
+Let’s say we have a resource at `http://localhost:8080/shopping` that returns the following XML:
+
+```xml
+<shopping>
+      <category type="groceries">
+        <item>Chocolate</item>
+        <item>Coffee</item>
+      </category>
+      <category type="supplies">
+        <item>Paper</item>
+        <item quantity="4">Pens</item>
+      </category>
+      <category type="present">
+        <item when="Aug 10">Kathryn's Birthday</item>
+      </category>
+</shopping>
+```
+
+Let’s also say we want to write a test that verifies that the category of type groceries has items Chocolate and Coffee. In REST Assured it can look like this:
+
+```java
+when().
+       get("/shopping").
+then().
+       body("shopping.category.find { it.@type == 'groceries' }.item", hasItems("Chocolate", "Coffee"));
+```
+
+What's going on here? First of all the XML path `shopping.category` returns a list of all categories. 
+On this list we invoke a function, `find`, to return the single category that has the XML attribute, type, equal to `groceries`. 
+On this category we then continue by getting all the items associated with this category. 
+Since there are more than one item associated with the groceries category a list will be returned and we verify this list against the `hasItems` Hamcrest matcher.
+
+But what if you want to get the items and not validate them against a Hamcrest matcher? This is also simple using the [XmlPath](http://static.javadoc.io/com.jayway.restassured/xml-path/2.4.1/com/jayway/restassured/path/xml/XmlPath.html) class:
+
+```java
+// Get the response body as a String
+String response = get("/shopping").asString();
+// And get the groceries from the response. "from" is statically imported from the XmlPath class
+List<String> groceries = from(response).getList("shopping.category.find { it.@type == 'groceries' }.item");
+```
+
+If the list of groceries is the only thing you care about in the response body you can also use a shortcut:
+
+```java
+// Get the response body as a String
+List<String> groceries = get("/shopping").path("shopping.category.find { it.@type == 'groceries' }.item");
+```
+
+#### Depth-first search
+
+It's actually possible to simplify the previous example even further:
+
+```java
+when().
+       get("/shopping").
+then().
+       body("**.find { it.@type == 'groceries' }", hasItems("Chocolate", "Coffee"));
+```
+
+`**` is a shortcut for doing depth first searching in the XML document. 
+We search for the first node that has an attribute named `type` equal to "groceries". Notice also that we don't end the XML path with "item". 
+The reason is that `toString()` is called automatically on the category node which returns a list of the item values.
+
+### JSON Example
+
+Let's say we have a resource at `http://localhost:8080/store` that returns the following JSON document:
+
+```javascript
+{ "store" : { 
+  "book" : [ 
+          { "author" : "Nigel Rees",
+            "category" : "reference",
+            "price" : 8.95,
+            "title" : "Sayings of the Century"
+          },
+          { "author" : "Evelyn Waugh",
+            "category" : "fiction",
+            "price" : 12.99,
+            "title" : "Sword of Honour"
+          },
+          { "author" : "Herman Melville",
+            "category" : "fiction",
+            "isbn" : "0-553-21311-3",
+            "price" : 8.99,
+            "title" : "Moby Dick"
+          },
+          { "author" : "J. R. R. Tolkien",
+            "category" : "fiction",
+            "isbn" : "0-395-19395-8",
+            "price" : 22.99,
+            "title" : "The Lord of the Rings"
+          }
+        ] 
+   } 
+}
+```
+
+#### Example 1
+As a first example let's say we want to make the request to "/store" and assert that the titles of the books with a price less than 10 are "Sayings of the Century" and "Moby Dick":
+
+```java
+when().
+       get("/store").
+then().
+       body("store.book.findAll { it.price < 10 }.title", hasItems("Sayings of the Century", "Moby Dick"));
+```
+
+Just as in the XML examples above we use a closure to find all books with a price less than 10 and then return the titles of all the books. 
+We then use the `hasItems` matcher to assert that the titles are the ones we expect. Using [JsonPath](http://static.javadoc.io/com.jayway.restassured/json-path/2.4.1/com/jayway/restassured/path/json/JsonPath.html) we can return the titles instead:
+
+```java
+// Get the response body as a String
+String response = get("/store").asString();
+// And get all books with price < 10 from the response. "from" is statically imported from the JsonPath class
+List<String> bookTitles = from(response).getList("store.book.findAll { it.price < 10 }.title");
+```
+
+#### Example 2
+ Let's consider instead that we want to assert that the sum of the length of all author names are greater than 50. 
+ This is a rather complex question to answer and it really shows the strength of closures and Groovy collections. 
+ In REST Assured it looks like this:
+ 
+ ```java
+ when().
+        get("/store");
+ then().
+        body("store.book.author.collect { it.length() }.sum()", greaterThan(50));
+```
+
+First we get all the authors (`store.book.author`) and invoke the collect method on the resulting list with the closure `{ it.length() }. 
+What it does is to call the `length()` method on each author in the list and returns the result to a new list. 
+On this list we simply call the `sum()` method to sum all the length's. 
+The end result is `53` and we assert that it's greater than 50 by using the `greaterThan` matcher. 
+But it's actually possible to simplify this even further. Consider the words example from the beginning of the article again:
+
+```groovy
+def words = ['ant', 'buffalo', 'cat', 'dinosaur']
+```
+
+Groovy has a very handy way of calling a function for each element in the list by using the spread operator, `*`. For example:
+
+```groovy
+def words = ['ant', 'buffalo', 'cat', 'dinosaur']
+assert [3, 6, 3, 8] == words*.length()
+```
+
+I.e. Groovy returns a new list with the lengths of the items in the words list. We can utilize this for the author list in REST Assured as well:
+
+```java
+when().
+       get("/store");
+then().
+       body("store.book.author*.length().sum()", greaterThan(50)).
+```
+
+And of course we can use [JsonPath](http://static.javadoc.io/com.jayway.restassured/json-path/2.4.1/com/jayway/restassured/path/json/JsonPath.html) to actually return the result:
+
+```java
+// Get the response body as an input stream
+InputStream response = get("/store").asInputStream();
+// Get the sum of all author length's as an int. "from" is again statically imported from the JsonPath class
+int sumOfAllAuthorLengths = from(response).getInt("store.book.author*.length().sum()");
+// We can also assert that the sum is equal to 53 as expected.
+assertThat(sumOfAllAuthorLengths, is(53));
+```
 
 ## Additional Examples ##
 Micha Kops has written a really good blog with several examples (including code examples that you can checkout). You can read it [here](http://www.hascode.com/2011/10/testing-restful-web-services-made-easy-using-the-rest-assured-framework/).
