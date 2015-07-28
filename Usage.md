@@ -446,10 +446,10 @@ The result is a new list, `wordsWithSizeGreaterThanFour`, containing `buffalo` a
 
 There are other interesting methods that we can use on collections in Groovy as well, for example:
 
-* find – finds the first item matching a closure predicate
-* collect – collect the return value of calling a closure on each item in a collection
-* sum – Sum all the items in the collection
-* max/min – returns the max/min values of the collection
+* `find` – finds the first item matching a closure predicate
+* `collect` – collect the return value of calling a closure on each item in a collection
+* `sum` – Sum all the items in the collection
+* `max`/`min` – returns the max/min values of the collection
 
 So how do we take advantage of this when validating our XML or JSON responses with REST Assured?
 
