@@ -1013,7 +1013,7 @@ You can also verify status code, status line, cookies, headers, content type and
 ## Response Body ##
 See Usage examples, e.g. [JSON](#example-1---json) or [XML](#example-2---xml).
 
-You can also map a response body to a Java Object, click [here](http://code.google.com/p/rest-assured/wiki/Usage#Deserialization) for details.
+You can also map a response body to a Java Object, click [here](#deserialization) for details.
 
 ## Cookies ##
 ```java
