@@ -487,7 +487,7 @@ On this list we invoke a function, `find`, to return the single category that ha
 On this category we then continue by getting all the items associated with this category. 
 Since there are more than one item associated with the groceries category a list will be returned and we verify this list against the `hasItems` Hamcrest matcher.
 
-But what if you want to get the items and not validate them against a Hamcrest matcher? This is also simple using the [XmlPath](http://static.javadoc.io/com.jayway.restassured/xml-path/2.4.1/com/jayway/restassured/path/xml/XmlPath.html) class:
+But what if you want to get the items and not validate them against a Hamcrest matcher? For this purpose you can use [XmlPath](http://static.javadoc.io/com.jayway.restassured/xml-path/2.4.1/com/jayway/restassured/path/xml/XmlPath.html):
 
 ```java
 // Get the response body as a String
