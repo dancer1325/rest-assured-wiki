@@ -496,7 +496,7 @@ String response = get("/shopping").asString();
 List<String> groceries = from(response).getList("shopping.category.find { it.@type == 'groceries' }.item");
 ```
 
-If the list of groceries is the only thing you care about in the response body you can also use a shortcut:
+If the list of groceries is the only thing you care about in the response body you can also use a [shortcut](#single-path):
 
 ```java
 // Get the response body as a String
@@ -613,8 +613,8 @@ then().
 And of course we can use [JsonPath](http://static.javadoc.io/com.jayway.restassured/json-path/2.4.1/com/jayway/restassured/path/json/JsonPath.html) to actually return the result:
 
 ```java
-// Get the response body as an input stream
-InputStream response = get("/store").asInputStream();
+// Get the response body as a string
+String response = get("/store").asString();
 // Get the sum of all author length's as an int. "from" is again statically imported from the JsonPath class
 int sumOfAllAuthorLengths = from(response).getInt("store.book.author*.length().sum()");
 // We can also assert that the sum is equal to 53 as expected.
@@ -740,7 +740,7 @@ extract().
 get(nextTitleLink). ..
 ```
 
-You could also decide to instead return the entire response if you need to extract multiple valus from the response:
+You could also decide to instead return the entire response if you need to extract multiple values from the response:
 ```java
 Response response = 
 given().
