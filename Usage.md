@@ -589,7 +589,7 @@ List<String> bookTitles = from(response).getList("store.book.findAll { it.price 
         body("store.book.author.collect { it.length() }.sum()", greaterThan(50));
 ```
 
-First we get all the authors (`store.book.author`) and invoke the collect method on the resulting list with the closure `{ it.length() }. 
+First we get all the authors (`store.book.author`) and invoke the collect method on the resulting list with the closure `{ it.length() }`. 
 What it does is to call the `length()` method on each author in the list and returns the result to a new list. 
 On this list we simply call the `sum()` method to sum all the length's. 
 The end result is `53` and we assert that it's greater than 50 by using the `greaterThan` matcher. 
