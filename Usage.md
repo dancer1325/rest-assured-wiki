@@ -442,7 +442,8 @@ def wordsWithSizeGreaterThanFour = words.findAll { it.length() > 4 }
 At the first line we simply define a list with some words but the second line is more interesting. 
 Here we search the words list for all words that are longer than 4 characters by calling the findAll with a Groovy closure. 
 The closure has an implicit variable called `it` which represents the current item in the list. 
-The result is a new list, `wordsWithSizeGreaterThanFour`, containing `buffalo` and `dinosaur`. Pretty nice and simple! 
+The result is a new list, `wordsWithSizeGreaterThanFour`, containing `buffalo` and `dinosaur`. 
+
 There are other interesting methods that we can use on collections in Groovy as well, for example:
 
 * find – finds the first item matching a closure predicate
