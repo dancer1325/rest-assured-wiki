@@ -1227,9 +1227,9 @@ given().
         contentType(JSON).
         body(jsonAsMap).
 when().
-        post(PARKINGS).
+        post("/somewhere").
 then().
-          statusCode(200);
+        statusCode(200);
 ```
 
 This will provide a JSON payload as:
