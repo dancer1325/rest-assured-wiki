@@ -483,7 +483,7 @@ then().
 ```
 
 What's going on here? First of all the XML path `shopping.category` returns a list of all categories. 
-On this list we invoke a function, `find`, to return the single category that has the XML attribute, type, equal to `groceries`. 
+On this list we invoke a function, `find`, to return the single category that has the XML attribute, `type`, equal to `groceries`. 
 On this category we then continue by getting all the items associated with this category. 
 Since there are more than one item associated with the groceries category a list will be returned and we verify this list against the `hasItems` Hamcrest matcher.
 
