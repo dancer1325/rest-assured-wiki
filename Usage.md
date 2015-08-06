@@ -1718,7 +1718,7 @@ This will assume an SSLContext protocol of  `SSL`. To change to another protocol
 given().relaxedHTTPSValidation("TLS").when().get("https://some_server.com"). .. 
 ```
 
-You can also be more fine-grained and create Java keystore file and use it with REST Assured. It's not too difficult, first follow the guide [here](http://groovy.codehaus.org/modules/http-builder/doc/ssl.html) and then use the keystore in Rest Assured like this:
+You can also be more fine-grained and create Java keystore file and use it with REST Assured. It's not too difficult, first follow the guide [here](https://github.com/jgritman/httpbuilder/wiki/SSL) and then use the keystore in Rest Assured like this:
 
 ```java
 given().keystore("/pathToJksInClassPath", <password>). .. 
