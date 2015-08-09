@@ -77,7 +77,7 @@
   then().
          body("_links.self.href", responseAwareMatcher1.and(responseAwareMatcher2));
   ```
-  This now longer works (since we cannot implement default methods in the ResponseAwareMatcher interface in order to be compatible with older Java versions)
+  This now longer works (since we cannot implement default methods in the `ResponseAwareMatcher` interface in order to be compatible with older Java versions)
   so now you use the new `com.jayway.restassured.matcher.ResponseAwareMatcherComposer` class to compose ResponseAwareMatchers instead:
   
   ```java
