@@ -45,10 +45,55 @@
   when().
           post("/somewhere"). ..
   ```
-* Pretty-printing of JSON now displays unicode characters correctly (issue 556)
+* Pretty-printing of JSON now displays unicode characters correctly
 
 ### Non-backward compatible changes ###
 
+* Changed `com.jayway.restassured.matcher.ResponseAwareMatcher` from an abstract class to a (functional) interface. The reason is to allow for creating ResponseAwareMatchers as lambda expressions in Java 8. Before you had to do like this (even in Java 8):
+
+  ```java
+  when().
+         get("/game").
+  then().
+         body("_links.self.href", new ResponseAwareMatcher<Response>() {
+             public Matcher<?> matcher(Response response) {
+                 return equalTo("http://localhost:8080/" + response.path("id"));
+             }
+         });
+  ```
+  but with the new change you can now do (if using Java 8):
+  
+  ```java
+  when().
+         get("/game").
+  then().
+         body("_links.self.href", response -> equalTo("http://localhost:8080/" + response.path("id")));
+  ```
+  which is much less verbose. This change should be backward compatible unless you use composition of matchers. Before you composed ResponseAwareMatchers like this:
+  
+  ```java
+  when().
+         get("/game").
+  then().
+         body("_links.self.href", responseAwareMatcher1.and(responseAwareMatcher2));
+  ```
+  This now longer works (since we cannot implement default methods in the ResponseAwareMatcher interface in order to be compatible with older Java versions)
+  so now you use the new `com.jayway.restassured.matcher.ResponseAwareMatcherComposer` class to compose ResponseAwareMatchers instead:
+  
+  ```java
+  when().
+         get("/game").
+  then().
+         body("_links.self.href", and(responseAwareMatcher1, responseAwareMatcher2));
+  ```
+  where `and` is statically imported from `ResponseAwareMatcherComposer`. These can also be nested and combined with regular Hamcrest matchers, for example:
+  
+  ```java
+  when().
+         get("/game").
+  then().
+         body("_links.self.href", and(responseAwareMatcher1, containsString("something"), or(responseAwareMatcher2, responseAwareMatcher3, endsWith("x"))));
+  ```
 
 ## Spring Mock MVC module
 
