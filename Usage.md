@@ -1226,6 +1226,14 @@ when().
         post("/upload");
 ```
 
+You can specify the default `control name` and filename using the [MultiPartConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.5.9/com/jayway/restassured/config/MultiPartConfig.html). For example:
+
+```java
+given().config(config().multiPartConfig(multiPartConfig().defaultControlName("something-else"))). ..
+```
+
+This will configure the default control name to be "something-else" instead of "file".
+
 For additional info refer to [this](http://blog.jayway.com/2011/09/15/multipart-form-data-file-uploading-made-simple-with-rest-assured/) blog post.
 
 # Object Mapping #
