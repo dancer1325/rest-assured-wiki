@@ -1187,7 +1187,7 @@ then().
 ```
 
 ### CSRF ###
-Today it's common for the server to supply a [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) token with the response in order to avoid these kinds of attacks. REST Assured has support for automatically parse and supply the CSRF token to the server. In order for this to work REST Assured *must* make an additional request and parse (parts) of the website.
+Today it's common for the server to supply a [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) token with the response in order to avoid these kinds of attacks. REST Assured has support for automatically parsing and supplying the CSRF token to the server. In order for this to work REST Assured *must* make an additional request and parse (parts) of the website.
 
 You can enable CSRF support by doing the following:
 
