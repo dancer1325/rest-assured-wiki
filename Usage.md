@@ -41,6 +41,11 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Full body/content matching](#full-bodycontent-matching)
   1. [Use the response to verify other parts of the response](#use-the-response-to-verify-other-parts-of-the-response)
 1. [Authentication](#authentication)
+  1. [Basic](#basic-authentication)
+    1. [Preemptive](#preemptive-basic-authentication)
+    1. [Challenged](#challenged-basic-authentication)
+  1. [Digest](#digest-authentication)
+  1. [Form](#form-authentication)
   1. [OAuth](#oauth)
     1. [OAuth1](#oauth-1)
     1. [OAuth2](#oauth-2)
@@ -1110,14 +1115,14 @@ When using "challenged basic authentication" REST Assured will not supply the cr
 given().auth().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
 ```
 
-## Digest ##
+## Digest Authentication ##
 Currently only "challenged digest authentication" is supported. Example:
 
 ```java
 given().auth().digest("username", "password").when().get("/secured"). ..
 ```
 
-## Form ##
+## Form Authentication ##
 
 
 ## OAuth ##
