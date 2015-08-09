@@ -14,6 +14,13 @@
 ## REST Assured
 
 ### Highlights ###
+* REST Assured now show all failing body assertions when using multiple expectations in the same body clause. For example:
+
+  ```java
+  .. then().body("x.y", equalTo("z"), "y.z", is(2)). ..
+  ```
+  If both "x.y" and "y.z" fails REST Assured will print both errors. Before only the error of "x.y" was shown.
+* Possible to sign the request with an oauth2 access token (in the header) without using Scribe
 
 ### Other Notable Changes ###
 * It's now possible to set default filename and control name for multiparts. Before they were always equal to "file" but this is now configurable using the new MultiPartConfig. For example:
@@ -21,9 +28,27 @@
   ```java
   given().config(config().multiPartConfig(multiPartConfig().with().defaultFileName("custom1").and().defaultControlName("custom2"))). ..
   ```
+* Added new a new `NumberReturnType` that can be used with `JsonPathConfig` in order to always return non-integer numbers as doubles. This also you to for example use the `closeTo` Hamcrest matcher. For example:
 
+  ```java
+  RestAssured.config = RestAssured.config().jsonConfig(jsonConfig().numberReturnType(DOUBLE));
+  ```
+
+* REST Assured can now resolve multiple path parameters inside the same URI "path parameter" (for example `/somewhere/{x}{y}/z`)
+* It's now possible to specify how content for a specific content-type should be serialized using `com.jayway.restassured.config.EncoderConfig#encodeContentTypeAs(..)`. For example let's say that you want to serialized content-type `my-custom-content-type` as text:
+
+  ```java
+  given().
+          config(RestAssured.config().encoderConfig(encoderConfig().encodeContentTypeAs("my-custom-content-type", ContentType.TEXT))).
+          contentType("my-custom-content-type").
+          content("Some text content").
+  when().
+          post("/somewhere"). ..
+  ```
+* Pretty-printing of JSON now displays unicode characters correctly (issue 556)
 
 ### Non-backward compatible changes ###
+
 
 ## Spring Mock MVC module
 
