@@ -46,6 +46,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
     1. [Challenged](#challenged-basic-authentication)
   1. [Digest](#digest-authentication)
   1. [Form](#form-authentication)
+    1. [CSRF](#csrf)
   1. [OAuth](#oauth)
     1. [OAuth1](#oauth-1)
     1. [OAuth2](#oauth-2)
@@ -1133,7 +1134,7 @@ given().auth().digest("username", "password").when().get("/secured"). ..
 
 ## Form Authentication ##
 
-[Form authentication](https://en.wikipedia.org/wiki/Form-based_authentication) is very popular on the internet. It's typically associated with a user filling in his credentials (username and password) on a webpage and then press a login button of some sort. A very simple HTML page that uses for authentication (with a Spring Security action endpoint (`j_spring_security_check`) ) looks like this:
+[Form authentication](https://en.wikipedia.org/wiki/Form-based_authentication) is very popular on the internet. It's typically associated with a user filling out his credentials (username and password) on a webpage and then press a login button of some sort. A very simple HTML page that provide the basis for form authentication may look like this:
 ```html
 <html>
   <head>
@@ -1152,11 +1153,71 @@ given().auth().digest("username", "password").when().get("/secured"). ..
  </html>
 ```
 
-I.e. the server expects the user to fill-in the "j_username" and "j_password" input fields and then press "submit" to login. With REST Assured you can test a service protected by form authentication like this:
+I.e. the server expects the user to fill-out the "j_username" and "j_password" input fields and then press "submit" to login. With REST Assured you can test a service protected by form authentication like this:
 
 ```java
 given().
         auth().form("John", "Doe").
+when().
+        get("/formAuth");
+then().
+        statusCode(200);
+```
+
+While this may work it's not optimal. What happens when form authentication is used like this in REST Assured an additional request have to made to the server in order to retrieve the webpage with the login details. REST Assured will then try to parse this page and look for two input fields (with username and password) as well as the form action URI. This may work or this may fail depending on the complexity of the webpage. A better option is to supply the these details when setting up the form authentication. In this case one could do:
+
+```java
+given().
+        auth().form("John", "Doe", new FormAuthConfig("/j_spring_security_check", "j_username", "j_password")).
+when().
+        get("/formAuth");
+then().
+        statusCode(200);
+```
+
+This way REST Assured doesn't need to make an additional request and parse the webpage. There's also a predefined FormAuthConfig called `springSecurity` that you can use if you're using the default Spring Security properties:
+
+```java
+given().
+        auth().form("John", "Doe", FormAuthConfig.springSecurity()).
+when().
+        get("/formAuth");
+then().
+        statusCode(200);
+```
+
+### CSRF ###
+Today it's common for the server to supply a [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) token with the response in order to avoid these kinds of attacks. REST Assured has support for automatically parse and supply the CSRF token to the server. In order for this to work REST Assured *must* make an additional request and parse (parts) of the website.
+
+You can enable CSRF support by doing the following:
+
+```java
+given().
+        auth().form("John", "Doe", formAuthConfig().withAutoDetectionOfCsrf()).
+when().
+        get("/formAuth");
+then().
+        statusCode(200);
+```
+
+Now REST Assured will automatically try to detect if the webpage contains a CSRF token. In order to assist REST Assured and make the parsing more robust it's possible to supply the CSRF field name (here we imagine that we're using Spring Security default values and thus can make use of the predefined `springSecurity` FormAuthConfig):
+
+```java
+given().
+        auth().form("John", "Doe", springSecurity().withCsrfFieldName("_csrf")).
+when().
+        get("/formAuth");
+then().
+        statusCode(200);
+```
+
+We've now tolled REST Assured to search for the CSRF field name called "_csrf" (which is it both faster and less prone to error).
+
+By default the CSRF value is sent as a form parameter with the request but you can configure to send it as a header instead if that's required:
+
+```java
+given().
+        auth().form("John", "Doe", springSecurity().withCsrfFieldName("_csrf").sendCsrfTokenAsHeader()).
 when().
         get("/formAuth");
 then().
