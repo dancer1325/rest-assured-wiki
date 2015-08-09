@@ -1134,7 +1134,7 @@ given().auth().digest("username", "password").when().get("/secured"). ..
 
 ## Form Authentication ##
 
-[Form authentication](https://en.wikipedia.org/wiki/Form-based_authentication) is very popular on the internet. It's typically associated with a user filling out his credentials (username and password) on a webpage and then press a login button of some sort. A very simple HTML page that provide the basis for form authentication may look like this:
+[Form authentication](https://en.wikipedia.org/wiki/Form-based_authentication) is very popular on the internet. It's typically associated with a user filling out his credentials (username and password) on a webpage and then pressing a login button of some sort. A very simple HTML page that provide the basis for form authentication may look like this:
 ```html
 <html>
   <head>
