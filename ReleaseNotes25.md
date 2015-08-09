@@ -95,7 +95,7 @@
   then().
          body("_links.self.href", and(responseAwareMatcher1, containsString("something"), or(responseAwareMatcher2, responseAwareMatcher3, endsWith("x"))));
   ```
-* `multiPart` methods taking `java.io.File` as argument now uses the filename of the File instead of just "file".
+* `multiPart` methods taking `java.io.File` as argument now uses the filename of the File instead of just "file". You can change the default filename by using the [MultiPartConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.5.0/com/jayway/restassured/config/MultiPartConfig.html).
 
 ## Spring Mock MVC module
 
