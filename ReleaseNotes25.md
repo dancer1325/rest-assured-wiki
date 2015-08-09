@@ -94,6 +94,7 @@
   then().
          body("_links.self.href", and(responseAwareMatcher1, containsString("something"), or(responseAwareMatcher2, responseAwareMatcher3, endsWith("x"))));
   ```
+* `multiPart` methods taking `java.io.File` as argument now uses the filename of the File instead of just "file".
 
 ## Spring Mock MVC module
 
