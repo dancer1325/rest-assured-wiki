@@ -46,6 +46,7 @@
           post("/somewhere"). ..
   ```
 * Pretty-printing of JSON now displays unicode characters correctly
+* Multipart file uploading now supports specifying an empty filename.
 
 ### Non-backward compatible changes ###
 
