@@ -1065,13 +1065,20 @@ get("/x").then().body("href", new ResponseAwareMatcher<Response>() {
                                   }
                        });
 ```
+
+If you're using Java 8 you can use a lambda expression instead:
+
+```java
+get("/x").then().body("href", response -> equalTo("http://localhost:8080/" + response.path("userId"));
+```
+
 There are some predefined matchers that you can use defined in the `com.jayway.restassured.matcher.RestAssuredMatchers` (or `com.jayway.restassured.module.mockmvc.matcher.RestAssuredMockMvcMatchers` if using the spring-mock-mvc module). For example:
 ```java
 get("/x").then().body("href", endsWithPath("userId"));
 ```
 `ResponseAwareMatchers` can also be composed, either with another `ResponseAwareMatcher` or with a Hamcrest Matcher. For example:
 ```java
-get("/x").then().body("href", endsWithPath("userId").and(startsWith("http:/localhost:8080/")));
+get("/x").then().body("href", and(endsWithPath("userId"), startsWith("http:/localhost:8080/")));
 ```
 
 # Authentication #
