@@ -11,19 +11,19 @@
   1. [Non-backward compatible changes](#non-backward-compatible-changes-1)
 1. [Minor Changes](#minor-changes)
 
-# REST Assured
+## REST Assured
 
-## Highlights ##
+### Highlights ###
 
-## Other Notable Changes ##
-## Non-backward compatible changes ##
+### Other Notable Changes ###
+### Non-backward compatible changes ###
 
-# Spring Mock MVC module
+## Spring Mock MVC module
 
-## Highlights ##
+### Highlights ###
 
-## Other Notable Changes ##
-## Non-backward compatible changes ##
+### Other Notable Changes ###
+### Non-backward compatible changes ###
 
-# Minor changes #
+## Minor changes ##
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
