@@ -2134,7 +2134,7 @@ You can also define authentication for all request, for example:
 ```java
 RestAssuredMockMvc.authentication = with(httpBasic("username", "password"));
 ```
-where `with` is statically imported from `com.jayway.restassured.module.mockmvc.RestAssuredMockMvc`. It's also possible to use a [request specification](#)
+where `with` is statically imported from `com.jayway.restassured.module.mockmvc.RestAssuredMockMvc`. It's also possible to use a [request specification](#specifications).
 
 ### Injecting a User ###
 
