@@ -86,6 +86,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [SSL Config](#ssl-config)
 1. [Spring Mock Mvc Module](#spring-mock-mvc-module)
   1. [Bootstrapping RestAssuredMockMvc](#bootstrapping-restassuredmockmvc)
+  1. [Adding Request Post Processors](#adding-request-post-processors)
   1. [Adding Result Handlers](#adding-result-handlers)
   1. [Using Result Matchers](#using-result-matchers)
   1. [Interceptors](#interceptors)
