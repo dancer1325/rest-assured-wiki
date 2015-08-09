@@ -1090,13 +1090,35 @@ get("/x").then().body("href", and(endsWithPath("userId"), startsWith("http:/loca
 The `and` method is statically imported from `com.jayway.restassured.matcher.ResponseAwareMatcherComposer`.
 
 # Authentication #
-REST assured also supports some authentication schemes, for example basic authentication:
+REST assured also supports several authentication schemes, for example OAuth, digest, certificate, form and preemptive basic authentication.
+
+## Basic Authentication ##
+
+There are two types of basic authentication, preemptive and "challenged basic authentication".
+
+### Preemptive Basic Authentication ###
+This will send the basic authentication credential even before the server gives an unauthorized response in certain situations, thus reducing the overhead of making an additional connection. This is typically what you want to use in most situations unless you're testing the servers ability to challenge. Example:
+
+```java
+given().auth().preemptive().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
+```
+
+### Challenged Basic Authentication ###
+When using "challenged basic authentication" REST Assured will not supply the credentials unless the server has explicitly asked for it. This means that REST Assured will make an additional request to the server in order to be challenged and then follow up with the same request once more but this time setting the basic credentials in the header.
 
 ```java
 given().auth().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
 ```
 
-Other supported schemes are OAuth, digest, certificate, form and preemptive basic authentication.
+## Digest ##
+Currently only "challenged digest authentication" is supported. Example:
+
+```java
+given().auth().digest("username", "password").when().get("/secured"). ..
+```
+
+## Form ##
+
 
 ## OAuth ##
 
@@ -1131,6 +1153,24 @@ There reason why `given().auth().oauth2(..)` still exists is for backward compat
 ```java
 given().auth().oauth2(accessToken, OAuthSignature.QUERY_STRING). ..
 ```
+
+## Custom Authentication ##
+Rest Assured allows you to create custom authentication providers. You do this by implementing the `com.jayway.restassured.spi.AuthFilter` interface (preferably) and apply it as a [filter](#filters). For example let's say that your security consists of adding together two headers together in a new header called "AUTH" (this is of course not secure). Then you can do that like this (Java 8 syntax):
+```java
+given().
+        filter((requestSpec, responseSpec, ctx) -> {
+            String header1 = requestSpec.getHeaders().getValue("header1");
+            String header2 = requestSpec.getHeaders().getValue("header2");
+            requestSpec.header("AUTH", header1 + header2);
+            return ctx.next(requestSpec, responseSpec);
+        }).
+when().
+        get("/customAuth").
+then().
+	statusCode(200);
+```
+
+The reason why you want to use a `AuthFilter` and not `Filter` is that `AuthFilters` are automatically removed when doing `given().auth().none(). ..`.
 
 # Multi-part form data #
 When sending larger amount of data to the server it's common to use the multipart form data technique. Rest Assured provide methods called `multiPart` that allows you to specify a file, byte-array, input stream or text to upload. In its simplest form you can upload a file like this:
@@ -1503,7 +1543,7 @@ Response newResponse = new ResponseBuilder().clone(originalResponse).setBody("So
 ```
 
 # Logging #
-In many cases it can be useful to print the response and/or request details in order to help you create the correct expectations and send the correct requests. To do help you do this you can use one of the predefined [filters](#Filters) supplied with REST Assured or you can use one of the shortcuts.
+In many cases it can be useful to print the response and/or request details in order to help you create the correct expectations and send the correct requests. To do help you do this you can use one of the predefined [filters](#filters) supplied with REST Assured or you can use one of the shortcuts.
 
 ## Request Logging ##
 Since version 1.5 REST Assured supports logging the _[request specification](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.5.0/com/jayway/restassured/specification/RequestSpecification.html)_ before it's sent to the server using the [RequestLoggingFilter](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.5.0/com/jayway/restassured/filter/log/RequestLoggingFilter.html). Note that the HTTP Builder and HTTP Client may add additional headers then what's printed in the log. The filter will _only_ log details specified in the request specification. I.e. you can NOT regard the details logged by the [RequestLoggingFilter](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.5.0/com/jayway/restassured/filter/log/RequestLoggingFilter.html) to be what's actually sent to the server. Also subsequent filters may alter the request _after_ the logging has taken place. If you need to log what's _actually_ sent on the wire refer to the [HTTP Client logging docs](http://hc.apache.org/httpcomponents-client-ga/logging.html) or use an external tool such [Wireshark](http://www.wireshark.org/). Examples:
