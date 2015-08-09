@@ -1133,6 +1133,35 @@ given().auth().digest("username", "password").when().get("/secured"). ..
 
 ## Form Authentication ##
 
+[Form authentication](https://en.wikipedia.org/wiki/Form-based_authentication) is very popular on the internet. It's typically associated with a user filling in his credentials (username and password) on a webpage and then press a login button of some sort. A very simple HTML page that uses for authentication (with a Spring Security action endpoint (`j_spring_security_check`) ) looks like this:
+```html
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+
+  <body>
+    <form action="j_spring_security_check" method="POST">
+      <table>
+        <tr><td>User:&nbsp;</td><td><input type='text' name='j_username'></td></tr>
+        <tr><td>Password:</td><td><input type='password' name='j_password'></td></tr>
+          <tr><td colspan='2'><input name="submit" type="submit"/></td></tr>
+       </table>
+        </form>
+      </body>
+ </html>
+```
+
+I.e. the server expects the user to fill-in the "j_username" and "j_password" input fields and then press "submit" to login. With REST Assured you can test a service protected by form authentication like this:
+
+```java
+given().
+        auth().form("John", "Doe").
+when().
+        get("/formAuth");
+then().
+        statusCode(200);
+```
 
 ## OAuth ##
 
