@@ -57,18 +57,6 @@
   ```java
   given().webAppContextSetup(context, springSecurity()). ..
   ```
-
-### Non-backward compatible changes ###
-* The field `RestAssuredMockMvc.mockMvc` has been replaced by the *method* `RestAssuredMockMvc.mockMvc(..)`. Before you did:
- 
-  ```java
-  RestAssuredMockMvc.mockMvc = myMockMvcInstance;
-  ```
-  but now you need to do:
-
-  ```java
-  RestAssuredMockMvc.mockMvc(myMockMvcInstance);
-  ```
 * Added `RestAssuredMockMvc#config()` method that returns the assign static config or a new config if no static config has been assigned
 * Spring Mock MVC module automatically registers `org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurer` as request post processor if `spring-security-test` is available in classpath and you've supplied an instance of [AbstractMockMvcBuilder](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/web/servlet/setup/AbstractMockMvcBuilder.html) to Rest Assured. This means that you don't have to create a custom MockMvc instance with a `SecurityMockMvcConfigurer` manually which means easier setup. For example if you have `spring-security-test` in classpath it's enough to just do:
 
@@ -82,5 +70,16 @@
   ```
   which you had to do before. You can disable this using the new [MockMvcConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.5.0/com/jayway/restassured/module/mockmvc/config/MockMvcConfig.html).
 
+### Non-backward compatible changes ###
+* The field `RestAssuredMockMvc.mockMvc` has been replaced by the *method* `RestAssuredMockMvc.mockMvc(..)`. Before you did:
+ 
+  ```java
+  RestAssuredMockMvc.mockMvc = myMockMvcInstance;
+  ```
+  but now you need to do:
+
+  ```java
+  RestAssuredMockMvc.mockMvc(myMockMvcInstance);
+  ```
 ## Minor changes ##
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
