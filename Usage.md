@@ -86,6 +86,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [SSL Config](#ssl-config)
 1. [Spring Mock Mvc Module](#spring-mock-mvc-module)
   1. [Bootstrapping RestAssuredMockMvc](#bootstrapping-restassuredmockmvc)
+  1. [Asynchronous Requests](#asynchronous-requests)
   1. [Adding Request Post Processors](#adding-request-post-processors)
   1. [Adding Result Handlers](#adding-result-handlers)
   1. [Using Result Matchers](#using-result-matchers)
@@ -1995,6 +1996,81 @@ then().
         body("content", equalTo("Hello, Johan!"));  
 ```
 
+## Asynchronous Requests ##
+As of version `2.5.0` RestAssuredMockMvc has support for asynchronous requests. For example let's say you have the following controller:
+```java
+@Controller
+public class PostAsyncController {
+
+    @RequestMapping(value = "/stringBody", method = POST)
+    public @ResponseBody
+    Callable<String> stringBody(final @RequestBody String body) {
+        return new Callable<String>() {
+            public String call() throws Exception {
+                return body;
+            }
+        };
+    }
+}
+```
+
+You can test this like so:
+
+```java
+given().
+        body("a string").
+when().
+        async().post("/stringBody").
+then().
+        body(equalTo("a string"));
+```
+
+This will use the default timeout of 1 second. You can change the timeout by using the DSL:
+```java
+given().
+        body("a string").
+when().
+        async().with().timeout(20, TimeUnit.SECONDS).post("/stringBody").
+then().
+        body(equalTo("a string"));    
+```
+
+It's also possible to configure a default timeout by using the [AsyncConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.4.1/com/jayway/restassured/module/mockmvc/config/AsyncConfig.html), for example:
+
+```java
+given().
+        config(config().asyncConfig(withTimeout(100, TimeUnit.MILLISECONDS))).
+        body("a string").
+when().
+        async().post("/stringBody").
+then().
+        body(equalTo("a string"));
+```
+
+`withTimeout` is statically imported from `com.jayway.restassured.module.mockmvc.config.AsyncConfig` and is just a shortcut for creating an `AsyncConfig` with a given timeout. Apply the config globally to apply to all requests:
+
+```java
+RestAssuredMockMvc.config = RestAssuredMockMvc.config().asyncConfig(withTimeout(100, TimeUnit.MILLISECONDS));
+
+// Request 1
+given().
+        body("a string").
+when().
+        async().post("/stringBody").
+then().
+        body(equalTo("a string"));
+
+// Request 2
+given().
+        body("another string").
+when().
+        async().post("/stringBody").
+then().
+        body(equalTo("a string"));
+```
+
+Both request 1 and 2 will now use the default timeout of 100 milliseconds.
+
 ## Adding Request Post Processors ##
 Spring MockMvc has support for [Request Post Processors](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html) and you can use these in RestAssuredMockMvc as well. For example:
 ```java
@@ -2174,7 +2250,7 @@ spring_security_mock_annotations_example() {
 }
 ```
 
-Note that it's also possible to not use annotations and instead use a [RequestPostProcessor](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html) such as [SecurityMockMvcRequestPostProcessors.html#user(java.lang.String)](http://docs.spring.io/autorepo/docs/spring-security/4.0.0.RELEASE/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html#user(java.lang.String)).
+Note that it's also possible to not use annotations and instead use a [RequestPostProcessor](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html) such as [SecurityMockMvcRequestPostProcessors#user(java.lang.String)](http://docs.spring.io/autorepo/docs/spring-security/4.0.0.RELEASE/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html#user(java.lang.String)).
 
 ## Note on parameters ##
 MockMvc doesn't differentiate between different kinds of parameters so `param`, `formParam` and `queryParam` currently just delegates to param in MockMvc. `formParam` adds the `application/x-www-form-urlencoded` content-type header automatically though just as standard Rest Assured does.
