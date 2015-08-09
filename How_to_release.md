@@ -1,12 +1,11 @@
 # How to release #
 
   1. Update changelog with the date of the new release
-  1. Run `mvn release:prepare -Prelease,dist -DautoVersionSubmodules=true`
-    1. Use SCM label rest-assured-X
+  1. Run `./mvn_release.sh` and follow the instructions
     1. If build fails because of missing dependencies do:
       1. `mvn install -Prelease,dist`
       1. `mvn release:prepare -Prelease,dist -Dresume`
-  1. Run `mvn release:perform -Prelease,dist`
+      1. `mvn release:perform -Prelease,dist`
   1. Log in to [Sonatype](https://oss.sonatype.org).
   1. Follow the [Sonatype release directions](https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide) in bullet 8.
     * Remove all dist projects
