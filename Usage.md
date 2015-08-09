@@ -1081,6 +1081,8 @@ get("/x").then().body("href", endsWithPath("userId"));
 get("/x").then().body("href", and(endsWithPath("userId"), startsWith("http:/localhost:8080/")));
 ```
 
+The `and` method is statically imported from `com.jayway.restassured.matcher.ResponseAwareMatcherComposer`.
+
 # Authentication #
 REST assured also supports some authentication schemes, for example basic authentication:
 
