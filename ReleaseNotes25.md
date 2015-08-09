@@ -10,6 +10,7 @@
   1. [Other Notable Changes](#other-notable-changes-1)
   1. [Non-backward compatible changes](#non-backward-compatible-changes-1)
 1. [Minor Changes](#minor-changes)
+
 # REST Assured
 
 ## Highlights ##
