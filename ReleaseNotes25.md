@@ -39,15 +39,12 @@
   ```java
   given().auth().with(httpBasic("username", "password")). ..
   ```
-  where `httpBasic` is statically imported from `org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors`. This requires that you have `spring-security-test` in your classpath.
+  where `httpBasic` is statically imported from `org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors`. This requires that you have `spring-security-test` in your classpath. This also means that you can make use of Spring Security test annotations such as [@WithMockUser](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withmockuser) and [@WithUserDetails](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withuserdetails).
 * Added support for RequestPostProcessors to the Spring Mock MVC module, for example:
 
   ```java
   given().postProcessors(myRequestPostProcessor1, myRequestPostProcessor2). ..
   ```
-
- 
-
 
 ### Other Notable Changes ###
 * It's now possible to set default filename and control name for multiparts. Before they were always equal to "file" but this is now configurable using the new MultiPartConfig. For example:
