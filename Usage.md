@@ -42,6 +42,8 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Use the response to verify other parts of the response](#use-the-response-to-verify-other-parts-of-the-response)
 1. [Authentication](#authentication)
   1. [OAuth](#oauth)
+    1. [OAuth1](#oauth1)
+    1. [OAuth2](#oauth2)
 1. [Multi-part form data](#multi-part-form-data)
 1. [Object Mapping](#object-mapping)
   1. [Serialization](#serialization)
@@ -1098,26 +1100,36 @@ Other supported schemes are OAuth, digest, certificate, form and preemptive basi
 
 ## OAuth ##
 
-In order to use OAuth 1 or 2 authentication you need to add [Scribe](https://github.com/fernandezpablo85/scribe-java) to your classpath (if you're using version 2.1.0 or older of REST Assured then please refer to the [legacy](Usage_Legacy#OAuth) documentation). In Maven you can simply add the following dependency:
+In order to use OAuth 1 and OAuth 2 (for query parameter signing) you need to add [Scribe](https://github.com/fernandezpablo85/scribe-java) to your classpath (if you're using version 2.1.0 or older of REST Assured then please refer to the [legacy](Usage_Legacy#OAuth) documentation). In Maven you can simply add the following dependency:
 ```xml
 <dependency>
             <groupId>org.scribe</groupId>
             <artifactId>scribe</artifactId>
-            <version>1.3.5</version>
+            <version>1.3.7</version>
             <scope>test</scope>
 </dependency>
 ```
 
 If you're not using Maven [download](https://github.com/fernandezpablo85/scribe-java/releases) a Scribe release manually and put it in your classpath.
 
-To use auth 1 authentication you can do:
+### OAuth 1 ###
+OAuth 1 requires [Scribe](#oauth) in the classpath. To use auth 1 authentication you can do:
 ```java
-given().auth().oauth(..);
+given().auth().oauth(..). ..
 ```
 
-And for oauth2:
+### OAuth 2 ###
+Since version `2.5.0` you can use OAuth 2 authentication without depending on [Scribe](#oauth):
 ```java
-given().auth().oauth2(..);
+given().auth().oauth2(accessToken). ..
+```
+This will put the OAuth2 `accessToken` in a header. To be more explicit you can also do:
+```java
+given().auth().preemptive().oauth2(accessToken). ..
+```
+There reason why `given().auth().oauth2(..)` still exists is for backward compatibility (they do the same thing). If you need to provide the OAuth2 token in a query parameter you currently need [Scribe](#oauth) in the classpath. Then you can do like this:
+```java
+given().auth().oauth2(accessToken, OAuthSignature.QUERY_STRING). ..
 ```
 
 # Multi-part form data #
