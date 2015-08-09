@@ -2130,6 +2130,12 @@ public class BasicAuthExample {
 }
 ```
 
+You can also define authentication for all request, for example:
+```java
+RestAssuredMockMvc.authentication = with(httpBasic("username", "password"));
+```
+where `with` is statically imported from `com.jayway.restassured.module.mockmvc.RestAssuredMockMvc`. It's also possible to use a [request specification](#)
+
 ### Injecting a User ###
 
 It's also possible use to of Spring Security test annotations such as [@WithMockUser](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withmockuser) and [@WithUserDetails](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withuserdetails). For example let's say you want to test this controller:
