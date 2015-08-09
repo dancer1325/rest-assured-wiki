@@ -1095,7 +1095,16 @@ get("/x").then().body("href", and(endsWithPath("userId"), startsWith("http:/loca
 The `and` method is statically imported from `com.jayway.restassured.matcher.ResponseAwareMatcherComposer`.
 
 # Authentication #
-REST assured also supports several authentication schemes, for example OAuth, digest, certificate, form and preemptive basic authentication.
+REST assured also supports several authentication schemes, for example OAuth, digest, certificate, form and preemptive basic authentication. You can either set authentication for each request:
+```java
+given().auth().basic("username", "password"). ..
+```
+
+but you can also define authentication for all requests:
+```java
+RestAssured.authentication = basic("username", "password");
+```
+or you can use a [specification](#specification-re-use).
 
 ## Basic Authentication ##
 
