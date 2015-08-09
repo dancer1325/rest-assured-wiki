@@ -93,6 +93,8 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Specifications](#specifications)
   1. [Resetting RestAssuredMockMvc](#resetting-restassuredmockmvc)
   1. [Spring MVC Authentication](#spring-mvc-authentication)
+     1. [Using Spring Security Test](#using-spring-security-test)
+     1. [Injecting a User](#injecting-a-user)
   1. [Note on parameters](#note-on-parameters)
 1. [More Info](#more-info)
 
@@ -2063,6 +2065,110 @@ where the `principal` method is statically imported from [RestAssuredMockMvc](ht
 ```java
 MockMvcRequestSpecification spec = new MockMvcRequestSpecBuilder.setAuth(principal("username", "password")).build();
 ```
+
+### Using Spring Security Test ###
+
+Since version `2.5.0` there's also better support for Spring Security. If you have `spring-security-test` in classpath you can do for example:
+```java
+given().auth().with(httpBasic("username", "password")). ..
+```
+where `httpBasic` is statically imported from [SecurityMockMvcRequestPostProcessor](http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html). This will apply basic authentication to the request. For this to work you need apply the [SecurityMockMvcConfigurer](http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/test/web/servlet/setup/SecurityMockMvcConfigurers.html) to the MockMvc instance. You can either do this manually:
+```java
+MockMvc mvc = MockMvcBuilders.webAppContextSetup(context).apply(SecurityMockMvcConfigurers.springSecurity()).build();
+```
+
+or RESTAssuredMockMvc will automatically try to apply the `springSecurity` configurer automatically if you initalize it with an instance of [AbstractMockMvcBuilder](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/web/servlet/setup/AbstractMockMvcBuilder.html), for example when configuring a "web app context":
+```java
+given().webAppContextSetup(context).auth().with(httpBasic("username", "password")). ..
+```
+
+Here's a full example:
+```java
+import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.context.WebApplicationContext;
+
+import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = MyConfiguration.class)
+@WebAppConfiguration
+public class BasicAuthExample {
+
+    @Autowired
+    private WebApplicationContext context;
+
+    @Before public void
+    rest_assured_is_initialized_with_the_web_application_context_before_each_test() {
+        RestAssuredMockMvc.webAppContextSetup(context);
+    }
+
+    @After public void
+    rest_assured_is_reset_after_each_test() {
+        RestAssuredMockMvc.reset();
+    }
+
+    @Test public void
+    basic_auth_example() {
+        given().
+                auth().with(httpBasic("username", "password")).
+        when().
+                get("/secured/x").
+        then().
+                statusCode(200).
+                expect(authenticated().withUsername("username"));
+    }
+}
+```
+
+### Injecting a User ###
+
+It's also possible use to of Spring Security test annotations such as [@WithMockUser](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withmockuser) and [@WithUserDetails](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withuserdetails). For example let's say you want to test this controller:
+
+```java
+@Controller
+public class UserAwareController {
+
+    @RequestMapping(value = "/user-aware", method = GET)
+    public
+    @ResponseBody
+    String userAware(@AuthenticationPrincipal User user) {
+        if (user == null || !user.getUsername().equals("authorized_user")) {
+            throw new IllegalArgumentException("Not authorized");
+        }
+
+        return "Success");
+    }
+}
+```
+
+As you can see the `userAware` method takes a [User](http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/core/userdetails/User.html) as argument and we let Spring Security inject it by using the [@AuthenticationPrincipal](http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/web/bind/annotation/AuthenticationPrincipal.html) annotation. To generate a test user we could do like this:
+
+```java
+@WithMockUser(username = "authorized_user")
+@Test public void
+spring_security_mock_annotations_example() {
+    given().
+            webAppContextSetup(context).
+     when().
+            get("/user-aware").
+     then().
+            statusCode(200).
+            body(equalTo("Success")).
+            expect(authenticated().withUsername("authorized_user"));
+}
+```
+
+Note that it's also possible to not use annotations and instead use a [RequestPostProcessor](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html) such as [SecurityMockMvcRequestPostProcessors.html#user(java.lang.String)](http://docs.spring.io/autorepo/docs/spring-security/4.0.0.RELEASE/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html#user(java.lang.String)).
 
 ## Note on parameters ##
 MockMvc doesn't differentiate between different kinds of parameters so `param`, `formParam` and `queryParam` currently just delegates to param in MockMvc. `formParam` adds the `application/x-www-form-urlencoded` content-type header automatically though just as standard Rest Assured does.
