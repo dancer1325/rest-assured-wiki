@@ -1211,7 +1211,7 @@ then().
         statusCode(200);
 ```
 
-We've now tolled REST Assured to search for the CSRF field name called "_csrf" (which is it both faster and less prone to error).
+We've now told REST Assured to search for the CSRF field name called "_csrf" (which is it both faster and less prone to error).
 
 By default the CSRF value is sent as a form parameter with the request but you can configure to send it as a header instead if that's required:
 
