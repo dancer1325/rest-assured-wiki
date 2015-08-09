@@ -9,6 +9,7 @@
   1. [Highlights](#highlights-1)
   1. [Other Notable Changes](#other-notable-changes-1)
   1. [Non-backward compatible changes](#non-backward-compatible-changes-1)
+1. [Minor Changes](#minor-changes)
 # REST Assured
 
 ## Highlights ##
@@ -23,5 +24,5 @@
 ## Other Notable Changes ##
 ## Non-backward compatible changes ##
 
-## Minor changes ##
+# Minor changes #
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
