@@ -2000,7 +2000,7 @@ given().spec(specification). ..
 ```
 
 # Detailed configuration #
-Detailed configuration is provided by the [RestAssuredConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/RestAssuredConfig.html) instance with which you can configure the parameters of [HTTP Client](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/HttpClientConfig.html) as well as [Redirect](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/RedirectConfig.html), [Log](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/LogConfig.html), [Encoder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/EncoderConfig.html), [Decoder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/DecoderConfig.html), [Session](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/SessionConfig.html), [ObjectMapper](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/ObjectMapperConfig.html), [Connection](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/ConnectionConfig.html) and [SSL](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/SSLConfig.html) settings. Examples:
+Detailed configuration is provided by the [RestAssuredConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/RestAssuredConfig.html) instance with which you can configure the parameters of [HTTP Client](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/HttpClientConfig.html) as well as [Redirect](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/RedirectConfig.html), [Log](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/LogConfig.html), [Encoder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/EncoderConfig.html), [Decoder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/DecoderConfig.html), [Session](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/SessionConfig.html), [ObjectMapper](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/ObjectMapperConfig.html), [Connection](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/ConnectionConfig.html), [SSL](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/SSLConfig.html) and [ParamConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/ParamConfig.html) settings. Examples:
 
 For a specific request:
 ```java
@@ -2086,6 +2086,32 @@ The [SSLConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6
 ```java
 RestAssured.config = RestAssured.config().sslConfig(sslConfig().with().keystoreType(<type>).and().strictHostnames());
 ```
+
+## Param Config ##
+[ParamConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/ParamConfig.html) allows you to configure how different parameter types should be updated on "collision". By default all parameters are merged so if you do:
+  
+```java
+given().queryParam("param1", "value1").queryParam("param1", "value2").when().get("/x"). ...
+```
+  
+REST Assured will send a query string of `param1=value1&param1=value2`. This is not always what you want though so you can configure REST Assured to *replace* values instead:
+
+```java
+given().
+        config(config().paramConfig(paramConfig().queryParamsUpdateStrategy(REPLACE))).
+        queryParam("param1", "value1").
+        queryParam("param1", "value2").
+when().
+        get("/x"). ..
+```
+
+REST Assured will now replace `param1` with `value2` (since it's written last) instead of merging them together. You can also configure the update strategy for each type of for all parameter types instead of doing it per individual basis:
+
+```java
+given().config(config().paramConfig(paramConfig().replaceAllParameters())). ..
+```
+
+This is also supported in the [Spring Mock Mvc Module](#spring-mock-mvc-module) (but the config there is called [MockMvcParamConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/config/MockMvcParamConfig.html).
 
 # Spring Mock Mvc Module #
 
