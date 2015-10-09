@@ -10,6 +10,8 @@ Google no longer accepts uploading of new binaries to the Google Code page so th
 | [xml-path-2.6.0-dist.zip](http://dl.bintray.com/johanhaleby/generic/xml-path-2.6.0-dist.zip)  | XmlPath 2.6.0 (standalone, including source and javadocs and dependencies) |
 | [spring-mock-mvc-2.6.0-dist.zip](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-2.6.0-dist.zip)  | Spring Mock MVC Module 2.6.0 (including source and javadocs and dependencies. Requires REST Assured!)  |
 | [json-schema-validator-2.6.0-dist.zip](http://dl.bintray.com/johanhaleby/generic/json-schema-validator-2.6.0-dist.zip)  | Json Schema Validator Module 2.6.0 (standalone, including source and javadocs and dependencies)  |
+| [scala-support-2.6.0-dist.zip](http://dl.bintray.com/johanhaleby/generic/scala-support-2.6.0-dist.zip)  | Scala Support Module 2.6.0 (standalone, including source and javadocs and dependencies)  |
+
 
 ## Other versions ##
 If you want to download another version goto the REST Assured page on [Bintray](https://bintray.com/johanhaleby/generic/rest-assured).
