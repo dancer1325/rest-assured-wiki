@@ -148,7 +148,7 @@ If you want to use [Json Schema](http://json-schema.org/) validation you should 
 com.jayway.restassured.module.jsv.JsonSchemaValidator.*
 ```
 
-Refer to [Json Schema Validation](#JSON_Schema_validation) section for more info.
+Refer to [Json Schema Validation](#json-schema-validation) section for more info.
 
 If you're using Spring MVC you can use the [spring-mock-mvc](Usage#Spring_Mock_Mvc_Module) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `com.jayway.restassured.RestAssured` and `com.jayway.restassured.matcher.RestAssuredMatchers`:
 
