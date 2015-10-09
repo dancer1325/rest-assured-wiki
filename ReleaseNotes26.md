@@ -37,6 +37,24 @@
   given().config(config().paramConfig(paramConfig().replaceAllParameters())). ..
   ```
   This is also implemented for the MockMvc module (but the config there is called [MockMvcParamConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/config/MockMvcParamConfig.html) (issue 589)
+* Added a new module called spring-support that adds an alias to the "then" method in `Response` or `MockMvcResponse` called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler gives a warning when using methods with this name. To enable the use of `Then` simply import the `com.jayway.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from `scala-support` module. For example:
+
+  ```java
+  import com.jayway.restassured.RestAssured.when
+  import com.jayway.restassured.module.scala.RestAssuredSupport.AddThenToResponse
+  import org.hamcrest.Matchers.equalTo
+  import org.junit.Test
+
+  @Test
+  def `trying out rest assured in scala with implicit conversion`() {
+      when().
+              get("/greetJSON").
+      Then().
+              statusCode(200).
+              body("key", equalTo("value"))
+  }
+  ```
+  This is also support for the spring-mock-mvc module.
 
 ## Other Notable Changes ##
 
