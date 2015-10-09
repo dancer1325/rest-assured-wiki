@@ -14,14 +14,7 @@
 ## REST Assured
 
 ### Highlights ###
-* REST Assured now show all failing body assertions when using multiple expectations in the same body clause. For example:
-
-  ```java
-  .. then().body("x.y", equalTo("z"), "y.z", is(2)). ..
-  ```
-  If both "x.y" and "y.z" fails REST Assured will print both errors. Before only the error of "x.y" was shown.
-* Possible to sign the request with an oauth2 access token (in the header) without using Scribe
-
+* 
 ### Other Notable Changes ###
 * It's now possible to set default filename and control name for multiparts. Before they were always equal to "file" but this is now configurable using the new MultiPartConfig. For example:
 
@@ -50,52 +43,42 @@
 
 ### Non-backward compatible changes ###
 
-* Changed `com.jayway.restassured.matcher.ResponseAwareMatcher` from an abstract class to a (functional) interface. The reason is to allow for creating ResponseAwareMatchers as lambda expressions in Java 8. Before you had to do like this (even in Java 8):
+* Fixed so that GPath expressions using XML namespaces are evaluated from the root. The implementation was previously a misunderstanding of how the Groovy's XmlSlurper worked when using namespace and has now been corrected. For example let's say have a service at `/namespace-example` that returns the following XML:
+
+  ```xml
+  <foo xmlns:ns="http://localhost/">
+    <bar>sudo </bar>
+    <ns:bar>make me a sandwich!</ns:bar>
+  </foo>
+  ```
+
+  You NOW test it like this:
 
   ```java
+  given().
+          config(newConfig().xmlConfig(xmlConfig().declareNamespace("ns", "http://localhost/"))).
   when().
-         get("/game").
+          get("/namespace-example").
   then().
-         body("_links.self.href", new ResponseAwareMatcher<Response>() {
-             public Matcher<?> matcher(Response response) {
-                 return equalTo("http://localhost:8080/" + response.path("id"));
-             }
-         });
+          body("foo.bar.text()", equalTo("sudo make me a sandwich!")).
+          body(":foo.:bar.text()", equalTo("sudo ")).
+          body("foo.ns:bar.text()", equalTo("make me a sandwich!"));
   ```
-  but with the new change you can now do (if using Java 8):
-  
+
+  In the previous versions you did like this:
+
   ```java
+  given().
+          config(newConfig().xmlConfig(xmlConfig().declareNamespace("ns", "http://localhost/"))).
   when().
-         get("/game").
+          get("/namespace-example").
   then().
-         body("_links.self.href", response -> equalTo("http://localhost:8080/" + response.path("id")));
+          body("bar.text()", equalTo("sudo make me a sandwich!")).
+          body(":bar.text()", equalTo("sudo ")).
+          body("ns:bar.text()", equalTo("make me a sandwich!"));
   ```
-  which is much less verbose. This change should be backward compatible unless you use composition of matchers. Before you composed ResponseAwareMatchers like this:
-  
-  ```java
-  when().
-         get("/game").
-  then().
-         body("_links.self.href", responseAwareMatcher1.and(responseAwareMatcher2));
-  ```
-  This now longer works (since we cannot implement default methods in the `ResponseAwareMatcher` interface in order to be compatible with older Java versions)
-  so now you use the new `com.jayway.restassured.matcher.ResponseAwareMatcherComposer` class to compose ResponseAwareMatchers instead:
-  
-  ```java
-  when().
-         get("/game").
-  then().
-         body("_links.self.href", and(responseAwareMatcher1, responseAwareMatcher2));
-  ```
-  where `and` is statically imported from `ResponseAwareMatcherComposer`. These can also be nested and combined with regular Hamcrest matchers, for example:
-  
-  ```java
-  when().
-         get("/game").
-  then().
-         body("_links.self.href", and(responseAwareMatcher1, containsString("something"), or(responseAwareMatcher2, responseAwareMatcher3, endsWith("x"))));
-  ```
-* `multiPart` methods taking `java.io.File` as argument now uses the filename of the File instead of just "file". You can change the default filename by using the [MultiPartConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.5.0/com/jayway/restassured/config/MultiPartConfig.html).
+
+  Which was not correct (notice the missing foo property)! Big thanks to Erich Eichinger for spotting this and providing a pull request (issue 592).
 
 ## Spring Mock MVC module
 
