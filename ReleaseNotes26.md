@@ -43,7 +43,7 @@
   ```java
   given().config(config().paramConfig(paramConfig().replaceAllParameters())). ..
   ```
-  This is also implemented for the MockMvc module (but the config there is called [MockMvcParamConfig]((http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/config/MockMvcParamConfig.html) (issue 589)
+  This is also implemented for the MockMvc module (but the config there is called [MockMvcParamConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/config/MockMvcParamConfig.html) (issue 589)
 
 ### Other Notable Changes ###
 
