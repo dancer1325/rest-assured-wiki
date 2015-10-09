@@ -2041,6 +2041,14 @@ With the [EncoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-as
 RestAssured.config = newConfig().encoderConfig(encoderConfig().defaultContentCharset("US-ASCII"));
 ```
 
+You can also specify which encoder charset to use for a specific content-type if no charset is defined explicitly for this content-type by using the `defaultCharsetForContentType` method in the [EncoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/EncoderConfig.html). For example:
+
+```java
+RestAssured.config = config(config().encoderConfig(encoderConfig().defaultCharsetForContentType("UTF-16", "application/xml")));
+```
+
+This will assume UTF-16 encoding for "application/xml" content-types that does explicitly specify a charset. By default "application/json" is specified to use "UTF-8" as default content-type as this is specified by [RFC4627](https://www.ietf.org/rfc/rfc4627.txt).
+
 ## Decoder Config ##
 With the [DecoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/DecoderConfig.html) you can set the default response content decoding charset for all responses. This is useful if you expect a different content charset than ISO-8859-1 (which is the default charset) and the response doesn't define the charset in the content-type header. Usage example:
 ```java
@@ -2051,6 +2059,13 @@ You can also use the `DecoderConfig` to specify which content decoders to apply.
 ```java
 given().config(newConfig().decoderConfig(decoderConfig().contentDecoders(DEFLATE))). ..
 ```
+
+You can also specify which decoder charset to use for a specific content-type if no charset is defined explicitly for this content-type by using the "defaultCharsetForContentType" method in the [DecoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/DecoderConfig.html). For example:
+  
+```java
+RestAssured.config = config(config().decoderConfig(decoderConfig().defaultCharsetForContentType("UTF-16", "application/xml")));
+ ```
+This will assume UTF-16 encoding for "application/xml" content-types that does explicitly specify a charset. By default "application/json" is using "UTF-8" as default charset as this is specified by [RFC4627](https://www.ietf.org/rfc/rfc4627.txt).
 
 ## Session Config ##
 With the session config you can configure the default session id name that's used by REST Assured. The default session id name is `JSESSIONID` and you only need to change it if the name in your application is different and you want to make use of REST Assured's [session support](#Session_support). Usage:
