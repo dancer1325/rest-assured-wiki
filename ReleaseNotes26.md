@@ -37,6 +37,27 @@
   given().config(config().paramConfig(paramConfig().replaceAllParameters())). ..
   ```
   This is also implemented for the MockMvc module (but the config there is called [MockMvcParamConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/config/MockMvcParamConfig.html) (issue 589)
+* Improvements to multipart uploading, for example:
+  * Added support for setting multipart filename when passing in an object to multiPart method (issue 587)
+  * Multipart file-uploading now takes encoder config into account when serializing content. For example if you're trying to serialize an object using mime-type "application/vnd.ms-excel" in a multipart then you can register that it should be serialize as JSON:
+    
+    ```java
+    Greeting greeting = new Greeting();
+    greeting.setFirstName("John");
+    greeting.setLastName("Doe");
+
+    given().
+           config(config().encoderConfig(encoderConfig().encodeContentTypeAs("application/vnd.ms-excel", ContentType.JSON))).
+           multiPart(new MultiPartSpecBuilder(greeting)
+                   .fileName("RoleBasedAccessFeaturePlan.csv")
+                   .controlName("text")
+                   .mimeType("application/vnd.ms-excel").build()).
+    when().
+           post("/multipart/text").
+    then().
+           statusCode(200);
+    ```
+    This will now serialize the "greeting" as JSON even though the mime-type is set to "application/vnd.ms-excel" (which is unknown to REST Assured) (issue 586)
 
 ## Other Notable Changes ##
 
