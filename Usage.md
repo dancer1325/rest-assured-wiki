@@ -105,6 +105,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
      1. [Using Spring Security Test](#using-spring-security-test)
      1. [Injecting a User](#injecting-a-user)
   1. [Note on parameters](#note-on-parameters)
+1. [Scala Support Module](#scala-support-module)
 1. [More Info](#more-info)
 
 ## Static imports ##
@@ -2418,6 +2419,51 @@ Note that it's also possible to not use annotations and instead use a [RequestPo
 
 ## Note on parameters ##
 MockMvc doesn't differentiate between different kinds of parameters so `param`, `formParam` and `queryParam` currently just delegates to param in MockMvc. `formParam` adds the `application/x-www-form-urlencoded` content-type header automatically though just as standard Rest Assured does.
+
+# Scala Support Module #
+REST Assured 2.6.0 introduced the [spring-support](http://dl.bintray.com/johanhaleby/generic/scala-support-2.6.0-dist.zip) module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `com.jayway.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
+
+```java
+import com.jayway.restassured.RestAssured.when
+import com.jayway.restassured.module.scala.RestAssuredSupport.AddThenToResponse
+import org.hamcrest.Matchers.equalTo
+import org.junit.Test
+
+@Test
+def `trying out rest assured in scala with implicit conversion`() {
+  when().
+          get("/greetJSON").
+  Then().
+          statusCode(200).
+          body("key", equalTo("value"))
+}
+```
+Note that this is also supported for the [Spring Mock Mvc Module](#spring-mock-mvc-module).
+
+To use it do like this:
+
+#### SBT:
+```scala
+libraryDependencies += "com.jayway.restassured" % "scala-support" % "2.6.0"
+```
+
+#### Maven:
+```xml
+<dependency>
+    <groupId>com.jayway.restassured</groupId>
+    <artifactId>scala-support</artifactId>
+    <version>2.6.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+#### Gradle:
+```xml
+testCompile 'com.jayway.restassured:scala-support:2.6.0'
+```
+
+### No build manager:
+Download the [distribution file](http://dl.bintray.com/johanhaleby/generic/scala-support-2.6.0-dist.zip) manually.
 
 # More info #
 For more information refer to the [javadoc](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/index.html):
