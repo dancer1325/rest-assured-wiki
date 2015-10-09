@@ -14,7 +14,7 @@
 ## REST Assured
 
 ### Highlights ###
-* Fixed misunderstanding of ho GPath expressions worked with XML and namespaces (see [non-backward compatible changes](#non-backward-compatible-changes))
+* Fixed misunderstanding of how GPath expressions works with XML and namespaces (see [non-backward compatible changes](#non-backward-compatible-changes))
 * It's now possible to use a mapping function when validating headers. For example let's say you want to validate that the Content-Length header is less than 1000. You can then use a mapping function to first convert the header value to an int and then use an "integer" Hamcrest matcher:
 
   ```java
