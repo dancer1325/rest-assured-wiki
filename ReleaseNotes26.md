@@ -37,6 +37,9 @@
   given().config(config().paramConfig(paramConfig().replaceAllParameters())). ..
   ```
   This is also implemented for the MockMvc module (but the config there is called [MockMvcParamConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/config/MockMvcParamConfig.html) (issue 589)
+
+## Other Notable Changes ##
+
 * Improvements to multipart uploading, for example:
   * Added support for setting multipart filename when passing in an object to multiPart method (issue 587)
   * Multipart file-uploading now takes encoder config into account when serializing content. For example if you're trying to serialize an object using mime-type "application/vnd.ms-excel" in a multipart then you can register that it should be serialize as JSON:
@@ -58,10 +61,30 @@
            statusCode(200);
     ```
     This will now serialize the "greeting" as JSON even though the mime-type is set to "application/vnd.ms-excel" (which is unknown to REST Assured) (issue 586)
+    * You can now pass in which ObjectMapperType or ObjectMapper to use when serializing an object using multipart. For example:
 
-## Other Notable Changes ##
+    ```json
+    Greeting greeting = new Greeting();
+    greeting.setFirstName("John");
+    greeting.setLastName("Doe");
 
-
+    given().
+           multiPart(new MultiPartSpecBuilder(greeting, ObjectMapperType.GSON)
+                   .fileName("RoleBasedAccessFeaturePlan.csv")
+                   .controlName("text")
+                   .mimeType("application/vnd.ms-excel").build()).
+    when().
+           post("/multipart/text").
+    then().
+           statusCode(200);
+    ```
+    This will force the use if the GSON ObjectMapper (if available in the classpath) even though mime type is not recognized by default by REST Assured.
+    * Content-Type for multipart requests is now taken into account. For example you can now do:
+    ```java
+    given().contentType("multipart/mixed").multiPart(..)
+    ```
+    which was not possible in the previous version. (Only "multipart/form-data" worked) (issue 586)
+    * It's now possible to specify default mime subtype for multipart content-type. Use the MultiPartConfig#defaultSubtype(..) method. Default is "form-data" which results in a content-type of "multipart/form-data". This also works for the MockMvc module.
 
 ## Non-backward compatible changes ##
 
