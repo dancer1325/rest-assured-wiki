@@ -14,7 +14,14 @@
 ## REST Assured
 
 ### Highlights ###
-* 
+* Fixed misunderstanding of ho GPath expressions worked with XML and namespaces (see [non-backward compatible changes](#non-backward-compatible-changes))
+* It's now possible to use a mapping function when validating headers. For example let's say you want to validate that the Content-Length header is less than 1000. You can then use a mapping function to first convert the header value to an int and then use an "integer" Hamcrest matcher:
+
+  ```java
+  when().get("/something").then().header("Content-Length", Integer::parseInt, lessThan(1000));
+  ```
+  This is also implemented for the MockMvc module (issue 594).
+
 ### Other Notable Changes ###
 * It's now possible to set default filename and control name for multiparts. Before they were always equal to "file" but this is now configurable using the new MultiPartConfig. For example:
 
