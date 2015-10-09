@@ -21,32 +21,33 @@
   when().get("/something").then().header("Content-Length", Integer::parseInt, lessThan(1000));
   ```
   This is also implemented for the MockMvc module (issue 594).
-
-### Other Notable Changes ###
-* It's now possible to set default filename and control name for multiparts. Before they were always equal to "file" but this is now configurable using the new MultiPartConfig. For example:
-
+* Added new config called [ParamConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/ParamConfig.html) that allows you to configure how parameter types should be updated on "collision". By default all parameters are merged so if you do:
+  
   ```java
-  given().config(config().multiPartConfig(multiPartConfig().with().defaultFileName("custom1").and().defaultControlName("custom2"))). ..
+  given().queryParam("param1", "value1").queryParam("param1", "value2").when().get("/x"). ...
   ```
-* Added new a new `NumberReturnType` that can be used with `JsonPathConfig` in order to always return non-integer numbers as doubles. This also you to for example use the `closeTo` Hamcrest matcher. For example:
-
-  ```java
-  RestAssured.config = RestAssured.config().jsonConfig(jsonConfig().numberReturnType(DOUBLE));
-  ```
-
-* REST Assured can now resolve multiple path parameters inside the same URI "path parameter" (for example `/somewhere/{x}{y}/z`)
-* It's now possible to specify how content for a specific content-type should be serialized using `com.jayway.restassured.config.EncoderConfig#encodeContentTypeAs(..)`. For example let's say that you want to serialized content-type `my-custom-content-type` as text:
+  
+  REST Assured will send a query string of `param1=value1&param1=value2`. This is not always what you want though so from now on you can configure REST Assured to *replace* values instead:
 
   ```java
   given().
-          config(RestAssured.config().encoderConfig(encoderConfig().encodeContentTypeAs("my-custom-content-type", ContentType.TEXT))).
-          contentType("my-custom-content-type").
-          content("Some text content").
+          config(config().paramConfig(paramConfig().queryParamsUpdateStrategy(REPLACE))).
+          queryParam("param1", "value1").
+          queryParam("param1", "value2").
   when().
-          post("/somewhere"). ..
+          get("/x"). ..
   ```
-* Pretty-printing of JSON now displays unicode characters correctly
-* Multipart file uploading now supports specifying an empty filename.
+
+  REST Assured will now replace `param1` with `value2` (since it's written last) instead of merging them together. You can configure the update strategy for each type of for all parameter types:
+
+  ```java
+  given().config(config().paramConfig(paramConfig().replaceAllParameters())). ..
+  ```
+  This is also implemented for the MockMvc module (but the config there is called [MockMvcParamConfig]((http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/config/MockMvcParamConfig.html) (issue 589)
+
+### Other Notable Changes ###
+
+
 
 ### Non-backward compatible changes ###
 
