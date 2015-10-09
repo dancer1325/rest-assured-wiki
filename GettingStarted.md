@@ -5,7 +5,7 @@
   1. [XmlPath](#xmlpath)
   1. [JSON Schema Validation](#json-schema-validation)
   1. [Spring Mock MVC](#spring-mock-mvc)
-  1. [Scala](#scala-support)
+  1. [Scala Support Module](#scala-support)
 1. [Non-maven users](#non-maven-users)
 1. [Static Imports](#static-imports)
 1. [Documentation](#documentation)
