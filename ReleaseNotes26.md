@@ -87,10 +87,10 @@
     greeting.setLastName("Doe");
 
     given().
-           multiPart(new MultiPartSpecBuilder(greeting, ObjectMapperType.GSON).
-           fileName("RoleBasedAccessFeaturePlan.csv").
-           controlName("text").
-           mimeType("application/vnd.ms-excel").build()).
+           multiPart(new MultiPartSpecBuilder(greeting, ObjectMapperType.GSON)
+                     .fileName("RoleBasedAccessFeaturePlan.csv")
+                     .controlName("text")
+                     .mimeType("application/vnd.ms-excel").build()).
     when().
            post("/multipart/text").
     then().
