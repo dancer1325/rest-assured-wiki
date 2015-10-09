@@ -126,5 +126,24 @@
 
   Which was not correct (notice the missing foo property)! Big thanks to Erich Eichinger for spotting this and providing a pull request (issue 592).
 
+* When multiple cookies or headers with the same name are returned in the response the LAST value is what's returned when only getting one value from the entity (Headers or Cookies) or when validating values. For example let's say that the server returns headers:
+  
+  ```  
+  HeaderName: Value 1
+  HeaderName: Value 2
+  ```
+  then if you do:
+  
+  ```java
+  get("/x").extract().header("HeaderName")
+  ```
+  
+  Value 2 will be returned (previous Value 1 would be returned). Likewise if you do validation:
+
+  ```java
+  get("/x").then().header("HeaderName", equalTo("Value 2");
+  ```
+  This change also affects session ids. This is done to be compatible with the way browsers work (issue 543).
+
 ## Minor changes ##
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
