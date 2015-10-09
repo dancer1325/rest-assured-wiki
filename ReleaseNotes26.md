@@ -86,6 +86,19 @@
     ```
     which was not possible in the previous version. (Only "multipart/form-data" worked) (issue 586)
   * It's now possible to specify default mime subtype for multipart content-type. Use the `MultiPartConfig#defaultSubtype(..)` method. Default is "form-data" which results in a content-type of "multipart/form-data". This also works for the MockMvc module.
+* Added ability to specify which encoder charset to use for a specific content-type if no charset is defined explicitly for this content-type. Previously you could only specify a default charset for ALL content-types. You do this by using the `defaultCharsetForContentType` method in the [EncoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/EncoderConfig.html). For example:
+
+  ```java
+  RestAssured.config = config(config().encoderConfig(encoderConfig().defaultCharsetForContentType("UTF-16", "application/xml")));
+  ```
+  This will assume UTF-16 encoding for "application/xml" content-types that does explicitly specify a charset. By default "application/json" is now specified to use "UTF-8" as default content-type as this is specified by RFC4627. This is *may* be a backward incompatible change since previously "application/json" content-types were encoded using the platform default content-type (or what was specified by defaultContentCharset(..)) (issue 567).
+* Added ability to specify which decoder charset to use for a specific content-type if no charset is defined explicitly for this content-type.
+  Previously you could only specify a default charset for ALL content-types. You do this by using the "defaultCharsetForContentType" method in the [DecoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/DecoderConfig.html). For example:
+  
+  ```java
+  RestAssured.config = config(config().decoderConfig(decoderConfig().defaultCharsetForContentType("UTF-16", "application/xml")));
+   ```
+  This will assume UTF-16 encoding for "application/xml" content-types that does explicitly specify a charset. By default "application/json" is now specified to use "UTF-8" as default charset as this is specified by RFC4627. This is *may* be a backward incompatible change since previously "application/json" content-types were encoded using the platform default content-type (or what was specified by defaultContentCharset(..)).
 
 ## Non-backward compatible changes ##
 
@@ -144,6 +157,7 @@
   get("/x").then().header("HeaderName", equalTo("Value 2");
   ```
   This change also affects session ids. This is done to be compatible with the way browsers work (issue 543).
+* The last (instead of first) header, cookie, session etc is returned when calling for example `headers.get("x")` and multiple x headers are defined (see `defaultCharsetForContentType` section under [non-backward compatible changes](#non-backward-compatible-changes) for more details)
 
 ## Minor changes ##
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
