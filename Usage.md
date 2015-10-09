@@ -1323,7 +1323,25 @@ when().
         post("/upload");
 ```
 
-You can specify the default `control name` and filename using the [MultiPartConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.5.9/com/jayway/restassured/config/MultiPartConfig.html). For example:
+For more advanced use cases you can make use of the [MultiPartSpecBuilder](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/builder/MultiPartSpecBuilder.html). For example:
+
+```java
+Greeting greeting = new Greeting();
+greeting.setFirstName("John");
+greeting.setLastName("Doe");
+
+given().
+        multiPart(new MultiPartSpecBuilder(greeting, ObjectMapperType.JACKSON_2)
+                .fileName("greeting.json")
+                .controlName("text")
+                .mimeType("application/vnd.custom+json").build()).
+when().
+        post("/multipart/json").
+then().
+        statusCode(200);
+```
+
+You can specify, among other things, the default `control name` and filename using the [MultiPartConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.6.0/com/jayway/restassured/config/MultiPartConfig.html). For example:
 
 ```java
 given().config(config().multiPartConfig(multiPartConfig().defaultControlName("something-else"))). ..
