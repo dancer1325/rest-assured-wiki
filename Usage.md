@@ -392,12 +392,12 @@ given().
 when().
          get("/namespace-example").
 then().
-         body("bar.text()", equalTo("sudo make me a sandwich!")).
-         body(":bar.text()", equalTo("sudo ")).
-         body("test:bar.text()", equalTo("make me a sandwich!"));
+         body("foo.bar.text()", equalTo("sudo make me a sandwich!")).
+         body(":foo.:bar.text()", equalTo("sudo ")).
+         body("foo.test:bar.text()", equalTo("make me a sandwich!"));
 ```
 
-The syntax follows Groovy's XmlSlurper syntax.
+The path syntax follows Groovy's XmlSlurper syntax. Note that in versions prior to 2.6.0 the path syntax was *not* following Groovy's XmlSlurper syntax. Please see [release notes](https://github.com/jayway/rest-assured/wiki/ReleaseNotes26#non-backward-compatible-changes) for versin 2.6.0 to see how the previous syntax looked like.
 
 ### XPath ###
 
