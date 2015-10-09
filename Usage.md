@@ -1051,6 +1051,11 @@ get("/x").then().assertThat().headers("headerName1", "headerValue1", "headerName
 get("/x").then().assertThat().headers("headerName1", "headerValue1", "headerName2", containsString("Value2")). ..
 ```
 
+It's also possible to use a mapping function when validating headers. For example let's say you want to validate that the `Content-Length` header is less than 1000. You can then use a mapping function to first convert the header value to an int and then use an `Integer` before validating it with a Hamcrest matcher:
+
+```java
+get("/something").then().assertThat().header("Content-Length", Integer::parseInt, lessThan(1000));
+```
 
 ## Content-Type ##
 ```java
