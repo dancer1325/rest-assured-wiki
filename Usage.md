@@ -1245,7 +1245,7 @@ given().auth().oauth(..). ..
 ```
 
 ### OAuth 2 ###
-Since version `2.6.0` you can use OAuth 2 authentication without depending on [Scribe](#oauth):
+Since version `2.5.0` you can use OAuth 2 authentication without depending on [Scribe](#oauth):
 ```java
 given().auth().oauth2(accessToken). ..
 ```
@@ -2161,7 +2161,7 @@ then().
 ```
 
 ## Asynchronous Requests ##
-As of version `2.6.0` RestAssuredMockMvc has support for asynchronous requests. For example let's say you have the following controller:
+As of version `2.5.0` RestAssuredMockMvc has support for asynchronous requests. For example let's say you have the following controller:
 ```java
 @Controller
 public class PostAsyncController {
@@ -2308,7 +2308,7 @@ MockMvcRequestSpecification spec = new MockMvcRequestSpecBuilder.setAuth(princip
 
 ### Using Spring Security Test ###
 
-Since version `2.6.0` there's also better support for Spring Security. If you have `spring-security-test` in classpath you can do for example:
+Since version `2.5.0` there's also better support for Spring Security. If you have `spring-security-test` in classpath you can do for example:
 ```java
 given().auth().with(httpBasic("username", "password")). ..
 ```
