@@ -169,13 +169,13 @@
   get("/x").extract().header("HeaderName")
   ```
   
-  Value 2 will be returned (previous Value 1 would be returned). Likewise if you do validation:
+  Value 2 will be returned (previously Value 1 would be returned). Likewise if you do validation:
 
   ```java
-  get("/x").then().header("HeaderName", equalTo("Value 2");
+  get("/x").then().header("HeaderName", equalTo("Value 2"));
   ```
   This change also affects session ids. This is done to be compatible with the way browsers work (issue 543).
-* The last (instead of first) header, cookie, session etc is returned when calling for example `headers.get("x")` and multiple x headers are defined (see `defaultCharsetForContentType` section under [other notable changes](#other-notable-changes) for more details)
+* The last (instead of first) header, cookie, session etc is returned when calling for example `headers.get("x")` and multiple headers are defined (see `defaultCharsetForContentType` section under [other notable changes](#other-notable-changes) for more details)
 
 ## Minor changes ##
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
