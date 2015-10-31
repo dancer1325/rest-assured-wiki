@@ -21,6 +21,7 @@ given().standaloneSetup(new Controller1(), springSecurity()). ..
 ```
 * It's now possible to change port, base path etc from a filter (issue 600)
 * Added support for specifying preemptive basic authentication for proxies. For example:
+  
   ```
   given().proxy(auth("username", "password")).when() ..
   ```
