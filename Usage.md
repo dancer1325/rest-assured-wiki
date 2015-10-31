@@ -398,7 +398,7 @@ then().
          body("foo.test:bar.text()", equalTo("make me a sandwich!"));
 ```
 
-The path syntax follows Groovy's XmlSlurper syntax. Note that in versions prior to 2.7.0 the path syntax was *not* following Groovy's XmlSlurper syntax. Please see [release notes](https://github.com/jayway/rest-assured/wiki/ReleaseNotes26#non-backward-compatible-changes) for versin 2.7.0 to see how the previous syntax looked like.
+The path syntax follows Groovy's XmlSlurper syntax. Note that in versions prior to 2.6.0 the path syntax was *not* following Groovy's XmlSlurper syntax. Please see [release notes](https://github.com/jayway/rest-assured/wiki/ReleaseNotes26#non-backward-compatible-changes) for versin 2.6.0 to see how the previous syntax looked like.
 
 ### XPath ###
 
@@ -2487,7 +2487,7 @@ Note that it's also possible to not use annotations and instead use a [RequestPo
 MockMvc doesn't differentiate between different kinds of parameters so `param`, `formParam` and `queryParam` currently just delegates to param in MockMvc. `formParam` adds the `application/x-www-form-urlencoded` content-type header automatically though just as standard Rest Assured does.
 
 # Scala Support Module #
-REST Assured 2.7.0 introduced the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-2.7.0-dist.zip) module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.7.0/com/jayway/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.7.0/com/jayway/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `com.jayway.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
+REST Assured 2.6.0 introduced the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-2.7.0-dist.zip) module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.7.0/com/jayway/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.7.0/com/jayway/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `com.jayway.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
 
 ```java
 import com.jayway.restassured.RestAssured.when
