@@ -39,7 +39,7 @@
 	```
 	If you're using Gradle do like this:
 	```groovy
-	testCompile (group: 'com.jayway.restassured', name: 'rest-assured', version:'2.6.0') {
+	testCompile (group: 'com.jayway.restassured', name: 'rest-assured', version:'2.7.0') {
 	        exclude(module: 'groovy')
 	}
 	testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.3'
