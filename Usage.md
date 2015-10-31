@@ -2316,10 +2316,17 @@ where httpBasic is statically imported from [SecurityMockMvcRequestPostProcessor
 
 ## Adding Result Handlers ##
 Spring MockMvc has support for [Result Handlers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultHandler.html) and you can use these in RestAssuredMockMvc as well. For example let's say you want to use the native MockMvc logging:
+
+```java
+.. .then().apply(print()). .. 
+```
+
+where `print` is statically imported from `org.springframework.test.web.server.result.MockMvcResultHandlers`. Note that if you're using REST Assured 2.6.0 or older you used the `resultHandlers` method:
+
 ```java
 given().resultHandlers(print()). .. 
 ```
-where `print` is statically imported from `org.springframework.test.web.server.result.MockMvcResultHandlers`.
+but this was deprected in REST Assured 2.7.0.
 
 ## Using Result Matchers ##
 Spring MockMvc provides a bunch of [Result Matchers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultMatcher.html) that you may find useful. RestAssuredMockMvc has support for these as well if needed. For example let's say that for some reason you want to verify that the status code is equal to 200 using a ResultMatcher:
