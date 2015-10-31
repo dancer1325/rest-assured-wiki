@@ -14,8 +14,8 @@
 
 ## Other Notable Changes ##
 * Response content-type validation now works correctly even if the response body is empty
-* Taking DecoderConfig into account when parsing non-string content (issue 599)
-* It's now possible to supply MockMvcConfigurers when calling standaloneSetup in the Spring Mock MVC module. For example:
+* Taking [DecoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.7.0/com/jayway/restassured/config/DecoderConfig.html) into account when parsing non-string content (issue 599)
+* It's now possible to supply [MockMvcConfigurers](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/web/servlet/setup/MockMvcConfigurer.html) when calling [standaloneSetup](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.7.0/com/jayway/restassured/module/mockmvc/specification/MockMvcRequestSpecification.html#standaloneSetup-java.lang.Object...-) in the [Spring Mock MVC module](https://github.com/jayway/rest-assured/wiki/Usage#spring-mock-mvc-module). For example:
 ```java
 given().standaloneSetup(new Controller1(), springSecurity()). ..
 ```
