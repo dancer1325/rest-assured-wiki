@@ -10,7 +10,7 @@
 ## Highlights ##
 * Added support for sending a request body in a GET request (issue 544).
 * Changes to `com.jayway.restassured.filter.FilterContext`, see [Non-backward compatible changes](#non-backward-compatible-changes).
-* Automatically adds supports for spring rest docs path parameter documentation if `spring-restdocs-mockmvc` is in classpath. This can be disabled using the [MockMvcConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.6.0/com/jayway/restassured/module/mockmvc/config/MockMvcConfig.html) (issue 606).
+* Automatically adds supports for spring rest docs path parameter documentation if `spring-restdocs-mockmvc` is in classpath. This can be disabled using the [MockMvcConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.7.0/com/jayway/restassured/module/mockmvc/config/MockMvcConfig.html) (issue 606).
 
 ## Other Notable Changes ##
 * Response content-type validation now works correctly even if the response body is empty
