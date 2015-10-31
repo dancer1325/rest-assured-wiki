@@ -26,7 +26,7 @@
   ```
   given().proxy(auth("username", "password")).when() ..
   ```
-  where `auth" is statically imported from [com.jayway.restassured.specification.ProxySpecification](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.7.0/com/jayway/restassured/specification/ProxySpecification.html) (issue 597).
+  where `auth` is statically imported from [com.jayway.restassured.specification.ProxySpecification](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.7.0/com/jayway/restassured/specification/ProxySpecification.html) (issue 597).
 
 ## Non-backward compatible changes ##
 * Changes to [com.jayway.restassured.filter.FilterContext](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.7.0/com/jayway/restassured/filter/FilterContext.html). `getRequestPath` now only returns the actual path of the request URI (previously this returned the request URI). Now `getRequestURI` returns the entire request URI (i.e. returns the same thing the `getRequestPath` previously did).
