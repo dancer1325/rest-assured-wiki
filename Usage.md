@@ -1998,6 +1998,18 @@ given().proxy(host("localhost").withScheme("https")). ..
 
 where `host` is statically imported from `com.jayway.restassured.specification.ProxySpecification`.
 
+Starting from version 2.7.0 you can also specify preemptive basic authentication for proxies. For example:
+  
+```
+given().proxy(auth("username", "password")).when() ..
+```
+
+where `auth` is statically imported from [com.jayway.restassured.specification.ProxySpecification](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.7.0/com/jayway/restassured/specification/ProxySpecification.html). You can of course also combine authentication with a different host:
+
+```java
+given().proxy(host("http://myhost.org").withAuth("username", "password")). ..
+```
+
 ## Static Proxy Configuration ##
 
 It's also possible to configure a proxy statically for all requests, for example:
