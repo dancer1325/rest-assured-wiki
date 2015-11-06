@@ -2592,7 +2592,7 @@ Test fun kotlin_rest_assured_example() {
 }
 ```
 
-Notice that we don't need any escaping anymore. For more details refer to [this](http://tech.haleby.se/2015/11/06/rest-assured-with-kotlin/) blog post.
+Notice that we don't need any escaping anymore. For more details refer to [this](http://code.haleby.se/2015/11/06/rest-assured-with-kotlin/) blog post.
 
 # More info #
 For more information refer to the [javadoc](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.7.0/index.html):
