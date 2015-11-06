@@ -107,6 +107,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
      1. [Injecting a User](#injecting-a-user)
   1. [Note on parameters](#note-on-parameters)
 1. [Scala Support Module](#scala-support-module)
+1. [Kotlin](#kotlin)
 1. [More Info](#more-info)
 
 ## Static imports ##
@@ -2549,6 +2550,49 @@ testCompile 'com.jayway.restassured:scala-support:2.7.0'
 
 ### No build manager:
 Download the [distribution file](http://dl.bintray.com/johanhaleby/generic/scala-support-2.7.0-dist.zip) manually.
+
+# Kotlin #
+Kotlin is a language developed by [JetBrains](https://www.jetbrains.com/) and it integrates very well with Java and REST Assured. When using with REST Assured there's one thing that can be a bit annoying. That is you have to escape `when` since it's a reserved keyword in Kotlin. For example:
+
+```kotlin
+Test fun kotlin_rest_assured_example() {
+    given().
+            param("firstName", "Johan").
+            param("lastName", "Haleby").
+    `when`().
+            get("/greeting").
+    then().
+            statusCode(200).
+            body("greeting.firstName", equalTo("Johan")).
+            body("greeting.lastName", equalTo("Haleby"))
+}
+```
+
+To get around this, create an [extension function](https://kotlinlang.org/docs/reference/extensions.html) that creates an alias to `when` called `When`:
+
+```kotlin
+fun RequestSpecification.When(): RequestSpecification {
+    return this.`when`()
+}
+```
+
+The code can now be written like this:
+
+```kotlin
+Test fun kotlin_rest_assured_example() {
+    given().
+            param("firstName", "Johan").
+            param("lastName", "Haleby").
+    When().
+            get("/greeting").
+    then().
+            statusCode(200).
+            body("greeting.firstName", equalTo("Johan")).
+            body("greeting.lastName", equalTo("Haleby"))
+}
+```
+
+Notice that we don't need any escaping anymore. For more details refer to [this](http://tech.haleby.se/2015/11/06/rest-assured-with-kotlin/) blog post.
 
 # More info #
 For more information refer to the [javadoc](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.7.0/index.html):
