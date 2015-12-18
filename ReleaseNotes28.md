@@ -8,7 +8,7 @@
 1. [Minor Changes](#minor-changes)
 
 ## Highlights ##
-* Added support for measuring time. For example:
+* Added support for measuring response time. For example:
 
   ```java
   long timeInMs = get("/lotto").time()
