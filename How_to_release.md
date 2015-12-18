@@ -9,7 +9,7 @@
   1. Log in to [Sonatype](https://oss.sonatype.org).
   1. Follow the [Sonatype release directions](https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide) in bullet 8.
     * Remove all dist projects
-    * If sonatype complains about missing javadoc from scalatra, remove the scaltra-example project from the sonatype browser
+    * If sonatype complains about missing javadoc from scalatra, remove the scaltra-example project from the sonatype browser. Also remove all `dist` projects.
   1. Upload the artifacts to [bintray](http://bintray.com).
     1. Run the `./deploy_bintray.sh` script and enter the API Key (found on Bintray on the user profile page when pressing the edit button) and version to release.
     1. Login to [bintray](http://bintray.com) and add release notes and publish the release.
