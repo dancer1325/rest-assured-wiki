@@ -969,7 +969,16 @@ Path parameters makes it easier to read the request path as well as enabling the
 
 As of version 2.8.0 you can mix unnamed and named path parameters:
 
+```java
+given().
+        pathParam("hotelId", "My Hotel").        
+when(). 
+        post("/reserve/{hotelId}/{roomNumber}", 23).
+then().
+         ..
+```
 
+Here `roomNumber` will be replaced with `23`. 
 
 ## Cookies ##
 In its simplest form you specify cookies like this:
