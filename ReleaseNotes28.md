@@ -38,6 +38,7 @@
           time(lessThan(2L), SECONDS);
   ```
 
+  Please note that response time measurement should be performed when the JVM is hot! (i.e. running a response time measurement when only running a single test will yield erroneous results). This is also implemented in the Spring MockMvc module (issue 493)
 
 * Changes to `com.jayway.restassured.filter.FilterContext`, see [Non-backward compatible changes](#non-backward-compatible-changes).
 * Automatically adds supports for spring rest docs path parameter documentation if `spring-restdocs-mockmvc` is in classpath. This can be disabled using the [MockMvcConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.7.0/com/jayway/restassured/module/mockmvc/config/MockMvcConfig.html) (issue 606).
