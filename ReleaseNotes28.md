@@ -47,6 +47,9 @@
 
 ## Deprecations
 * Deprecated [FilterContext#getRequestMethod](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/filter/FilterContext.html#getRequestMethod--) has been deprecated, use [FilterableRequestSpecification#getMethod](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/specification/FilterableRequestSpecification.html#getMethod--) instead. 
+* Deprecated [FilterContext#getRequestPath](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/filter/FilterContext.html#getRequestPath--) has been deprecated, use [FilterableRequestSpecification#getUserDefinedPath](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/specification/FilterableRequestSpecification.html#getUserDefinedPath--) instead.
+* Deprecated [FilterContext#getRequestURI](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/filter/FilterContext.html#getRequestURI--) has been deprecated, use [FilterableRequestSpecification#getURI](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/specification/FilterableRequestSpecification.html#getURI--) instead.
+
 
 ## Minor changes ##
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
