@@ -40,6 +40,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Content-Type](#content-type-1)
   1. [Full body/content matching](#full-bodycontent-matching)
   1. [Use the response to verify other parts of the response](#use-the-response-to-verify-other-parts-of-the-response)
+  1. [Measuring response time](#measuring-response-time)
 1. [Authentication](#authentication)
   1. [Basic](#basic-authentication)
     1. [Preemptive](#preemptive-basic-authentication)
