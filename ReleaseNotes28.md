@@ -39,9 +39,9 @@
   ```
 
   Please note that response time measurement should be performed when the JVM is hot! (i.e. running a response time measurement when only running a single test will yield erroneous results). This is also implemented in the Spring MockMvc module.
-
-* Changes to `com.jayway.restassured.filter.FilterContext`, see [Non-backward compatible changes](#non-backward-compatible-changes).
-* Automatically adds supports for spring rest docs path parameter documentation if `spring-restdocs-mockmvc` is in classpath. This can be disabled using the [MockMvcConfig](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.7.0/com/jayway/restassured/module/mockmvc/config/MockMvcConfig.html) (issue 606).
+* Lot's of improvements to [Filters](https://github.com/jayway/rest-assured/wiki/Usage#filters). 
+  * It's now possible to change the request path from a filter, use the "path" method in the "requestSpec" (`com.jayway.restassured.specification.FilterableRequestSpecification#path`).
+  * gf
 
 ## Other Notable Changes ##
 * Response content-type validation now works correctly even if the response body is empty
