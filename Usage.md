@@ -1120,6 +1120,40 @@ get("/x").then().body("href", and(endsWithPath("userId"), startsWith("http:/loca
 
 The `and` method is statically imported from `com.jayway.restassured.matcher.ResponseAwareMatcherComposer`.
 
+## Measuring Response Time ##
+
+As of version 2.8.0 REST Assured has support measuring response time. For example:
+
+```java
+long timeInMs = get("/lotto").time()
+```
+
+or using a specific time unit:
+
+```java
+long timeInSeconds = get("/lotto").timeIn(SECONDS);
+```
+
+where `SECONDS` is just a standard `TimeUnit`. You can also validate it using the validation DSL:
+
+```java
+when().
+      get("/lotto").
+then().
+      time(lessThan(2000L)); // Milliseconds
+```
+
+or
+
+```java
+when().
+      get("/lotto").
+then().
+      time(lessThan(2L), SECONDS);
+```
+
+Please note that response time measurement should be performed when the JVM is hot! (i.e. running a response time measurement when only running a single test will yield erroneous results). Also note that you can only vaguely regard these measurments to correlate with the server request processing time (since the response time will include the HTTP round trip and REST Assured processing time among other things).
+
 # Authentication #
 REST assured also supports several authentication schemes, for example OAuth, digest, certificate, form and preemptive basic authentication. You can either set authentication for each request:
 ```java
