@@ -2,6 +2,7 @@
 
 # Contents
 1. [Highlights](#highlights)
+1. [Non-backward compatible changes](#non-backward-compatible-changes)
 1. [Deprecations](#deprecations)
 1. [Minor Changes](#minor-changes)
 
@@ -42,6 +43,9 @@
   * Added ability to remove parameters from the FilterableRequestSpecification. Use the remove methods such as `removeQueryParam`.
   * Filters can add and remove path parameters as well as getting undefined path parameter placeholders etc (see javadoc for the methods in `com.jayway.restassured.specification.FilterableRequestSpecification`)
 * Improvements to path parameters. You can now combine unnamed and name path parameters in the same request. Also the error messages are improved when unnamed path parameters are null.
+
+## Non-backward compatible changes ##
+* [FilterableRequestSpecification#getPathParams](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/specification/FilterableRequestSpecification.html#getPathParams--) now returns now returns both unnamed and named path parameters (before only named parameters were returned).
 
 ## Deprecations
 * [FilterContext#getRequestMethod](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/filter/FilterContext.html#getRequestMethod--), use [FilterableRequestSpecification#getMethod](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/specification/FilterableRequestSpecification.html#getMethod--) instead. 
