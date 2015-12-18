@@ -978,7 +978,9 @@ then().
          ..
 ```
 
-Here `roomNumber` will be replaced with `23`. 
+Here `roomNumber` will be replaced with `23`.
+
+Note that specifying too few or too many parameters will result in an error message. For advanced use cases you can add, change, remove (even redudant path parameters) from a filter.
 
 ## Cookies ##
 In its simplest form you specify cookies like this:
