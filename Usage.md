@@ -952,6 +952,8 @@ You can also specify so called path parameters in your request, e.g.
 post("/reserve/{hotelId}/{roomNumber}", "My Hotel", 23);
 ```
 
+These kinds of path parameters are referred to "unnamed path parameters" in REST Assured since they are index based (`hotelId` will be equal to "My Hotel" since it's the first placeholder).
+
 You can also use named path parameters:
 ```java
 given().
@@ -964,6 +966,10 @@ then().
 ```
 
 Path parameters makes it easier to read the request path as well as enabling the request path to easily be re-usable in many tests with different parameter values.
+
+As of version 2.8.0 you can mix unnamed and named path parameters:
+
+
 
 ## Cookies ##
 In its simplest form you specify cookies like this:
