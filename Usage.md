@@ -1999,7 +1999,7 @@ given().proxy(host("localhost").withScheme("https")). ..
 
 where `host` is statically imported from `com.jayway.restassured.specification.ProxySpecification`.
 
-Starting from version 2.8.0 you can also specify preemptive basic authentication for proxies. For example:
+Starting from version 2.7.0 you can also specify preemptive basic authentication for proxies. For example:
   
 ```
 given().proxy(auth("username", "password")).when() ..
