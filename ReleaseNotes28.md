@@ -40,7 +40,7 @@
 
   Please note that response time measurement should be performed when the JVM is hot! (i.e. running a response time measurement when only running a single test will yield erroneous results). This is also implemented in the Spring MockMvc module.
 * Lot's of improvements to [filters](https://github.com/jayway/rest-assured/wiki/Usage#filters). 
-  * It's now possible to change the request path from a filter, use the "path" method in the "requestSpec" (`com.jayway.restassured.specification.FilterableRequestSpecification#path`).
+  * It's now possible to change the request path from a filter, use the [FilterableRequestSpecification#path](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/specification/FilterableRequestSpecification.html#path-java.lang.String-) method.
   * Added ability to remove parameters from the FilterableRequestSpecification. Use the remove methods such as `removeQueryParam`.
   * Filters can add and remove path parameters as well as getting undefined path parameter placeholders etc (see javadoc for the methods in `com.jayway.restassured.specification.FilterableRequestSpecification`)
 * Improvements to path parameters. You can now combine unnamed and name path parameters in the same request. Also the error messages are improved when unnamed path parameters are null.
