@@ -1476,8 +1476,8 @@ The message object will be serialized to JSON using Jackson (if present) or Gson
 You can also create a JSON document by supplying a Map to REST Assured.
 ```java
 Map<String, Object>  jsonAsMap = new HashMap<>();
-map.put("firstName", "John");
-map.put("lastName", "Doe");
+jsonAsMap.put("firstName", "John");
+jsonAsMap.put("lastName", "Doe");
 
 given().
         contentType(JSON).
