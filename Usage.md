@@ -1116,7 +1116,7 @@ get("/x").then().body("href", endsWithPath("userId"));
 ```
 `ResponseAwareMatchers` can also be composed, either with another `ResponseAwareMatcher` or with a Hamcrest Matcher. For example:
 ```java
-get("/x").then().body("href", and(endsWithPath("userId"), startsWith("http:/localhost:8080/")));
+get("/x").then().body("href", and(startsWith("http:/localhost:8080/"), endsWithPath("userId")));
 ```
 
 The `and` method is statically imported from `com.jayway.restassured.matcher.ResponseAwareMatcherComposer`.
