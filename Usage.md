@@ -1440,8 +1440,8 @@ when().
 
 In this example REST Assured will serialize the object to JSON since the request content-type is set to "application/json". It will first try to use Jackson if found in classpath and if not Gson will be used. If you change the content-type to "application/xml" REST Assured will serialize to XML using JAXB. If no content-type is defined REST Assured will try to serialize in the following order:
 
-  1. JSON using Jackson 2 (Faster Jackson)
-  1. JSON using Jackson
+  1. JSON using Jackson 2 (Faster Jackson (databind))
+  1. JSON using Jackson (databind)
   1. JSON using Gson
   1. XML using JAXB
 
@@ -1469,7 +1469,7 @@ when().
 ```
 
 
-The message object will be serialized to JSON using Jackson (if present) or Gson (if present) with UTF-16 encoding.
+The message object will be serialized to JSON using Jackson (databind) (if present) or Gson (if present) with UTF-16 encoding.
 
 ### Create JSON from a HashMap ###
 
