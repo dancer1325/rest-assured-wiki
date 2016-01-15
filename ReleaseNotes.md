@@ -10,7 +10,6 @@
 * [Release Notes 2.1.0](ReleaseNotes21)
 * [Release Notes 2.0.0](ReleaseNotes20)
 * [Release Notes 1.9.0](ReleaseNotes19)
-* [Release Notes 1.9.0](ReleaseNotes19)
 * [Release Notes 1.8.0](ReleaseNotes18)
 * [Release Notes 1.7](ReleaseNotes17)
 * [Release Notes 1.6](ReleaseNotes16)
