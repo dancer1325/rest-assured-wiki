@@ -2115,6 +2115,14 @@ RestAssured.config = config(config().encoderConfig(encoderConfig().defaultCharse
 
 This will assume UTF-16 encoding for "application/xml" content-types that does explicitly specify a charset. By default "application/json" is specified to use "UTF-8" as default content-type as this is specified by [RFC4627](https://www.ietf.org/rfc/rfc4627.txt).
 
+### Avoid adding the charset to content-type header automatically ###
+
+By default REST Assured adds the charset header automatically. To disable this completely you can configure the `EncoderConfig` like this:
+
+```java
+RestAssured.config = config(config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
+```
+
 ## Decoder Config ##
 With the [DecoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/config/DecoderConfig.html) you can set the default response content decoding charset for all responses. This is useful if you expect a different content charset than ISO-8859-1 (which is the default charset) and the response doesn't define the charset in the content-type header. Usage example:
 ```java
