@@ -1958,7 +1958,7 @@ String sessionId = sessionFilter.getSessionId();
 ```
 
 # SSL #
-In most situations SSL should just work out of the box thanks to the excellent work of HTTP Builder and HTTP Client. There are how ever some cases where you'll run into trouble. You may for example run into a SSLPeerUnverifiedException if the server is using an invalid certificate. The easiest way to workaround this is to use "relaxed HTTPs validation". For example:
+In most situations SSL should just work out of the box thanks to the excellent work of HTTP Builder and HTTP Client. There are however some cases where you'll run into trouble. You may for example run into a SSLPeerUnverifiedException if the server is using an invalid certificate. The easiest way to workaround this is to use "relaxed HTTPs validation". For example:
 ```java
 given().relaxedHTTPSValidation().when().get("https://some_server.com"). .. 
 ```
@@ -2155,7 +2155,7 @@ given().redirects().max(12).and().redirects().follow(true).when(). ..
 ```
 
 ## Connection Config ##
-Lets you configure connection settings for REST Assured. For example if you want to force-close the Apache HTTP Client connection after each response. You may want to do this if you make a lot of fast consecutive requests with small amount of data in the response. How ever if you're downloading large amount of (chunked) data you must not close connections after each response. By default connections are _not_ closed after each response.
+Lets you configure connection settings for REST Assured. For example if you want to force-close the Apache HTTP Client connection after each response. You may want to do this if you make a lot of fast consecutive requests with small amount of data in the response. However if you're downloading (especially large amounts of) chunked data you must not close connections after each response. By default connections are _not_ closed after each response.
 
 ```java
 RestAssured.config = newConfig().connectionConfig(connectionConfig().closeIdleConnectionsAfterEachResponse());
