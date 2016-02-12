@@ -168,7 +168,7 @@ get("/lotto").then().body("lotto.winners.winnerId", hasItems(23, 54));
 
 Note: `equalTo` and `hasItems` are Hamcrest matchers which you should statically import from `org.hamcrest.Matchers`.
 
-Note that the "json path" syntax uses <a href='http://groovy.codehaus.org/GPath'>Groovy's GPath</a> notation and is not to be confused with Jayway's other <a href='https://github.com/jayway/JsonPath'>JsonPath</a> syntax.
+Note that the "json path" syntax uses <a href='http://groovy-lang.org/processing-xml.html#_gpath'>Groovy's GPath</a> notation and is not to be confused with Jayway's other <a href='https://github.com/jayway/JsonPath'>JsonPath</a> syntax.
 
 ### Returning floats and doubles as BigDecimal ###
 
@@ -809,7 +809,7 @@ JsonPath.config = new JsonPathConfig("UTF-8");
 
 You can read more about JsonPath at [this blog](http://www.jayway.com/2013/04/12/whats-new-in-rest-assured-1-8/).
 
-Note that the JsonPath implementation uses <a href='http://groovy.codehaus.org/GPath'>Groovy's GPath</a> syntax and is not to be confused with Jayway's other <a href='https://github.com/jayway/JsonPath'>JsonPath</a> implementation.
+Note that the JsonPath implementation uses <a href='http://groovy-lang.org/processing-xml.html#_gpath'>Groovy's GPath</a> syntax and is not to be confused with Jayway's other <a href='https://github.com/jayway/JsonPath'>JsonPath</a> implementation.
 
 ## XML (using XmlPath) ##
 You also have the corresponding functionality for XML using  [XmlPath](http://static.javadoc.io/com.jayway.restassured/xml-path/2.8.0/com/jayway/restassured/path/xml/XmlPath.html):
