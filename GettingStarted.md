@@ -36,7 +36,7 @@ Notes
   1. REST Assured includes JsonPath and XmlPath as transitive dependencies
 
 ### JsonPath ###
-Standalone JsonPath (included if you depend on the `rest-assured` artifact). Makes it easy to parse JSON documents. Note that this JsonPath implementation uses <a href='http://groovy.codehaus.org/GPath'>Groovy's GPath</a> syntax and is not to be confused with Jayway's other <a href='https://github.com/jayway/JsonPath'>JsonPath</a> implementation.
+Standalone JsonPath (included if you depend on the `rest-assured` artifact). Makes it easy to parse JSON documents. Note that this JsonPath implementation uses <a href='http://groovy-lang.org/processing-xml.html#_gpath'>Groovy's GPath</a> syntax and is not to be confused with Jayway's other <a href='https://github.com/jayway/JsonPath'>JsonPath</a> implementation.
 
 Maven:
 ```xml
