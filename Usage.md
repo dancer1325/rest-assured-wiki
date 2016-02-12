@@ -377,7 +377,7 @@ or a little shorter:
 with().parameters("firstName", "John", "lastName", "Doe").when().post("/greetXML").then().body("greeting.firstName", equalTo("John"), "greeting.lastName", equalTo("Doe"));
 ```
 
-See [this](http://groovy-lang.org/processing-xml.html#_gpath) link for more info about the syntax (it follows Groovy's [GPath](http://groovy.codehaus.org/GPath) syntax).
+See [this](http://groovy-lang.org/processing-xml.html#_gpath) link for more info about the syntax (it follows Groovy's [GPath](http://groovy-lang.org/processing-xml.html#_gpath) syntax).
 
 ### XML namespaces ###
 To make body expectations take namespaces into account you need to declare the namespaces using the [com.jayway.restassured.config.XmlConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/config/XmlConfig.html). For example let's say that a resource called `namespace-example` located at `http://localhost:8080` returns the following XML:
