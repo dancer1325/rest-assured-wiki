@@ -1021,6 +1021,26 @@ given().header("headerName", "value1", "value2"). ..
 ```
 This will create _two_ headers, `headerName=value1` and `headerName=value2`.
 
+#### Header Merging/Overwriting ####
+
+By default headers are merged. So for example if you do like this:
+
+```java
+given().header("x", "1").header("x", "2"). ..
+```
+
+The request will contain two headers, "x=1" and "x=2". You can change in this on a per header basis in the [HeaderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.8.0/com/jayway/restassured/config/HeaderConfig.html). For example:
+
+```java
+given().
+        config(RestAssuredConfig.config().headerConfig(headerConfig().overwriteHeadersWithName("x"))).
+        header("x", "1").
+        header("x", "2").
+when().
+        get("/multiHeaderReflect").
+...
+```
+
 ## Content Type ##
 ```java
 given().contentType(ContentType.TEXT). ..
