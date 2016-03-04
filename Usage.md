@@ -968,7 +968,7 @@ then().
 
 Path parameters makes it easier to read the request path as well as enabling the request path to easily be re-usable in many tests with different parameter values.
 
-As of version 2.9.0 you can mix unnamed and named path parameters:
+As of version 2.8.0 you can mix unnamed and named path parameters:
 
 ```java
 given().
@@ -1145,7 +1145,7 @@ The `and` method is statically imported from `com.jayway.restassured.matcher.Res
 
 ## Measuring Response Time ##
 
-As of version 2.9.0 REST Assured has support measuring response time. For example:
+As of version 2.8.0 REST Assured has support measuring response time. For example:
 
 ```java
 long timeInMs = get("/lotto").time()
@@ -2421,7 +2421,7 @@ where `print` is statically imported from `org.springframework.test.web.server.r
 ```java
 given().resultHandlers(print()). .. 
 ```
-but this was deprected in REST Assured 2.9.0.
+but this was deprected in REST Assured 2.8.0.
 
 ## Using Result Matchers ##
 Spring MockMvc provides a bunch of [Result Matchers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultMatcher.html) that you may find useful. RestAssuredMockMvc has support for these as well if needed. For example let's say that for some reason you want to verify that the status code is equal to 200 using a ResultMatcher:
