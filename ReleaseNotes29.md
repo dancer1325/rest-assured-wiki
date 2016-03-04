@@ -45,10 +45,10 @@ This is a maintenance release but it contains some backward incompatible changes
 
 ## Minor changes ##
 * Added support for composing a Hamcrest matcher with a ResponseAwareMatcher when using a ResponseAwareMatcherComposer
-* Added support for multipart DELETE requests (issue #634)
-* It's now possible to use empty and whitespace path parameters (issue #631)
-* Fixing `NullPointerException` for GET requests with an empty body (issue #642)
-* Form authentication for fully-qualified URIs now uses the URI specified in the request instead of just localhost (issue #641)
-* Improve escaping for XmlPath's containing colon. For example you can now do like this without manually having to escape anything in the path: `x:something.x:y[0]` (issue #647)
+* Added support for multipart DELETE requests (issue 634)
+* It's now possible to use empty and whitespace path parameters (issue 631)
+* Fixing `NullPointerException` for GET requests with an empty body (issue 642)
+* Form authentication for fully-qualified URIs now uses the URI specified in the request instead of just localhost (issue 641)
+* Improve escaping for XmlPath's containing colon. For example you can now do like this without manually having to escape anything in the path: `x:something.x:y[0]` (issue 647)
 
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
