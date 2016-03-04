@@ -10,7 +10,7 @@ This is a maintenance release but it contains some backward incompatible changes
 ## Non-backward compatible changes ##
 * Automatically escapes JsonPath and XmlPath fragments that contains a hyphen and an index lookup operator. For example consider the following JSON document:
   ```javascript
- { some-list : ["one", "two"] }
+ { "some-list" : ["one", "two"] }
   ```
   Previously you had to escape `some-list` manually if you wanted to get first element out of the list:
   ```javascript
