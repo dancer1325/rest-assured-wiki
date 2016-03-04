@@ -9,7 +9,7 @@ This is a maintenance release but it contains some backward incompatible changes
 1. [Minor Changes](#minor-changes)
 
 ## Highlights
-* Major improvements of certificate authentication. You can now use a keystore (without trust store) and a keystore and trust store at the same time (see [Non-backward compatible changes](#non-backward-compatible-changes)).
+* Major improvements of certificate authentication. You can now use a keystore (without trust store) and a keystore and trust store at the same time (see [non-backward compatible changes](#non-backward-compatible-changes)).
 
 ## Non-backward compatible changes ##
 * Automatically escapes JsonPath and XmlPath fragments that contains a hyphen and an index lookup operator. For example consider the following JSON document:
