@@ -2142,7 +2142,7 @@ This will assume UTF-16 encoding for "application/xml" content-types that does e
 By default REST Assured adds the charset header automatically. To disable this completely you can configure the `EncoderConfig` like this:
 
 ```java
-RestAssured.config = config(config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
+RestAssured.config = RestAssured.config(config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 ```
 
 ## Decoder Config ##
