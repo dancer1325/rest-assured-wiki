@@ -192,7 +192,7 @@ but if you like you can configure REST Assured to use a JsonConfig that returns 
 
 ```java
 given().
-        config(newConfig().jsonConfig(jsonConfig().numberReturnType(BIG_DECIMAL))).
+        config(RestAssured.config().jsonConfig(jsonConfig().numberReturnType(BIG_DECIMAL))).
 when().
         get("/price").
 then().
@@ -391,7 +391,7 @@ To make body expectations take namespaces into account you need to declare the n
 You can then declare the `http://localhost/` uri and validate the response:
 ```java
 given().
-        config(newConfig().xmlConfig(xmlConfig().declareNamespace("test", "http://localhost/"))).
+        config(RestAssured.config().xmlConfig(xmlConfig().declareNamespace("test", "http://localhost/"))).
 when().
          get("/namespace-example").
 then().
@@ -419,7 +419,7 @@ given().parameters("firstName", "John", "lastName", "Doe").post("/greetXML").the
 To use namespaces in the XPath expression you need to enable them in the configuration, for example:
 ```java
 given().
-        config(newConfig().xmlConfig(xmlConfig().with().namespaceAware(true))).
+        config(RestAssured.config().xmlConfig(xmlConfig().with().namespaceAware(true))).
 when().
          get("/package-db-xml").
 then().
@@ -1934,7 +1934,7 @@ RestAssured.sessionId = "1234";
 
 By default the session id name is `JSESSIONID` but you can change it using the [SessionConfig](#session-config):
 ```java
-RestAssured.config = newConfig().sessionConfig(new SessionConfig().sessionIdName("phpsessionid"));
+RestAssured.config = RestAssured.config().sessionConfig(new SessionConfig().sessionIdName("phpsessionid"));
 ```
 
 You can also specify a sessionId using the `RequestSpecBuilder` and reuse it in many tests:
@@ -2111,11 +2111,11 @@ Detailed configuration is provided by the [RestAssuredConfig](http://static.java
 
 For a specific request:
 ```java
-given().config(newConfig().redirect(redirectConfig().followRedirects(false))). ..
+given().config(RestAssured.config().redirect(redirectConfig().followRedirects(false))). ..
 ```
 or using a RequestSpecBuilder:
 ```java
-RequestSpecification spec = new RequestSpecBuilder().setConfig(newConfig().redirect(redirectConfig().followRedirects(false))).build();
+RequestSpecification spec = new RequestSpecBuilder().setConfig(RestAssured.config().redirect(redirectConfig().followRedirects(false))).build();
 ```
 or for all requests:
 ```java
@@ -2148,12 +2148,12 @@ RestAssured.config = RestAssured.config(config().encoderConfig(encoderConfig().a
 ## Decoder Config ##
 With the [DecoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/DecoderConfig.html) you can set the default response content decoding charset for all responses. This is useful if you expect a different content charset than ISO-8859-1 (which is the default charset) and the response doesn't define the charset in the content-type header. Usage example:
 ```java
-RestAssured.config = newConfig().decoderConfig(decoderConfig().defaultContentCharset("UTF-8"));
+RestAssured.config = RestAssured.config().decoderConfig(decoderConfig().defaultContentCharset("UTF-8"));
 ```
 
 You can also use the `DecoderConfig` to specify which content decoders to apply. When you do this the `Accept-Encoding` header will be added automatically to the request and the response body will be decoded automatically. By default GZIP and DEFLATE decoders are enabled. To for example to remove GZIP decoding but retain DEFLATE decoding you can do the following:
 ```java
-given().config(newConfig().decoderConfig(decoderConfig().contentDecoders(DEFLATE))). ..
+given().config(RestAssured.config().decoderConfig(decoderConfig().contentDecoders(DEFLATE))). ..
 ```
 
 You can also specify which decoder charset to use for a specific content-type if no charset is defined explicitly for this content-type by using the "defaultCharsetForContentType" method in the [DecoderConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/DecoderConfig.html). For example:
@@ -2167,7 +2167,7 @@ This will assume UTF-16 encoding for "application/xml" content-types that does e
 With the session config you can configure the default session id name that's used by REST Assured. The default session id name is `JSESSIONID` and you only need to change it if the name in your application is different and you want to make use of REST Assured's [session support](#Session_support). Usage:
 
 ```java
-RestAssured.config = newConfig().sessionConfig(new SessionConfig().sessionIdName("phpsessionid"));
+RestAssured.config = RestAssured.config().sessionConfig(new SessionConfig().sessionIdName("phpsessionid"));
 ```
 
 ## Redirect DSL ##
@@ -2180,24 +2180,24 @@ given().redirects().max(12).and().redirects().follow(true).when(). ..
 Lets you configure connection settings for REST Assured. For example if you want to force-close the Apache HTTP Client connection after each response. You may want to do this if you make a lot of fast consecutive requests with small amount of data in the response. However if you're downloading (especially large amounts of) chunked data you must not close connections after each response. By default connections are _not_ closed after each response.
 
 ```java
-RestAssured.config = newConfig().connectionConfig(connectionConfig().closeIdleConnectionsAfterEachResponse());
+RestAssured.config = RestAssured.config().connectionConfig(connectionConfig().closeIdleConnectionsAfterEachResponse());
 ```
 
 ## Json Config ##
 [JsonPathConfig](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/path/json/config/JsonPathConfig.html) allows you to configure the Json settings either when used by REST Assured or by [JsonPath](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/path/json/JsonPath.html). It let's you configure how JSON numbers should be treated.
 ```java
-RestAssured.config = newConfig().jsonConfig(jsonConfig().numberReturnType(NumberReturnType.BIG_DECIMAL))
+RestAssured.config = RestAssured.config().jsonConfig(jsonConfig().numberReturnType(NumberReturnType.BIG_DECIMAL))
 ```
 
 ## HTTP Client Config ##
 Let's you configure properties for the HTTP Client instance that REST Assured will be using when executing requests. By default REST Assured creates a new instance of http client for each "given" statement. To configure reuse do the following:
 ```java
-RestAssured.config = newConfig().httpClient(httpClientConfig().reuseHttpClientInstance());
+RestAssured.config = RestAssured.config().httpClient(httpClientConfig().reuseHttpClientInstance());
 ```
 
 You can also supply a custom HTTP Client instance by using the `httpClientFactory` method, for example:
 ```java
-RestAssured.config = newConfig().httpClient(httpClientConfig().httpClientFactory(
+RestAssured.config = RestAssured.config().httpClient(httpClientConfig().httpClientFactory(
          new HttpClientConfig.HttpClientFactory() {
 
             @Override
