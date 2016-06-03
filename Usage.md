@@ -2688,4 +2688,4 @@ You can also have a look at some code examples:
 
 If you need support then join the [mailing list](http://groups.google.com/group/rest-assured).
 
-For professional support please contact [Jayway](http://www.jayway.com).
+For professional support please contact [johanhaleby](https://github.com/johanhaleby).
