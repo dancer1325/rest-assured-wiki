@@ -24,6 +24,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
     1. [Multi-value cookies](#multi-value-cookies)
     1. [Detailed Cookies](#detailed-cookies)
 1. [Specifying Request Data](#specifying-request-data)
+  1. [Invoking HTTP resources](#invoking-http-resources)
   1. [Parameters](#parameters)
   1. [Multi-value Parameter](#multi-value-parameter)
   1. [No-value Parameter](#no-value-parameter)
