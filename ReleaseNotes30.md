@@ -148,7 +148,18 @@ This is a maintenance release but it contains some backward incompatible changes
 There are a lot of non-backward compatible changes in this release (see [upgrading](#upgrading) for upgrade instructions).
 
 * Package structure has been renamed from `com.jayway.restassured` to `io.restassured`.
-* The following methods 
+* Virtually all old deprecated methods have been [removed](#removed-deprecations).
+* Renamed the following methods (mainly for consistency):
+  - `io.restassured.authentication.CertificateAuthSettings.keystoreType` to `io.restassured.authentication.CertificateAuthSettings.keyStoreType`
+  - `io.restassured.authentication.CertificateAuthSettings.getKeystoreType` to `io.restassured.authentication.CertificateAuthSettings.getKeyStoreType`
+  - `io.restassured.specification.RequestSpecification.keystore to io.restassured.specification.RequestSpecification.keyStore`
+  - `io.restassured.RestAssured.keystore` to `io.restassured.RestAssured.keyStore`
+  - `io.restassured.builder.RequestSpecBuilder.setKeystore` to `io.restassured.builder.RequestSpecBuilder.setKeyStore`
+  - `com.jayway.restassured.specification.RequestLogSpecification.path(..)` to `com.jayway.restassured.specification.RequestLogSpecification.uri(..)`
+* Removed ability send requests directly from the response specification. This means that you can't do for example `expect().get("/")` anymore. Use `when().get("/")` instead.
+* Removed `io.restassured.specification.RequestSpecification.then()` since it's confusingly similar to the `then` method in `RequestSender`. Use then `when` method instead.
+* Moved classes `Cookie`, `Cookies`, `Header` and `Headers` from package `com.jayway.restassured.response` to `io.restassured.http` since they were used for both requests and responses.
+* Moved `io.restassured.internal.mapper.ObjectMapperType` to `io.restassured.mapper` since `ObjectMapperType` should not be internal
 
 ## Deprecations
 * `io.restassured.builder.RequestSpecBuilder`:
