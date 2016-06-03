@@ -156,6 +156,9 @@ If you're using Spring MVC you can use the [spring-mock-mvc](https://github.com/
 com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.*
 com.jayway.restassured.matcher.RestAssuredMatchers.*
 ```
+# Version 2.x #
+
+If you need to depend on an older version replace groupId `io.rest-assured` with `com.jayway.restassured`.
 
 # Documentation #
 When you've successfully downloaded and configured REST Assured in your classpath please refer to the [user guide](Usage) for examples.
