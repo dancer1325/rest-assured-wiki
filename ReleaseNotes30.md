@@ -140,7 +140,7 @@ This is a maintenance release but it contains some backward incompatible changes
           header("Location", response -> endsWith("/redirect/"+response.path("id")));
   ```
   This has also been implemented for the MockMvc module (issue 692).
-
+* Support for setting session attributes in the Spring MockMvc module using the "sessionAttr" and "sessionAttrs" methods (thanks to sneyyar for pull request) (issue 671)
 
 ## Non-backward compatible changes ##
 * Automatically escapes JsonPath and XmlPath fragments that contains a hyphen and an index lookup operator. For example consider the following JSON document:
