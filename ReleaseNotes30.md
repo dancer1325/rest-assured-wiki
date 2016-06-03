@@ -155,28 +155,27 @@ There are a lot of non-backward compatible changes in this release (see [upgradi
 [SSLConfig#getKeyStorePassword](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/SSLConfig.html#getKeyStorePassword--) instead 
 
 ## Removed Deprecations
-<table max-width="50%">
-    <tr><th>Removed Method</th><th>Instead Use</th></tr>
-    <tr><td>io.restassured.specification.AuthenticationSpecification.certificate(java.lang.String, java.lang.String, java.lang.String, int</td><td>io.restassured.specification.AuthenticationSpecification.certificate(java.lang.String, java.lang.String, io.restassured.authentication.CertificateAuthSettings)</td></tr>
-    <tr><td>io.restassured.RestAssured.requestContentType(io.restassured.http.ContentType)</td><td>io.restassured.builder.RequestSpecBuilder , set the content-type and apply it to  io.restassured.RestAssured.requestSpecification </td></tr>
-    <tr><td>io.restassured.RestAssured.responseContentType(java.lang.String)</td><td>Use io.restassured.builder.ResponseSpecBuilder.expectContentType(io.restassured.http.ContentType)  and apply it to  io.restassured.RestAssured.responseSpecification</td></tr>
-    <tr><td>io.restassured.config.EncoderConfig.appendDefaultContentCharsetToStreamingContentTypeIfUndefined(java.lang.boolean)</td><td>io.restassured.config.EncoderConfig.appendDefaultContentCharsetToContentTypeIfUndefined(boolean)</td></tr>
-    <tr><td>io.restassured.specification.FilterableRequestSpecification.getRequestContentType()</td><td>io.restassured.specification.FilterableRequestSpecification.getContentType()</td></tr>
-    <tr><td>io.restassured.RestAssured.requestContentType()</td><td>If you really need to know this then create a filter</td></tr>
-    <tr><td>io.restassured.RestAssured.responseContentType()</td><td>If you need to know this then extract it from the response</td></tr>
-    <tr><td>io.restassured.RestAssured.certificate(java.lang.String, java.lang.String, java.lang.String, int) </td><td> io.restassured.RestAssured.certificate(java.lang.String, java.lang.String, io.restassured.authentication.CertificateAuthSettings)</td></tr>
-    <tr><td>io.restassured.filter.FilterContext.getRequestMethod() </td><td>io.restassured.specification.FilterableRequestSpecification.getMethod() </td></tr>
-    <tr><td>io.restassured.filter.FilterContext.getRequestPath() </td><td>io.restassured.specification.FilterableRequestSpecification.getDerivedPath() </td></tr>
-    <tr><td>io.restassured.filter.FilterContext.getOriginalRequestPath()</td><td>io.restassured.specification.FilterableRequestSpecification.getUserDefinedPath()</td></tr>
-    <tr><td>io.restassured.filter.FilterContext.getRequestURI()</td><td>io.restassured.specification.FilterableRequestSpecification.getURI()</td></tr>
-    <tr><td>io.restassured.filter.FilterContext.getCompleteRequestPath()</td><td> io.restassured.specification.FilterableRequestSpecification.getURI()</td></tr>
-    <tr><td>io.restassured.filter.log.LogDetail.PATH</td><td>io.restassured.filter.log.LogDetail.URI </td></tr>
-    <tr><td>io.restassured.module.mockmvc.specification.MockMvcRequestSpecification.resultHandlers </td><td> io.restassured.module.mockmvc.response.ValidatableMockMvcResponse.apply(..)</td></tr>
-    <tr><td>io.restassured.mapper.ObjectMapper.JACKSON</td><td>Isn't needed anymore</td></tr>
-    <tr><td>io.restassured.mapper.ObjectMapper.GSON</td><td>Isn't needed anymore</td></tr>
-    <tr><td>io.restassured.mapper.ObjectMapper.JAXB</td><td>Isn't needed anymore</td></tr>
-    <tr><td>io.restassured.config.SSLConfig.getPassword()</td><td>io.restassured.config.SSLConfig.getKeyStorePassword() </td></tr>
-</table>
+**Removed Method** (**Instead Use**) 
+* io.restassured.specification.AuthenticationSpecification.certificate(java.lang.String, java.lang.String, java.lang.String, int (io.restassured.specification.AuthenticationSpecification.certificate(java.lang.String, java.lang.String, io.restassured.authentication.CertificateAuthSettings))
+* io.restassured.RestAssured.requestContentType(io.restassured.http.ContentType) (io.restassured.builder.RequestSpecBuilder , set the content-type and apply it to  io.restassured.RestAssured.requestSpecification)
+* io.restassured.RestAssured.responseContentType(java.lang.String) (Use io.restassured.builder.ResponseSpecBuilder.expectContentType(io.restassured.http.ContentType)  and apply it to  io.restassured.RestAssured.responseSpecification)
+* io.restassured.config.EncoderConfig.appendDefaultContentCharsetToStreamingContentTypeIfUndefined(java.lang.boolean) (io.restassured.config.EncoderConfig.appendDefaultContentCharsetToContentTypeIfUndefined(boolean))
+* io.restassured.specification.FilterableRequestSpecification.getRequestContentType() (io.restassured.specification.FilterableRequestSpecification.getContentType())
+* io.restassured.RestAssured.requestContentType() (If you really need to know this then create a filter)
+* io.restassured.RestAssured.responseContentType() (If you need to know this then extract it from the response)
+* io.restassured.RestAssured.certificate(java.lang.String, java.lang.String, java.lang.String, int) (io.restassured.RestAssured.certificate(java.lang.String, java.lang.String, io.restassured.authentication.CertificateAuthSettings))
+* io.restassured.filter.FilterContext.getRequestMethod()  (io.restassured.specification.FilterableRequestSpecification.getMethod())
+* io.restassured.filter.FilterContext.getRequestPath()  (io.restassured.specification.FilterableRequestSpecification.getDerivedPath())
+* io.restassured.filter.FilterContext.getOriginalRequestPath() (io.restassured.specification.FilterableRequestSpecification.getUserDefinedPath())
+* io.restassured.filter.FilterContext.getRequestURI() (io.restassured.specification.FilterableRequestSpecification.getURI())
+* io.restassured.filter.FilterContext.getCompleteRequestPath() ( io.restassured.specification.FilterableRequestSpecification.getURI())
+* io.restassured.filter.log.LogDetail.PATH (io.restassured.filter.log.LogDetail.URI)
+* io.restassured.module.mockmvc.specification.MockMvcRequestSpecification.resultHandlers)io.restassured.module.mockmvc.response.ValidatableMockMvcResponse.apply(..))
+* io.restassured.mapper.ObjectMapper.JACKSON (Isn't needed anymore)
+* io.restassured.mapper.ObjectMapper.GSON (Isn't needed anymore)
+* io.restassured.mapper.ObjectMapper.JAXB (Isn't needed anymore)
+* io.restassured.config.SSLConfig.getPassword() (io.restassured.config.SSLConfig.getKeyStorePassword())
+
 ## Upgrading
 
 To upgrade from an older version follow these steps:
