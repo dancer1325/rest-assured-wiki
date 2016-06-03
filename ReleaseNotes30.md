@@ -4,6 +4,7 @@ This is a maintenance release but it contains some backward incompatible changes
 
 # Contents
 1. [Highlights](#highlights)
+1. [Other Notable Changes](#other-notable-changes)
 1. [Non-backward compatible changes](#non-backward-compatible-changes)
 1. [Deprecations](#deprecations)
 1. [Minor Changes](#minor-changes)
@@ -32,6 +33,24 @@ This is a maintenance release but it contains some backward incompatible changes
   See [getting started guide](https://github.com/rest-assured/rest-assured/wiki/GettingStarted) for more info.
 
 * Package structure has been renamed from `com.jayway.restassured` to `io.restassured`. So code needs to be updated (search and replace should cover most scenarios), see [non-backward compatible changes](#non-backward-compatible-changes) for more info.
+* All HTTP verbs now support data in the body (for example TRACE, OPTIONS etc)
+* All HTTP verbs now support multipart file uploading (even GET, OPTIONS etc)
+* You can now use custom http methods/verbs with REST Assured by making using the the "request method" in the DSL (or from statically importing a io.restassured.RestAssured.request(..)). For example:
+
+  ```java
+  when().request("CONNECT", "/somewhere").then().statusCode(200);
+  ```
+
+  It you can also supply a predefined http method (defined in the `io.restassured.http.Method` enum):
+
+  ```java
+  when().request(Method.GET, "/lotto").then().statusCode(200);
+  ```
+  
+  This API has also been implemented for the MockMvc module (but MockMvc doesn't support arbitrary http methods as of now).
+
+## Other Notable Changes ##
+
 * It's now possible to map to java objects when extracting from a list in JsonPath. For example if we have the following JSON document:
 
   ```javascript
@@ -107,21 +126,6 @@ This is a maintenance release but it contains some backward incompatible changes
   ```java
   given().config(RestAssured.config().xmlConfig(xmlConfig().namespaceAware(false))). ..
   ```
-* All HTTP verbs now support data in the body (for example TRACE, OPTIONS etc)
-* All HTTP verbs now support multipart file uploading (even GET, OPTIONS etc)
-* You can now use custom http methods/verbs with REST Assured by making using the the "request method" in the DSL (or from statically importing a io.restassured.RestAssured.request(..)). For example:
-
-  ```java
-  when().request("CONNECT", "/somewhere").then().statusCode(200);
-  ```
-
-  It you can also supply a predefined http method (defined in the `io.restassured.http.Method` enum):
-
-  ```java
-  when().request(Method.GET, "/lotto").then().statusCode(200);
-  ```
-  
-  This API has also been implemented for the MockMvc module (but MockMvc doesn't support arbitrary http methods as of now).
 * Added ability to use ResponseAwareMatcher for headers. For example you can now use attributes from the response body to validate a Location header. Let's say that "/redirect" returns the json document `{ "id" : 1 }` and returns a redirect to a location ending with this id. If you want to validate the Location header invariant you can do:
   
   ```java  
