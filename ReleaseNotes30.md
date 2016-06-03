@@ -34,7 +34,7 @@ This is a maintenance release but it contains some backward incompatible changes
   See [getting started guide](https://github.com/rest-assured/rest-assured/wiki/GettingStarted) for more info.
 
 * Package structure has been renamed from `com.jayway.restassured` to `io.restassured`. Search and replace should cover most scenarios, see [non-backward compatible changes](#non-backward-compatible-changes) for more info.
-* All long method variants has been deprecated (for example `formParameters`, `specification`) as well as `content` (use `body` instead). See [deprecations](#deprecations) for more info.
+* All long method variants have been deprecated (for example `formParameters`, `specification`) as well as `content`. The reason for this is to avoid duplicated API methods in the future (and thus reducing the size of the API). See [deprecations](#deprecations) for more info.
 * All HTTP verbs now support data in the body (for example TRACE, OPTIONS etc)
 * All HTTP verbs now support multipart file uploading (even GET, OPTIONS etc)
 * You can now use custom http methods/verbs with REST Assured by making using the the "request method" in the DSL (or from statically importing a io.restassured.RestAssured.request(..)). For example:
