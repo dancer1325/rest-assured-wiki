@@ -257,7 +257,7 @@ get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products
 `matchesJsonSchemaInClasspath` is statically imported from `io.restassured.module.jsv.JsonSchemaValidator` and it's recommended to statically import all methods from this class. However in order to use it you need to depend on the `json-schema-validator` module by either [downloading](https://rest-assured.googlecode.com/files/json-schema-validator-2.9.0-dist.zip) it from the download page or add the following dependency from Maven:
 ```xml
 <dependency>
-    <groupId>com.jayway.restassured</groupId>
+    <groupId>io.restassured</groupId>
     <artifactId>json-schema-validator</artifactId>
     <version>2.9.0</version>
 </dependency>
@@ -2610,11 +2610,11 @@ Note that it's also possible to not use annotations and instead use a [RequestPo
 MockMvc doesn't differentiate between different kinds of parameters so `param`, `formParam` and `queryParam` currently just delegates to param in MockMvc. `formParam` adds the `application/x-www-form-urlencoded` content-type header automatically though just as standard Rest Assured does.
 
 # Scala Support Module #
-REST Assured 2.6.0 introduced the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-2.9.0-dist.zip) module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/io.restassured/rest-assured/2.9.0/com/jayway/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.9.0/com/jayway/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `com.jayway.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
+REST Assured 2.6.0 introduced the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-2.9.0-dist.zip) module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/io.restassured/rest-assured/2.9.0/com/jayway/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/io.restassured/spring-mock-mvc/2.9.0/com/jayway/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `io.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
 
 ```java
-import com.jayway.restassured.RestAssured.when
-import com.jayway.restassured.module.scala.RestAssuredSupport.AddThenToResponse
+import io.restassured.RestAssured.when
+import io.restassured.module.scala.RestAssuredSupport.AddThenToResponse
 import org.hamcrest.Matchers.equalTo
 import org.junit.Test
 
@@ -2633,13 +2633,13 @@ To use it do like this:
 
 #### SBT:
 ```scala
-libraryDependencies += "com.jayway.restassured" % "scala-support" % "2.9.0"
+libraryDependencies += "io.restassured" % "scala-support" % "2.9.0"
 ```
 
 #### Maven:
 ```xml
 <dependency>
-    <groupId>com.jayway.restassured</groupId>
+    <groupId>io.restassured</groupId>
     <artifactId>scala-support</artifactId>
     <version>2.9.0</version>
     <scope>test</scope>
@@ -2648,7 +2648,7 @@ libraryDependencies += "com.jayway.restassured" % "scala-support" % "2.9.0"
 
 #### Gradle:
 ```xml
-testCompile 'com.jayway.restassured:scala-support:2.9.0'
+testCompile 'io.restassured:scala-support:2.9.0'
 ```
 
 ### No build manager:
@@ -2698,10 +2698,10 @@ Test fun kotlin_rest_assured_example() {
 Notice that we don't need any escaping anymore. For more details refer to [this](http://code.haleby.se/2015/11/06/rest-assured-with-kotlin/) blog post.
 
 # More info #
-For more information refer to the [javadoc](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/index.html):
-  * [RestAssured](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/RestAssured.html)
-  * [RestAssuredMockMvc Javadoc](http://static.javadoc.io/com.jayway.restassured/spring-mock-mvc/2.9.0/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html)
-  * [Specification package](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/specification/package-summary.html)
+For more information refer to the [javadoc](http://static.javadoc.io/io.restassured/rest-assured/2.9.0/index.html):
+  * [RestAssured](http://static.javadoc.io/io.restassured/rest-assured/2.9.0/com/jayway/restassured/RestAssured.html)
+  * [RestAssuredMockMvc Javadoc](http://static.javadoc.io/io.restassured/spring-mock-mvc/2.9.0/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html)
+  * [Specification package](http://static.javadoc.io/io.restassured/rest-assured/2.9.0/com/jayway/restassured/specification/package-summary.html)
 
 You can also have a look at some code examples:
   * REST Assured [tests](https://github.com/jayway/rest-assured/tree/master/examples/rest-assured-itest-java/src/test/java/com/jayway/restassured/itest/java)
