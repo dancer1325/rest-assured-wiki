@@ -138,15 +138,15 @@ Download [REST Assured](http://dl.bintray.com/johanhaleby/generic/rest-assured-3
 In order to use REST assured effectively it's recommended to statically import methods from the following classes:
 
 ```java
-io.rest-assured.RestAssured.*
-io.rest-assured.matcher.RestAssuredMatchers.*
+io.restassured.RestAssured.*
+io.restassured.matcher.RestAssuredMatchers.*
 org.hamcrest.Matchers.*
 ```
 
 If you want to use [Json Schema](http://json-schema.org/) validation you should also statically import these methods:
 
 ```java
-io.rest-assured.module.jsv.JsonSchemaValidator.*
+io.restassured.module.jsv.JsonSchemaValidator.*
 ```
 
 Refer to [Json Schema Validation](#json-schema-validation) section for more info.
@@ -154,8 +154,8 @@ Refer to [Json Schema Validation](#json-schema-validation) section for more info
 If you're using Spring MVC you can use the [spring-mock-mvc](https://github.com/jayway/rest-assured/wiki/Usage#spring-mock-mvc-module) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://static.javadoc.io/io.rest-assured/spring-mock-mvc/3.0.0/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `io.rest-assured.RestAssured` and `io.rest-assured.matcher.RestAssuredMatchers`:
 
 ```java
-io.rest-assured.module.mockmvc.RestAssuredMockMvc.*
-io.rest-assured.matcher.RestAssuredMatchers.*
+io.restassured.module.mockmvc.RestAssuredMockMvc.*
+io.restassured.matcher.RestAssuredMatchers.*
 ```
 # Version 2.x #
 
