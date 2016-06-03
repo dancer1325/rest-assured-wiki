@@ -896,6 +896,27 @@ You can also get all detailed response [cookies](http://static.javadoc.io/com.ja
 
 Besides specifying request parameters you can also specify headers, cookies, body and content type.
 
+## Invoking HTTP resources ##
+
+You typically perform a request by calling any of the "HTTP methods" in the [request specification](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/specification/RequestSpecification.html). For example:
+
+```java
+when().get("/x"). ..;
+```
+
+Where `get` is the HTTP request method.
+
+As of REST Assured 3.0.0 you can use any HTTP verb with your request by making use of the [](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/specification/RequestSpecification.html#request-java.lang.String-java.lang.String-) method.
+
+```java
+when().
+       request("CONNECT", "/somewhere").
+then().
+       statusCode(200);
+```
+
+This will send a "connect" request to the server.
+
 ## Parameters ##
 Normally you specify parameters like this:
 
