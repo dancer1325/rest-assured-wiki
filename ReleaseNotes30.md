@@ -1,10 +1,13 @@
 # Release Notes for REST Assured 3.0.0 #
 
+This is a maintenance release but it contains some backward incompatible changes.
+
 # Contents
 1. [Highlights](#highlights)
 1. [Other Notable Changes](#other-notable-changes)
 1. [Non-backward compatible changes](#non-backward-compatible-changes)
 1. [Deprecations](#deprecations)
+1. [Removed Deprecations](#removed-deprecations)
 1. [Upgrading](#upgrading)
 1. [Minor Changes](#minor-changes)
 
@@ -141,36 +144,39 @@
 * Support for setting session attributes in the Spring MockMvc module using the "sessionAttr" and "sessionAttrs" methods (thanks to sneyyar for pull request) (issue 671)
 
 ## Non-backward compatible changes ##
-* Automatically escapes JsonPath and XmlPath fragments that contains a hyphen and an index lookup operator. For example consider the following JSON document:
-  ```javascript
- { "some-list" : ["one", "two"] }
-  ```
-  Previously you had to escape `some-list` manually if you wanted to get first element out of the list:
-  ```javascript
-  JsonPath jsonPath = ...
-  String firstElement = jsonPath.getString("'some-list'[0]"); // one
-  ```
-  Now no explicit escaping is necessary:
 
-  ```javascript
-  String firstElement = jsonPath.getString("some-list[0]"); // one
-  ```
-  But this means that if you previously had a JSON document like this:
-  ```javascript
-  { "some-list[0]" : ["one", "two"] }
-  ```
-  you would now have to escape it:
-  
-  ```javascript
-  String firstElement = jsonPath.getString("'some-list[0]'[0]"); // one
-  ```
-  which makes this an (unlikely but still) non-backward compatible change (issue 564).
-* Getting an attribute value from an XmlPath expression that doesn't exists now returns null instead of an empty list (issue #650).
-* Keystore was previously used as a truststore. You must change `given().keystore(..)` to `given().trustStore(..)`, `RestAssured.keystore(..)` to `RestAssured.trustStore(..)` and `SSLConfig.keystore(..)` to `SSLConfig.trustStore(..)`. Sorry!
+There are a lot of non-backward compatible changes in this release (see [upgrading](#upgrading) for upgrade instructions).
+
+* Package structure has been renamed from `com.jayway.restassured` to `io.restassured`.
+* The following methods 
 
 ## Deprecations
 * [SSLConfig#getPassword](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/SSLConfig.html#getPassword--), use 
 [SSLConfig#getKeyStorePassword](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/SSLConfig.html#getKeyStorePassword--) instead 
+
+## Removed Deprecations
+
+| Removed Method | Instead use |
+| -------------- |------------ |
+|`io.restassured.specification.AuthenticationSpecification.certificate(java.lang.String, java.lang.String, java.lang.String, int)` | `io.restassured.specification.AuthenticationSpecification.certificate(java.lang.String, java.lang.String, io.restassured.authentication.CertificateAuthSettings)`|
+|`io.restassured.RestAssured.requestContentType(io.restassured.http.ContentType) | `io.restassured.builder.RequestSpecBuilder, set the content-type and apply it to io.restassured.RestAssured.requestSpecification)                                                                              |
+|`io.restassured.RestAssured.responseContentType(java.lang.String) (Use io.restassured.builder.ResponseSpecBuilder.expectContentType(io.restassured.http.ContentType) and apply it to io.restassured.RestAssured.responseSpecification`                                                       |
+|`io.restassured.config.EncoderConfig.appendDefaultContentCharsetToStreamingContentTypeIfUndefined(java.lang.boolean) | `io.restassured.config.EncoderConfig.appendDefaultContentCharsetToContentTypeIfUndefined(boolean)`                                                                  |
+|`io.restassured.specification.FilterableRequestSpecification.getRequestContentType() | `io.restassured.specification.FilterableRequestSpecification.getContentType()`                                                                                                                      |
+|`io.restassured.RestAssured.requestContentType() (If you really need to know this then create a filter)                                                                                                                                                                                              |
+|`io.restassured.RestAssured.responseContentType() (If you need to know this then extract it from the response)                                                                                                                                                                                       |
+|`io.restassured.RestAssured.certificate(java.lang.String, java.lang.String, java.lang.String, int) | `io.restassured.RestAssured.certificate(java.lang.String, java.lang.String, io.restassured.authentication.CertificateAuthSettings)`                                                   |
+|`io.restassured.filter.FilterContext.getRequestMethod() | `io.restassured.specification.FilterableRequestSpecification.getMethod()`                                                                                                                                                        |
+|`io.restassured.filter.FilterContext.getRequestPath() | `io.restassured.specification.FilterableRequestSpecification.getDerivedPath()`                                                                                                                                                     |
+|`io.restassured.filter.FilterContext.getOriginalRequestPath() | `io.restassured.specification.FilterableRequestSpecification.getUserDefinedPath()`                                                                                                                                         |
+|`io.restassured.filter.FilterContext.getRequestURI() | `io.restassured.specification.FilterableRequestSpecification.getURI()`                                                                                                                                                              |
+|`io.restassured.filter.FilterContext.getCompleteRequestPath() | `io.restassured.specification.FilterableRequestSpecification.getURI()`                                                                                                                                                     |
+|`io.restassured.filter.log.LogDetail.PATH | `io.restassured.filter.log.LogDetail.URI`                                                                                                                                                                                                      |
+|`io.restassured.module.mockmvc.specification.MockMvcRequestSpecification.resultHandlers | `io.restassured.module.mockmvc.response.ValidatableMockMvcResponse.apply(..)`                                                                                                                    |
+|`io.restassured.mapper.ObjectMapper.JACKSON (isn't needed anymore)
+|`io.restassured.mapper.ObjectMapper.GSON (isn't needed anymore)
+|`io.restassured.mapper.ObjectMapper.JAXB (isn't needed anymore)
+|`io.restassured.config.SSLConfig.getPassword() | `io.restassured.config.SSLConfig.getKeyStorePassword()`
 
 ## Upgrading
 
