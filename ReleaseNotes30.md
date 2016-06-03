@@ -37,7 +37,7 @@ This is a maintenance release but it contains some backward incompatible changes
 * All long method variants have been deprecated (for example `formParameters`, `specification`) as well as `content`. The reason for this is to avoid duplicated API methods in the future (and thus reducing the size of the API). See [deprecations](#deprecations) for more info.
 * All HTTP verbs now support data in the body (for example TRACE, OPTIONS etc)
 * All HTTP verbs now support multipart file uploading (even GET, OPTIONS etc)
-* You can now use custom http methods/verbs with REST Assured by making using the the "request method" in the DSL (or from statically importing a io.restassured.RestAssured.request(..)). For example:
+* You can now use custom http methods/verbs with REST Assured by making using the the `request` method in the DSL (or by statically importing a `io.restassured.RestAssured.request`). For example:
 
   ```java
   when().request("CONNECT", "/somewhere").then().statusCode(200);
