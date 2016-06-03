@@ -401,7 +401,7 @@ then().
          body("foo.test:bar.text()", equalTo("make me a sandwich!"));
 ```
 
-The path syntax follows Groovy's XmlSlurper syntax. Note that in versions prior to 2.6.0 the path syntax was *not* following Groovy's XmlSlurper syntax. Please see [release notes](https://github.com/jayway/rest-assured/wiki/ReleaseNotes26#non-backward-compatible-changes) for versin 2.6.0 to see how the previous syntax looked like.
+The path syntax follows Groovy's XmlSlurper syntax. Note that in versions prior to 2.6.0 the path syntax was *not* following Groovy's XmlSlurper syntax. Please see [release notes](https://github.com/rest-assured/rest-assured/wiki/ReleaseNotes26#non-backward-compatible-changes) for versin 2.6.0 to see how the previous syntax looked like.
 
 ### XPath ###
 
@@ -810,7 +810,7 @@ JsonPath.config = new JsonPathConfig("UTF-8");
 
 You can read more about JsonPath at [this blog](http://www.jayway.com/2013/04/12/whats-new-in-rest-assured-1-8/).
 
-Note that the JsonPath implementation uses <a href='http://groovy-lang.org/processing-xml.html#_gpath'>Groovy's GPath</a> syntax and is not to be confused with Jayway's other <a href='https://github.com/jayway/JsonPath'>JsonPath</a> implementation.
+Note that the JsonPath implementation uses <a href='http://groovy-lang.org/processing-xml.html#_gpath'>Groovy's GPath</a> syntax and is not to be confused with Jayway's <a href='https://github.com/jayway/JsonPath'>JsonPath</a> implementation.
 
 ## XML (using XmlPath) ##
 You also have the corresponding functionality for XML using  [XmlPath](http://static.javadoc.io/io.restassured/xml-path/2.9.0/io/restassured/path/xml/XmlPath.html):
@@ -1645,7 +1645,7 @@ or you can define it statically once and for all:
 RestAssured.config = RestAssuredConfig.config().objectMapperConfig(new ObjectMapperConfig(myObjectMapper));
 ```
 
-For an example see [here](https://github.com/jayway/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/CustomObjectMappingITest.java).
+For an example see [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/CustomObjectMappingITest.java).
 
 # Custom parsers #
 REST Assured providers predefined parsers for e.g. HTML, XML and JSON. But you can parse other kinds of content by registering a predefined parser for unsupported content-types by using:
@@ -2036,7 +2036,7 @@ If you already loaded a keystore with a password you can use it as a truststore:
 RestAssured.trustStore(keystore);
 ```
 
-You can find a working example [here](https://github.com/jayway/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/SSLTest.java).
+You can find a working example [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/SSLTest.java).
 
 For more advanced SSL Configuration refer to the [SSL Configuration](#ssl-config) section.
 
@@ -2704,9 +2704,9 @@ For more information refer to the [javadoc](http://static.javadoc.io/io.restassu
   * [Specification package](http://static.javadoc.io/io.restassured/rest-assured/2.9.0/io/restassured/specification/package-summary.html)
 
 You can also have a look at some code examples:
-  * REST Assured [tests](https://github.com/jayway/rest-assured/tree/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java)
-  * [JsonPathTest](https://github.com/jayway/rest-assured/blob/master/json-path/src/test/java/io/restassured/path/json/JsonPathTest.java)
-  * [XmlPathTest](https://github.com/jayway/rest-assured/blob/master/xml-path/src/test/java/io/restassured/path/xml/XmlPathTest.java)
+  * REST Assured [tests](https://github.com/rest-assured/rest-assured/tree/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java)
+  * [JsonPathTest](https://github.com/rest-assured/rest-assured/blob/master/json-path/src/test/java/io/restassured/path/json/JsonPathTest.java)
+  * [XmlPathTest](https://github.com/rest-assured/rest-assured/blob/master/xml-path/src/test/java/io/restassured/path/xml/XmlPathTest.java)
 
 If you need support then join the [mailing list](http://groups.google.com/group/rest-assured).
 
