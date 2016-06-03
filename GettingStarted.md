@@ -8,6 +8,7 @@
   1. [Scala Module](#scala-support)
 1. [Non-maven users](#non-maven-users)
 1. [Static Imports](#static-imports)
+1. [Version 2.x](#version-2x)
 1. [Documentation](#documentation)
 
 ## Maven / Gradle Users ##
