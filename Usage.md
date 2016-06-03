@@ -1109,7 +1109,6 @@ get("/x").then().assertThat().contentType(ContentType.JSON). ..
 
 ```java
 get("/x").then().assertThat().body(equalTo("something")). ..
-get("/x").then().assertThat().content(equalTo("something")). .. // Same as above
 ```
 
 ## Use the response to verify other parts of the response ##
@@ -1353,7 +1352,7 @@ given().
 when().
         get("/customAuth").
 then().
-	statusCode(200);
+  statusCode(200);
 ```
 
 The reason why you want to use a `AuthFilter` and not `Filter` is that `AuthFilters` are automatically removed when doing `given().auth().none(). ..`.
@@ -1721,7 +1720,7 @@ In this example the data defined in "responseSpec" is merged with the additional
 You can do the same thing if you need to re-use request data in different tests. E.g.
 ```java
 RequestSpecBuilder builder = new RequestSpecBuilder();
-builder.addParameter("parameter1", "parameterValue");
+builder.addParam("parameter1", "parameterValue");
 builder.addHeader("header1", "headerValue");
 RequestSpecification requestSpec = builder.build();
   
@@ -1847,7 +1846,7 @@ you can use a root path and do:
 when().
         get("/something").
 then().
-         rootPath("x.y"). // You can also use the "root" method
+         root("x.y"). // You can also use the "root" method
          body("firstName", is(..)).
          body("lastName", is(..)).
          body("age", is(..)).
