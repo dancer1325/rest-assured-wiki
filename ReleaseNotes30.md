@@ -9,7 +9,27 @@ This is a maintenance release but it contains some backward incompatible changes
 1. [Minor Changes](#minor-changes)
 
 ## Highlights
-* Major improvements of certificate authentication. You can now use a keystore (without truststore) and a keystore and truststore at the same time (see [non-backward compatible changes](#non-backward-compatible-changes)).
+* REST Assured has a new group id, `io.rest-assured`. Previously you depended on REST Assured like this (Maven):
+  
+  ```xml
+  <dependency>
+    <groupId>com.jayway.restassured</groupId>
+    <artifactId>rest-assured</artifactId>
+    <version>${rest-assured.version}</version>
+  </dependency>
+
+  ```
+
+  but now you do:
+
+  ```xml
+  <dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>rest-assured</artifactId>
+    <version>${rest-assured.version}</version>
+  </dependency>
+  ```
+* Package structure has been renamed from `com.jayway.restassured` to `io.restassured`. So code needs to be updated (search and replace should cover most scenarios), see [non-backward compatible changes](#non-backward-compatible-changes) for more info.
 
 ## Non-backward compatible changes ##
 * Automatically escapes JsonPath and XmlPath fragments that contains a hyphen and an index lookup operator. For example consider the following JSON document:
