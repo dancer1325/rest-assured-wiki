@@ -155,11 +155,9 @@ There are a lot of non-backward compatible changes in this release (see [upgradi
 [SSLConfig#getKeyStorePassword](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/SSLConfig.html#getKeyStorePassword--) instead 
 
 ## Removed Deprecations
-<table>
+<table max-width="50%">
     <tr><th>Removed Method</th><th>Instead Use</th></tr>
-    <tr><td>io.restassured.specification.AuthenticationSpecification
-          .certificate(java.lang.String, java.lang.String, java.lang.String, int</td><td>io.restassured.specification.AuthenticationSpecification
-          .certificate(java.lang.String, java.lang.String, io.restassured.authentication.CertificateAuthSettings)</td></tr>
+    <tr><td>io.restassured.specification.AuthenticationSpecification.certificate(java.lang.String, java.lang.String, java.lang.String, int</td><td>io.restassured.specification.AuthenticationSpecification.certificate(java.lang.String, java.lang.String, io.restassured.authentication.CertificateAuthSettings)</td></tr>
     <tr><td>io.restassured.RestAssured.requestContentType(io.restassured.http.ContentType)</td><td>io.restassured.builder.RequestSpecBuilder , set the content-type and apply it to  io.restassured.RestAssured.requestSpecification </td></tr>
     <tr><td>io.restassured.RestAssured.responseContentType(java.lang.String)</td><td>Use io.restassured.builder.ResponseSpecBuilder.expectContentType(io.restassured.http.ContentType)  and apply it to  io.restassured.RestAssured.responseSpecification</td></tr>
     <tr><td>io.restassured.config.EncoderConfig.appendDefaultContentCharsetToStreamingContentTypeIfUndefined(java.lang.boolean)</td><td>io.restassured.config.EncoderConfig.appendDefaultContentCharsetToContentTypeIfUndefined(boolean)</td></tr>
