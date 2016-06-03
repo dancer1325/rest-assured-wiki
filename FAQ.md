@@ -73,3 +73,19 @@
  ```java
  get("/json").then().assertThat().body("any { it.key == 'size' }", is(true));
  ```
+
+3. Issues REST Assured with Grape
+
+ > If you run into issues with Grapes such as:
+
+  ```
+  General error during conversion: Conflicting module versions. Module [groovy-xml is loaded in version 2.4.6 and you are trying to load version 2.4.4". This happens when running rest-assured 2.9.0 in a groovy script with any recent version of groovy except 2.4.4.
+  ```
+
+  you should try excluding `org.codehaus.groovy:groovy-xml` and `org.codehaus.groovy:groovy-json`:
+
+  ```groovy
+  @Grab("com.jayway.restassured:rest-assured:<version>")
+  @GrabExclude("org.codehaus.groovy:groovy-xml")
+  @GrabExclude("org.codehaus.groovy:groovy-json")
+  ```
