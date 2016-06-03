@@ -151,8 +151,67 @@ There are a lot of non-backward compatible changes in this release (see [upgradi
 * The following methods 
 
 ## Deprecations
-* [SSLConfig#getPassword](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/SSLConfig.html#getPassword--), use 
-[SSLConfig#getKeyStorePassword](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/SSLConfig.html#getKeyStorePassword--) instead 
+* `io.restassured.builder.RequestSpecBuilder`:
+    - io.restassured.builder.RequestSpecBuilder.setContent(byte[]) (use io.restassured.builder.RequestSpecBuilder.setBody(byte[]) instead)
+    - io.restassured.builder.RequestSpecBuilder.setContent(java.lang.Object) (use io.restassured.builder.RequestSpecBuilder.setBody(Object) instead)
+    - io.restassured.builder.RequestSpecBuilder.setContent(java.lang.Object, io.restassured.mapper.ObjectMapper) (use io.restassured.builder.RequestSpecBuilder.setBody(java.lang.Object, io.restassured.mapper.ObjectMapper) instead)
+    - io.restassured.builder.RequestSpecBuilder.setContent(java.lang.Object, io.restassured.mapper.ObjectMapperType) (use io.restassured.builder.RequestSpecBuilder.setBody(java.lang.Object, io.restassured.mapper.ObjectMapperType) instead)
+    - io.restassured.builder.RequestSpecBuilder.setContent(java.lang.Object, io.restassured.mapper.ObjectMapperType) (use io.restassured.builder.RequestSpecBuilder.setBody(java.lang.Object, io.restassured.mapper.ObjectMapperType) instead)
+    - io.restassured.builder.RequestSpecBuilder.setContent(java.lang.String) (use io.restassured.builder.RequestSpecBuilder.setBody(java.lang.String) instead)
+    - io.restassured.builder.RequestSpecBuilder.addParameter(java.lang.String, java.util.Collection<?>) (use io.restassured.builder.RequestSpecBuilder.addParam(java.lang.String, java.util.Collection<?>) instead)
+    - io.restassured.builder.RequestSpecBuilder.addParameter(java.lang.String, java.lang.Object...) (use io.restassured.builder.RequestSpecBuilder.addParam(java.lang.String, java.lang.Object...) instead)
+    - io.restassured.builder.RequestSpecBuilder.addParameters (use io.restassured.builder.RequestSpecBuilder.addParams instead)
+    - io.restassured.builder.RequestSpecBuilder.addFormParameter(java.lang.String, java.util.Collection<?>) (use io.restassured.builder.RequestSpecBuilder.addParams instead)
+    - io.restassured.builder.RequestSpecBuilder.addFormParameter(java.lang.String, java.lang.Object...) (use io.restassured.builder.RequestSpecBuilder.addFormParam(java.lang.String, java.lang.Object...) instead)
+    - io.restassured.builder.RequestSpecBuilder.addFormParameters (use io.restassured.builder.RequestSpecBuilder.addFormParams instead)
+    - io.restassured.builder.RequestSpecBuilder.addPathParameter(java.lang.String, java.util.Collection<?>) (use io.restassured.builder.RequestSpecBuilder.addParams instead)
+    - io.restassured.builder.RequestSpecBuilder.addPathParameters(java.lang.String, java.lang.Object, java.lang.Object...) (use io.restassured.builder.RequestSpecBuilder.addPathParams(java.lang.String, java.lang.Object, java.lang.Object...) instead)
+    - io.restassured.builder.RequestSpecBuilder.addPathParameters (use (use io.restassured.builder.RequestSpecBuilder.addPathParams instead)
+    - io.restassured.builder.RequestSpecBuilder.addQueryParameter(java.lang.String, java.util.Collection<?>) (use io.restassured.builder.RequestSpecBuilder.addParams instead)
+    - io.restassured.builder.RequestSpecBuilder.addQueryParameter(java.lang.String, java.lang.Object...) (use io.restassured.builder.RequestSpecBuilder.addQueryParam(java.lang.String, java.lang.Object...) instead)
+    - io.restassured.builder.RequestSpecBuilder.addQueryParameters (use io.restassured.builder.RequestSpecBuilder.addQueryParams instead)
+    - io.restassured.builder.RequestSpecBuilder.setAuthentication (use io.restassured.builder.RequestSpecBuilder.setAuth instead)
+* `io.restassured.builder.ResponseSpecBuilder`:
+    - io.restassured.builder.ResponseSpecBuilder.expectContent(org.hamcrest.Matcher<?>) (Use io.restassured.builder.ResponseSpecBuilder.expectBody(org.hamcrest.Matcher<?>) instead)
+    - io.restassured.builder.ResponseSpecBuilder.expectContent(java.lang.String, org.hamcrest.Matcher<?>) (Use io.restassured.builder.ResponseSpecBuilder.expectBody(java.lang.String, org.hamcrest.Matcher<?>) instead)
+    - io.restassured.builder.ResponseSpecBuilder.expectContent(java.lang.String, java.util.List<io.restassured.specification.Argument>, org.hamcrest.Matcher<?>) (Use io.restassured.builder.ResponseSpecBuilder.expectBody(java.lang.String, java.util.List<io.restassured.specification.Argument>, org.hamcrest.Matcher<?>) instead)
+* `io.restassured.specification.RequestSpecification`:
+    - io.restassured.specification.RequestSpecification.content(byte[]) (Use io.restassured.specification.RequestSpecification.body(byte[]) instead)
+    - io.restassured.specification.RequestSpecification.content(java.io.File) (Use io.restassured.specification.RequestSpecification.body(java.io.File) instead)
+    - io.restassured.specification.RequestSpecification.content(java.io.InputStream) (Use io.restassured.specification.RequestSpecification.body(java.io.InputStream) instead)
+    - io.restassured.specification.RequestSpecification.content(java.lang.Object) (Use io.restassured.specification.RequestSpecification.body(java.lang.Object) instead)
+    - io.restassured.specification.RequestSpecification.content(java.lang.Object, io.restassured.mapper.ObjectMapper) (Use io.restassured.specification.RequestSpecification.body(java.lang.Object, io.restassured.mapper.ObjectMapper) instead)
+    - io.restassured.specification.RequestSpecification.content(java.lang.Object, io.restassured.mapper.ObjectMapperType) (Use io.restassured.specification.RequestSpecification.body(java.lang.Object, io.restassured.mapper.ObjectMapperType) instead)
+    - io.restassured.specification.RequestSpecification.content(java.lang.String) (Use io.restassured.specification.RequestSpecification.body(java.lang.String) instead)
+    - io.restassured.specification.RequestSpecification.authentication (Use io.restassured.specification.RequestSpecification.auth instead)
+    - io.restassured.specification.RequestSpecification.parameter(java.lang.String, java.util.Collection<?>) (Use io.restassured.specification.RequestSpecification.param(java.lang.String, java.util.Collection<?>) instead)
+    - io.restassured.specification.RequestSpecification.parameter(java.lang.String, java.lang.Object...) (Use io.restassured.specification.RequestSpecification.param(java.lang.String, java.lang.Object...) instead)
+    - io.restassured.specification.RequestSpecification.parameters(java.util.Map<java.lang.String,?>) (Use io.restassured.specification.RequestSpecification.params(java.util.Map<java.lang.String,?>) instead)
+    - io.restassured.specification.RequestSpecification.parameters(java.lang.String, java.lang.Object, java.lang.Object...) (Use io.restassured.specification.RequestSpecification.params(java.lang.String, java.lang.Object, java.lang.Object...) instead)
+    - io.restassured.specification.RequestSpecification.formParameter(java.lang.String, java.util.Collection<?>) (Use io.restassured.specification.RequestSpecification.formParam(java.lang.String, java.util.Collection<?>) instead)
+    - io.restassured.specification.RequestSpecification.formParameter(java.lang.String, java.lang.Object...) (Use io.restassured.specification.RequestSpecification.formParam(java.lang.String, java.lang.Object...) instead)
+    - io.restassured.specification.RequestSpecification.formParameters(java.util.Map<java.lang.String,?>) (Use io.restassured.specification.RequestSpecification.formParams(java.util.Map<java.lang.String,?>) instead)
+    - io.restassured.specification.RequestSpecification.formParameters(java.lang.String, java.lang.Object, java.lang.Object...) (Use io.restassured.specification.RequestSpecification.formParams(java.lang.String, java.lang.Object, java.lang.Object...) instead)
+    - io.restassured.specification.RequestSpecification.queryParameter(java.lang.String, java.util.Collection<?>) (Use io.restassured.specification.RequestSpecification.queryParam(java.lang.String, java.util.Collection<?>) instead)
+    - io.restassured.specification.RequestSpecification.queryParameter(java.lang.String, java.lang.Object...) (Use io.restassured.specification.RequestSpecification.queryParam(java.lang.String, java.lang.Object...) instead)
+    - io.restassured.specification.RequestSpecification.queryParameters(java.util.Map<java.lang.String,?>) (Use io.restassured.specification.RequestSpecification.queryParams(java.util.Map<java.lang.String,?>) instead)
+    - io.restassured.specification.RequestSpecification.queryParameters(java.lang.String, java.lang.Object, java.lang.Object...) (Use io.restassured.specification.RequestSpecification.queryParams(java.lang.String, java.lang.Object, java.lang.Object...) instead)
+    - io.restassured.specification.RequestSpecification.pathParameter(java.lang.String, java.lang.Object...) (Use io.restassured.specification.RequestSpecification.pathParam(java.lang.String, java.lang.Object...) instead)
+    - io.restassured.specification.RequestSpecification.pathParameters(java.util.Map<java.lang.String,?>) (Use io.restassured.specification.RequestSpecification.pathParams(java.util.Map<java.lang.String,?>) instead)
+    - io.restassured.specification.RequestSpecification.pathParameters(java.lang.String, java.lang.Object, java.lang.Object...) (Use io.restassured.specification.RequestSpecification.pathParams(java.lang.String, java.lang.Object, java.lang.Object...) instead)
+    - io.restassured.specification.RequestSpecification.specification (Use io.restassured.specification.RequestSpecification.spec instead)
+* `io.restassured.specification.ResponseSpecification`:
+    - io.restassured.specification.ResponseSpecification#rootPath(java.lang.String) (Use io.restassured.specification.ResponseSpecification.root(java.lang.String) instead)
+    - io.restassured.specification.ResponseSpecification.rootPath(java.lang.String, java.util.List<io.restassured.specification.Argument>) (Use io.restassured.specification.ResponseSpecification.rootPath(java.lang.String, java.util.List<io.restassured.specification.Argument>) instead)
+    - io.restassured.specification.ResponseSpecification.noRootPath (Use io.restassured.specification.ResponseSpecification.noRoot instead)
+    - io.restassured.specification.ResponseSpecification.content(java.util.List<io.restassured.specification.Argument>, org.hamcrest.Matcher, java.lang.Object...) (Use io.restassured.specification.ResponseSpecification.body(java.util.List<io.restassured.specification.Argument>, org.hamcrest.Matcher, java.lang.Object...) instead)
+    - io.restassured.specification.ResponseSpecification.content(org.hamcrest.Matcher<?>, org.hamcrest.Matcher<?>...) (Use io.restassured.specification.ResponseSpecification.body(org.hamcrest.Matcher<?>, org.hamcrest.Matcher<?>...) instead)
+    - io.restassured.specification.ResponseSpecification.content(java.lang.String, java.util.List<io.restassured.specification.Argument>, org.hamcrest.Matcher, java.lang.Object...) (Use io.restassured.specification.ResponseSpecification.body(java.lang.String, java.util.List<io.restassured.specification.Argument>, org.hamcrest.Matcher, java.lang.Object...) instead)
+    - io.restassured.specification.ResponseSpecification.content(java.lang.String, org.hamcrest.Matcher<?>, java.lang.Object...) (Use io.restassured.specification.ResponseSpecification.body(java.lang.String, org.hamcrest.Matcher<?>, java.lang.Object...) instead)
+    - io.restassured.specification.ResponseSpecification.specification (Use io.restassured.specification.ResponseSpecification.spec instead)
+* `io.restassured.RestAssured`:
+    - io.restassured.RestAssured.withArguments (Use io.restassured.RestAssured.withArgs instead)
+    - io.restassured.RestAssured.withNoArguments (Use io.restassured.RestAssured.withNoArgs instead)
 
 ## Removed Deprecations
 
