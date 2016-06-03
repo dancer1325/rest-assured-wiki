@@ -7,6 +7,7 @@ This is a maintenance release but it contains some backward incompatible changes
 1. [Other Notable Changes](#other-notable-changes)
 1. [Non-backward compatible changes](#non-backward-compatible-changes)
 1. [Deprecations](#deprecations)
+1. [Upgrading](#upgrading)
 1. [Minor Changes](#minor-changes)
 
 ## Highlights
@@ -32,7 +33,8 @@ This is a maintenance release but it contains some backward incompatible changes
   ```
   See [getting started guide](https://github.com/rest-assured/rest-assured/wiki/GettingStarted) for more info.
 
-* Package structure has been renamed from `com.jayway.restassured` to `io.restassured`. So code needs to be updated (search and replace should cover most scenarios), see [non-backward compatible changes](#non-backward-compatible-changes) for more info.
+* Package structure has been renamed from `com.jayway.restassured` to `io.restassured`. Search and replace should cover most scenarios, see [non-backward compatible changes](#non-backward-compatible-changes) for more info.
+* All long method variants has been deprecated (for example `formParameters`, `specification`) as well as `content` (use `body` instead). See [deprecations](#deprecations) for more info.
 * All HTTP verbs now support data in the body (for example TRACE, OPTIONS etc)
 * All HTTP verbs now support multipart file uploading (even GET, OPTIONS etc)
 * You can now use custom http methods/verbs with REST Assured by making using the the "request method" in the DSL (or from statically importing a io.restassured.RestAssured.request(..)). For example:
@@ -172,12 +174,14 @@ This is a maintenance release but it contains some backward incompatible changes
 * [SSLConfig#getPassword](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/SSLConfig.html#getPassword--), use 
 [SSLConfig#getKeyStorePassword](http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/SSLConfig.html#getKeyStorePassword--) instead 
 
+## Upgrading
+
+To upgrade from an older version follow these steps:
+
+1. Change Maven/Gradle groupId to `io.rest-assured` (see [getting started guide](https://github.com/rest-assured/rest-assured/wiki/GettingStarted))
+1. In your code base search for `com.jayway.restassured` and replace with `io.restassured`
+1. If you still have compile-errors see the list of [non-backward compatible changes](#non-backward-compatible-changes) and correct the errors.
+
 ## Minor changes ##
-* Added support for composing a Hamcrest matcher with a ResponseAwareMatcher when using a ResponseAwareMatcherComposer
-* Added support for multipart DELETE requests (issue 634)
-* It's now possible to use empty and whitespace path parameters (issue 631)
-* Fixing `NullPointerException` for GET requests with an empty body (issue 642)
-* Form authentication for fully-qualified URIs now uses the URI specified in the request instead of just localhost (issue 641)
-* Improve escaping for XmlPath's containing colon. For example you can now do like this without manually having to escape anything in the path: `x:something.x:y[0]` (issue 647)
 
 See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
