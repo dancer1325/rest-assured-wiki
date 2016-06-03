@@ -157,7 +157,7 @@ There are a lot of non-backward compatible changes in this release (see [upgradi
   - `io.restassured.builder.RequestSpecBuilder.setKeystore` to `io.restassured.builder.RequestSpecBuilder.setKeyStore`
   - `com.jayway.restassured.specification.RequestLogSpecification.path(..)` to `com.jayway.restassured.specification.RequestLogSpecification.uri(..)`
 * Removed ability send requests directly from the response specification. This means that you can't do for example `expect().get("/")` anymore. Use `when().get("/")` instead.
-* Removed `io.restassured.specification.RequestSpecification.then()` since it's confusingly similar to the `then` method in `RequestSender`. Use then `when` method instead.
+* Removed `io.restassured.specification.RequestSpecification.then()` since it's confusingly similar to the `then` method in `RequestSender`. Use the `when` method instead.
 * Moved classes `Cookie`, `Cookies`, `Header` and `Headers` from package `com.jayway.restassured.response` to `io.restassured.http` since they were used for both requests and responses.
 * Moved `io.restassured.internal.mapper.ObjectMapperType` to `io.restassured.mapper` since `ObjectMapperType` should not be internal
 
