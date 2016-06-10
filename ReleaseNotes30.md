@@ -1,5 +1,7 @@
 # Release Notes for REST Assured 3.0.0 #
 
+The next major version of REST Assured
+
 # Contents
 1. [Highlights](#highlights)
 1. [Other Notable Changes](#other-notable-changes)
