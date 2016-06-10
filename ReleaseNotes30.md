@@ -79,7 +79,7 @@ This is a maintenance release but it contains some backward incompatible changes
 
 
   ```java
-  List<Book> books = JsonPath.from(json).getList("store.books", Book.class);
+  List<Book> books = JsonPath.from(json).getList("store.book", Book.class);
   ```
 * Improved error messages when trying to verify a path with a parent that doesn't exist. For example if we have the following JSON document:
 
