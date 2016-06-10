@@ -97,7 +97,7 @@ This is a maintenance release but it contains some backward incompatible changes
 
   ```java
   1 expectation failed.
-  JSON path store.unknown.unknown.get(0) doesn't match.
+  JSON path myThing1.name doesn't match.
   Expected: (a collection containing "none")
   Actual: null
   ```
