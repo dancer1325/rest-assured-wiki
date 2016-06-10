@@ -1,7 +1,5 @@
 # Release Notes for REST Assured 3.0.0 #
 
-This is a maintenance release but it contains some backward incompatible changes.
-
 # Contents
 1. [Highlights](#highlights)
 1. [Other Notable Changes](#other-notable-changes)
