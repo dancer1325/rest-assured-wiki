@@ -98,7 +98,7 @@ This is a maintenance release but it contains some backward incompatible changes
   ```java
   1 expectation failed.
   JSON path myThing1.name doesn't match.
-  Expected: (a collection containing "none")
+  Expected: "ThingName"
   Actual: null
   ```
   
