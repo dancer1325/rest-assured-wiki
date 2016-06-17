@@ -11,7 +11,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Advanced](#example-3---complex-parsing-and-validation)
     1. [XML](#xml-example)
     2. [JSON](#json-example)
-  1. [External Examples](#additional-examples)
+  1. [Additional Examples](#additional-examples)
 1. [Note on floats and doubles](#note-on-floats-and-doubles)
 1. [Note on syntax](#note-on-syntax) ([syntactic sugar](#syntactic-sugar))
 1. [Getting Response Data](#getting-response-data)
@@ -645,6 +645,9 @@ assertThat(sumOfAllAuthorLengths, is(53));
 
 ## Additional Examples ##
 Micha Kops has written a really good blog with several examples (including code examples that you can checkout). You can read it [here](http://www.hascode.com/2011/10/testing-restful-web-services-made-easy-using-the-rest-assured-framework/).
+
+Also [Bas Dijkstra](https://www.linkedin.com/in/basdijkstra) has been generous enough to open source his REST Assured workshop. You can read more about this [here](http://www.ontestautomation.com/open-sourcing-my-workshop-an-experiment/) and you can try out, and contribute to, the exercises available in [his](https://github.com/basdijkstra/workshops/) github repository. 
+
 
 ## Note on floats and doubles ##
 Floating point numbers must be compared with a Java "float" primitive. For example, if we consider the following JSON object:
