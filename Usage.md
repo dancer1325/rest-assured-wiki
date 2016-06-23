@@ -257,7 +257,7 @@ get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products
 `matchesJsonSchemaInClasspath` is statically imported from `io.restassured.module.jsv.JsonSchemaValidator` and it's recommended to statically import all methods from this class. However in order to use it you need to depend on the `json-schema-validator` module by either [downloading](http://dl.bintray.com/johanhaleby/generic/json-schema-validator-3.0.0-dist.zip) it from the download page or add the following dependency from Maven:
 ```xml
 <dependency>
-    <groupId>io.restassured</groupId>
+    <groupId>io.rest-assured</groupId>
     <artifactId>json-schema-validator</artifactId>
     <version>3.0.0</version>
 </dependency>
@@ -2642,7 +2642,7 @@ libraryDependencies += "io.restassured" % "scala-support" % "3.0.0"
 #### Maven:
 ```xml
 <dependency>
-    <groupId>io.restassured</groupId>
+    <groupId>io.rest-assured</groupId>
     <artifactId>scala-support</artifactId>
     <version>3.0.0</version>
     <scope>test</scope>
