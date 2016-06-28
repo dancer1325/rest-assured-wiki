@@ -2636,7 +2636,7 @@ To use it do like this:
 
 #### SBT:
 ```scala
-libraryDependencies += "io.restassured" % "scala-support" % "3.0.0"
+libraryDependencies += "io.rest-assured" % "scala-support" % "3.0.0"
 ```
 
 #### Maven:
