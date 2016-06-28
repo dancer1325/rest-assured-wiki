@@ -2651,7 +2651,7 @@ libraryDependencies += "io.rest-assured" % "scala-support" % "3.0.0"
 
 #### Gradle:
 ```xml
-testCompile 'io.restassured:scala-support:3.0.0'
+testCompile 'io.rest-assured:scala-support:3.0.0'
 ```
 
 ### No build manager:
