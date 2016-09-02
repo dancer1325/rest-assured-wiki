@@ -910,7 +910,7 @@ when().get("/x"). ..;
 
 Where `get` is the HTTP request method.
 
-As of REST Assured 3.0.1 you can use any HTTP verb with your request by making use of the [](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.1/io/restassured/specification/RequestSpecification.html#request-java.lang.String-java.lang.String-) method.
+As of REST Assured 3.0.0 you can use any HTTP verb with your request by making use of the [](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.1/io/restassured/specification/RequestSpecification.html#request-java.lang.String-java.lang.String-) method.
 
 ```java
 when().
