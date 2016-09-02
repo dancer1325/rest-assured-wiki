@@ -17,7 +17,7 @@
 	> This is because you have conflicting versions of [asm](http://asm.ow2.org/) in your classpath. Groovy depends on version 4 and something else in your classpath require asm 3. The solution is to exclude `groovy` form REST Assured and depend on `groovy-all` instead. If you're using Maven you can do like this:
 	```xml
 	<dependency>
-	    <groupId>com.jayway.restassured</groupId>
+	    <groupId>io.rest-assured</groupId>
 	    <artifactId>rest-assured</artifactId>
 	    <version>${rest-assured.version}</version>
 	    <exclusions>
@@ -39,7 +39,7 @@
 	```
 	If you're using Gradle do like this:
 	```groovy
-	testCompile (group: 'com.jayway.restassured', name: 'rest-assured', version:'3.0.1') {
+	testCompile (group: 'io.rest-assured', name: 'rest-assured', version:'3.0.1') {
 	        exclude(module: 'groovy')
 	}
 	testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.3'
