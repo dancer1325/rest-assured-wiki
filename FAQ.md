@@ -85,7 +85,7 @@
   you should try excluding `org.codehaus.groovy:groovy-xml` and `org.codehaus.groovy:groovy-json`:
 
   ```groovy
-  @Grab("com.jayway.restassured:rest-assured:<version>")
+  @Grab("io.rest-assured:rest-assured:<version>")
   @GrabExclude("org.codehaus.groovy:groovy-xml")
   @GrabExclude("org.codehaus.groovy:groovy-json")
   ```
