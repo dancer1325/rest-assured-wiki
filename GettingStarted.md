@@ -162,4 +162,4 @@ io.restassured.matcher.RestAssuredMatchers.*
 If you need to depend on an older version replace groupId `io.rest-assured` with `com.jayway.restassured`.
 
 # Documentation #
-When you've successfully downloaded and configured REST Assured in your classpath please refer to the [user guide](Usage) for examples.
+When you've successfully downloaded and configured REST Assured in your classpath please refer to the [usage guide](Usage) for examples.
