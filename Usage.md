@@ -1706,8 +1706,6 @@ This means that a request like e.g. `get("/hello")` goes to: http://myhost.org:8
 
 ```java
 RestAssured.filters(..); // List of default filters
-RestAssured.requestContentType(..); // Specify the default request content type
-RestAssured.responseContentType(..); // Specify the default response content type
 RestAssured.requestSpecification = .. // Default request specification
 RestAssured.responseSpecification = .. // Default response specification
 RestAssured.urlEncodingEnabled = .. // Specify if Rest Assured should URL encoding the parameters
