@@ -44,7 +44,7 @@ The next major version of REST Assured
   when().request("CONNECT", "/somewhere").then().statusCode(200);
   ```
 
-  It you can also supply a predefined http method (defined in the `io.restassured.http.Method` enum):
+  You can also supply a predefined http method (defined in the `io.restassured.http.Method` enum):
 
   ```java
   when().request(Method.GET, "/lotto").then().statusCode(200);
