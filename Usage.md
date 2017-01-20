@@ -70,8 +70,8 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
 1. [Default Values](#default-values)
 1. [Specification Re-use](#specification-re-use)
 1. [Filters](#filters)
-  1. [Response Builder](#response-builder)
   1. [Ordered Filters](#ordered-filters)
+  1. [Response Builder](#response-builder)
 1. [Logging](#logging)
   1. [Request Logging](#request-logging)
   1. [Response Logging](#response-logging)
@@ -1775,7 +1775,7 @@ There are a couple of filters provided by REST Assured that are ready to use:
 
 As of REST Assured 3.0.2 you can implement the [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.2/io/restassured/filter/OrderedFilter.html) interface if you need to control the filter ordering. Here you implement the `getOrder` method to return an integer representing the precedence of the filter. A lower value gives higher precedence. The highest precedence you can define is `Integer.MIN_VALUE` and the lowest precedence is `Integer.MAX_VALUE`. Filters not implementing [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.2/io/restassured/filter/OrderedFilter.html) will have a default precedence of `1000`. Click [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/OrderedFilterITest.java) for some examples.
 
-## Response Builder ##
+### Response Builder ###
 
 If you need to change the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.2/io/restassured/response/Response.html) from a filter you can use the [ResponseBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.2/io/restassured/builder/ResponseBuilder.html) to create a new Response based on the original response. For example if you want to change the body of the original response to something else you can do:
 ```java
