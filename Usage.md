@@ -1770,6 +1770,10 @@ There are a couple of filters provided by REST Assured that are ready to use:
   1. `io.restassured.filter.log.ResponseLoggingFilter`: A filter that'll print the response details if the response matches a given status code.
   1. `io.restassured.filter.log.ErrorLoggingFilter`: A filter that'll print the response body if an error occurred (status code is between 400 and 500).
 
+### Ordered Filters
+
+As of REST Assured 3.0.2 you can implement the [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.2/io/restassured/filter/OrderedFilter.html) interface if you need to control the filter ordering. Here you implement the `getOrder` method to return an integer representing the precedence of the filter. A lower value gives higher precedence. The highest precedence you can define is `Integer.MIN_VALUE` and the lowest precedence is `Integer.MAX_VALUE`. Filters not implementing [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.2/io/restassured/filter/OrderedFilter.html) will have a default precedence of `1000`. Click [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/OrderedFilterITest.java) for some examples.
+
 ## Response Builder ##
 
 If you need to change the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.2/io/restassured/response/Response.html) from a filter you can use the [ResponseBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/3.0.2/io/restassured/builder/ResponseBuilder.html) to create a new Response based on the original response. For example if you want to change the body of the original response to something else you can do:
