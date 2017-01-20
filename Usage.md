@@ -71,6 +71,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
 1. [Specification Re-use](#specification-re-use)
 1. [Filters](#filters)
   1. [Response Builder](#response-builder)
+  1. [Ordered Filters](#ordered-filters)
 1. [Logging](#logging)
   1. [Request Logging](#request-logging)
   1. [Response Logging](#response-logging)
