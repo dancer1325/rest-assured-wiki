@@ -33,7 +33,7 @@
 	    <groupId>org.codehaus.groovy</groupId>
 	    <artifactId>groovy-all</artifactId>
 	    <!-- Needs to be the same version that REST Assured depends on -->
-	    <version>2.4.3</version>
+	    <version>2.4.6</version>
 	    <scope>test</scope>
 	</dependency>
 	```
@@ -42,7 +42,7 @@
 	testCompile (group: 'io.rest-assured', name: 'rest-assured', version:'3.0.2') {
 	        exclude(module: 'groovy')
 	}
-	testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.3'
+	testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.6'
 	```
 2. Q: How can I determine if a JSON response path exists or doesn't exist?
 
