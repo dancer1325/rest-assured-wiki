@@ -2443,7 +2443,7 @@ Spring MockMvc has support for [Result Handlers](http://docs.spring.io/spring-fr
 .. .then().apply(print()). .. 
 ```
 
-where `print` is statically imported from `org.springframework.test.web.server.result.MockMvcResultHandlers`. Note that if you're using REST Assured 2.6.0 or older you used the `resultHandlers` method:
+where `print` is statically imported from `org.springframework.test.web.servlet.result.MockMvcResultHandlers`. Note that if you're using REST Assured 2.6.0 or older you used the `resultHandlers` method:
 
 ```java
 given().resultHandlers(print()). .. 
@@ -2462,7 +2462,7 @@ then().
         body("id", equalTo(1)).
         body("content", equalTo("Hello, Johan!"));  
 ```
-where `status` is statically imported from `org.springframework.test.web.server.result.MockMvcResultMatchers`. Note that you can also use the `expect` method which is the same as `assertThat` but more close to the syntax of native MockMvc.
+where `status` is statically imported from `org.springframework.test.web.servlet.result.MockMvcResultMatchers`. Note that you can also use the `expect` method which is the same as `assertThat` but more close to the syntax of native MockMvc.
 
 ## Interceptors ##
 For more advanced use cases you can also get ahold of and modify the [MockHttpServletRequestBuilder](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html) before the request is performed. To do this define a [MockHttpServletRequestBuilderInterceptor](http://static.javadoc.io/io.restassured/spring-mock-mvc/3.0.2/io/restassured/module/mockmvc/intercept/MockHttpServletRequestBuilderInterceptor.html) and use it with RestAssuredMockMvc:
