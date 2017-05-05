@@ -1,6 +1,6 @@
 1. Update changelog with the date of the new release
 1. Run `./mvn_release.sh` and follow the instructions.
-	1. If build fails because of missing dependencies do:
+	* If build fails because of missing dependencies do:
 		1. `mvn install -Prelease,dist`
 		1. `mvn release:prepare -Prelease,dist -Dresume`
 		1. `mvn release:perform -Prelease,dist`
