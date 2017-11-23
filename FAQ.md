@@ -39,7 +39,7 @@
 	```
 	If you're using Gradle do like this:
 	```groovy
-	testCompile (group: 'io.rest-assured', name: 'rest-assured', version:'3.0.5') {
+	testCompile (group: 'io.rest-assured', name: 'rest-assured', version:'3.0.6') {
 	        exclude(module: 'groovy')
 	}
 	testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.6'
@@ -79,7 +79,7 @@
  > If you run into issues with Grapes such as:
 
   ```
-  General error during conversion: Conflicting module versions. Module [groovy-xml is loaded in version 2.4.6 and you are trying to load version 2.4.4". This happens when running rest-assured 3.0.5 in a groovy script with any recent version of groovy except 2.4.4.
+  General error during conversion: Conflicting module versions. Module [groovy-xml is loaded in version 2.4.6 and you are trying to load version 2.4.4". This happens when running rest-assured 3.0.6 in a groovy script with any recent version of groovy except 2.4.4.
   ```
 
   you should try excluding `org.codehaus.groovy:groovy-xml` and `org.codehaus.groovy:groovy-json`:
