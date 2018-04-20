@@ -49,6 +49,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Digest](#digest-authentication)
   1. [Form](#form-authentication)
     1. [CSRF](#csrf)
+    1. [Include additional fields in Form Authentication](#include_additional_fields_in_form_authentication)
   1. [OAuth](#oauth)
     1. [OAuth1](#oauth-1)
     1. [OAuth2](#oauth-2)
@@ -1363,6 +1364,44 @@ when().
 then().
         statusCode(200);
 ```
+
+### Include additional fields in Form Authentication ###
+
+Since version 3.1.0 REST Assured can include additional input fields when using form authentication. Just use the `FormAuthConfig` and specify the additional values to include. For example if you have an html page that looks like this:
+
+```html
+<html>
+<head>
+   <title>Login</title>
+</head>
+<body>
+<form action="/login" method="POST">
+   <table>
+       <tr>
+           <td>User:&nbsp;</td>
+           <td><input type="text" name="j_username"></td>
+       </tr>
+       <tr>
+           <td>Password:</td>
+           <td><input type="password" name="j_password"></td>
+       </tr>
+       <tr>
+           <td colspan="2"><input name="submit" type="submit"/></td>
+       </tr>
+   </table>
+   <input type="hidden" name="firstInputField" value="value1"/>
+   <input type="hidden" name="secondInputField" value="value2"/>
+</form>
+</body>
+</html>
+```
+and you'd like to include the value of form parameters `firstInputField` and `secondInputField` you can do like this:
+
+```java
+given().auth().form("username", "password", formAuthConfig().withAdditionalFields("firstInputField", "secondInputField"). ..
+```
+
+REST Assured will automatically parse the HTML page, find the values for the additional fields and include them as form parameters in the login request.
 
 ## OAuth ##
 
