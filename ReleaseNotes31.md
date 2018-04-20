@@ -1,4 +1,4 @@
-# Release Notes for REST Assured 3.0.0 #
+# Release Notes for REST Assured 3.1.0 #
 
 The next major version of REST Assured
 
