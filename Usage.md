@@ -70,7 +70,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Default](#default-parser)
 1. [Default Values](#default-values)
 1. [Specification Re-use](#specification-re-use)
-  1. [Querying RequestSpecification](#querying-requestSpecification)
+  1. [Querying RequestSpecification](#querying-requestspecification)
 1. [Filters](#filters)
   1. [Ordered Filters](#ordered-filters)
   1. [Response Builder](#response-builder)
