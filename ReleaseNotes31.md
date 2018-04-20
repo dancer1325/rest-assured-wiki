@@ -24,6 +24,18 @@
 * Add better integration for standard HTTP methods with Apache HttpClient which also solves an issue content-type header being generated for empty GET requests
 * No longer using `DEF_CONTENT_CHARSET` from Apache HttpClient since it caused compatibility issues
 * Removing Authorization header when setting `auth().none()`
+* Fixed so that it's possible to specify arguments to root paths in multi expectation blocks such as:
+  
+  ```java
+  get("/jsonStore").then()
+    .root("store.book.find { it.author == '%s' }.price")
+    .body(
+            withArgs("Nigel Rees"), is(8.95f),
+            withArgs("Evelyn Waugh"), is(12.99f),
+            withArgs("Herman Melville"), is(8.99f),
+            withArgs("J. R. R. Tolkien"), is(22.99f)
+    );
+  ```
 
 
 ## Minor changes ##
