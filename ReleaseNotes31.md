@@ -72,6 +72,28 @@
     );
   ```
 
+## Non-backward compatible changes ##
+* If you've written a custom [ObjectMapperFactory](http://static.javadoc.io/io.rest-assured/rest-assured-common/3.1.0/io/restassured/mapper/factory/ObjectMapperFactory.html) you need to change the signature of the `create` method. For example if you previously had a custom `JAXBObjectMapperFactory` that looked like this:
+
+  ```java
+  public class MyJAXBObjectMapperFactory implements JAXBObjectMapperFactory {
+     public JAXBContext create(Class cls, String charset) {
+         ...
+     }
+  }
+  ```
+
+  you now need to change it to:
+
+  ```java
+   public class MyJAXBObjectMapperFactory implements JAXBObjectMapperFactory {
+        public JAXBContext create(Type cls, String charset) {
+            ...
+        }
+   }
+  ```
+
+  Note the change from `java.lang.Class` to `java.lang.reflect.Type`. This was needed for swagger integration.
 
 ## Minor changes ##
 
