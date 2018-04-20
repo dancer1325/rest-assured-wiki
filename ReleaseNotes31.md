@@ -10,7 +10,7 @@
 * Now using `java.lang.reflect.Type` instead of `java.lang.Class` in the API for mapping to Java objects. For users of the REST Assured API the change is mostly prominent in the
   [ResponseBodyExtractionOptions](http://static.javadoc.io/io.rest-assured/rest-assured/3.1.0/io/restassured/response/ResponseBodyExtractionOptions.html) interface where the `as` method now takes a `java.lang.reflect.Type` instead of `java.lang.Class`. This should not cause
   any backward incompatibilities unless you've written a custom [ObjectMapperFactory](http://static.javadoc.io/io.rest-assured/rest-assured-common/3.1.0/io/restassured/mapper/factory/ObjectMapperFactory.html). See [non-backward compatible changes](#non-backward-compatible-changes) if this is the case.
-* Allow querying (extracting values out of) a request specification without using a filer by using the `io.restassured.specification.SpecificationQuerier`. For example:
+* Allow querying (extracting values out of) a request specification without using a filter by using the `io.restassured.specification.SpecificationQuerier`. For example:
  
   ```java
   RequestSpecification spec = ...
