@@ -18,7 +18,7 @@
   String headerValue = queryable.getHeaders().getValue("header");
   String param = queryable.getFormParams().get("someparam");
   ```
-* It's now possible to automatically include additional input fields when using form authentication. Just use the `FormAuthConfig` and specify the additional values to include. For example if you have an html page that looks like this:
+* It's now possible to include additional input fields when using form authentication. Just use the `FormAuthConfig` and specify the additional values to include. For example if you have an html page that looks like this:
 
   ```html
   <html>
