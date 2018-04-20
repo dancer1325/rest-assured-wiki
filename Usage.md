@@ -847,6 +847,38 @@ XmlPath.config = new XmlPathConfig("UTF-8");
 
 You can read more about XmlPath at [this blog](http://www.jayway.com/2013/04/12/whats-new-in-rest-assured-1-8/).
 
+### Parsing HTML with XmlPath ###
+
+By configuring XmlPath with [compatibility mode](http://static.javadoc.io/io.rest-assured/xml-path/3.0.7/io/restassured/path/xml/XmlPath.CompatibilityMode.html) `HTML` you can also use the XmlPath syntax (Gpath) to parse HTML pages. For example if you want to extract the title of this HTML document:
+
+```html
+<html>
+<head>
+    <title>my title</title>
+  </head>
+  <body>
+    <p>paragraph 1</p>
+     <br>
+    <p>paragraph 2</p>
+  </body>
+</html>
+```
+
+you can configure XmlPath like this:
+
+```java
+String html = ...
+XmlPath xmlPath = new XmlPath(CompatibilityMode.HTML, html);
+```
+
+and then extract the title like this:
+
+```java
+xmlPath.getString("html.head.title"); // will return "mytitle"
+```
+
+In this example we've statically imported: `io.restassured.path.xml.XmlPath.CompatibilityMode.HTML`;
+
 ## Single path ##
 If you only want to make a request and return a single path you can use a shortcut:
 ```java
