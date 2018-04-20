@@ -18,6 +18,41 @@
   String headerValue = queryable.getHeaders().getValue("header");
   String param = queryable.getFormParams().get("someparam");
   ```
+* It's now possible to automatically include additional input fields when using form authentication. Just use the `FormAuthConfig` and specify the additional values to include. For example if you have an html page that looks like this:
+
+  ```html
+  <html>
+   <head>
+       <title>Login</title>
+   </head>
+   <body>
+   <form action="/login" method="POST">
+       <table>
+           <tr>
+               <td>User:&nbsp;</td>
+               <td><input type="text" name="j_username"></td>
+           </tr>
+           <tr>
+               <td>Password:</td>
+               <td><input type="password" name="j_password"></td>
+           </tr>
+           <tr>
+               <td colspan="2"><input name="submit" type="submit"/></td>
+           </tr>
+       </table>
+       <input type="hidden" name="firstInputField" value="value1"/>
+       <input type="hidden" name="secondInputField" value="value2"/>
+   </form>
+   </body>
+  </html>
+  ```
+  and you'd like to include the value of form parameters `firstInputField` and `secondInputField` you can do like this:
+
+  ```java
+   given().auth().form("username", "password", formAuthConfig().withAdditionalFields("firstInputField", "secondInputField"). ..
+  ```
+  
+  REST Assured will automatically parse the HTML page, find the values for the additional fields and include them as form parameters in the login request.
 
 ## Other Notable Changes ##
 
