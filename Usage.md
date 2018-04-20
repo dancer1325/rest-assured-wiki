@@ -49,7 +49,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Digest](#digest-authentication)
   1. [Form](#form-authentication)
     1. [CSRF](#csrf)
-    1. [Include additional fields in Form Authentication](##include-additional-fields-in-form-authentication)
+    1. [Include additional fields in Form Authentication](#include-additional-fields-in-form-authentication)
   1. [OAuth](#oauth)
     1. [OAuth1](#oauth-1)
     1. [OAuth2](#oauth-2)
