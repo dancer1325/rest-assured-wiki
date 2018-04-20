@@ -69,6 +69,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
   1. [Default](#default-parser)
 1. [Default Values](#default-values)
 1. [Specification Re-use](#specification-re-use)
+  1. [Querying RequestSpecification](#querying_requestSpecification)
 1. [Filters](#filters)
   1. [Ordered Filters](#ordered-filters)
   1. [Response Builder](#response-builder)
@@ -1790,6 +1791,16 @@ then().
 ```
 
 Here the request's data is merged with the data in the "requestSpec" so the request will contain two parameters ("parameter1" and "parameter2") and one header ("header1").
+
+## Querying RequestSpecification ##
+Sometimes it's useful to be able to query/extract values form a RequestSpecification. For this reason you can use the `io.restassured.specification.SpecificationQuerier`. For example:
+ 
+```java
+RequestSpecification spec = ...
+QueryableRequestSpecification queryable = SpecificationQuerier.query(spec);
+String headerValue = queryable.getHeaders().getValue("header");
+String param = queryable.getFormParams().get("someparam");
+```
 
 # Filters #
 A filter allows you to inspect and alter a request before it's actually committed and also inspect and [alter](#response-builder) the response before it's returned to the expectations. You can regard it as an "around advice" in AOP terms. Filters can be used to implement custom authentication schemes, session management, logging etc. To create a filter you need to implement the [io.restassured.filter.Filter](http://static.javadoc.io/io.rest-assured/rest-assured/3.1.0/io/restassured/filter/Filter.html) interface. To use a filter you can do:
