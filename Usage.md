@@ -1367,7 +1367,7 @@ then().
 
 ### Include additional fields in Form Authentication ###
 
-Since version 3.1.1 REST Assured can include additional input fields when using form authentication. Just use the `FormAuthConfig` and specify the additional values to include. For example if you have an html page that looks like this:
+Since version 3.1.0 REST Assured can include additional input fields when using form authentication. Just use the `FormAuthConfig` and specify the additional values to include. For example if you have an html page that looks like this:
 
 ```html
 <html>
