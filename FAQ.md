@@ -1,6 +1,6 @@
 # FAQ #
 
-1. Q: I'm running into exceptions like the one below after having upgraded to REST Assured 1.8+
+## 1. Q: I'm running into exceptions like the one below after having upgraded to REST Assured 1.8+
 
  ```java
 	java.lang.IncompatibleClassChangeError: Found interface org.objectweb.asm.MethodVisitor, but class was expected
@@ -44,7 +44,7 @@
 	}
 	testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.6'
 	```
-2. Q: How can I determine if a JSON response path exists or doesn't exist?
+## 2. Q: How can I determine if a JSON response path exists or doesn't exist?
 
  > Imagine that we have a resource called "/json" that returns the following JSON response:
  ```javascript
@@ -74,7 +74,7 @@
  get("/json").then().assertThat().body("any { it.key == 'size' }", is(true));
  ```
 
-3. Issues REST Assured with Grape
+## 3. Issues with REST Assured and Grape
 
  > If you run into issues with Grapes such as:
 
@@ -89,3 +89,28 @@
   @GrabExclude("org.codehaus.groovy:groovy-xml")
   @GrabExclude("org.codehaus.groovy:groovy-json")
   ```
+
+## 4. Logging REST Assured logs to disk
+
+By default when invoking `log().all()` (or any of the equivalents) in REST Assured logs are written to the console. To change this you can supply a custom [java.io.PrintStream](https://docs.oracle.com/javase/8/docs/api/java/io/PrintStream.html) instance to the [LogConfig](http://static.javadoc.io/io.rest-assured/rest-assured/3.1.1/io/restassured/config/LogConfig.html). For example:
+
+```java
+try (FileWriter fileWriter = new FileWriter("/tmp/logging.txt");
+     PrintStream printStream = new PrintStream(new WriterOutputStream(fileWriter), true)) {
+
+    RestAssured.config = RestAssured.config().logConfig(LogConfig.logConfig().defaultStream(printStream));
+
+	given().
+	        log().all().
+	        queryParam("firstName", "John").
+	        queryParam("lastName", "Doe").
+	when().
+	        get("/greet").
+	then().
+	        log().all().
+	        statusCode(200).
+	        body("greeting", equalTo("Greetings John Doe"));
+}
+```
+
+Typically you don't wan to do this for every tests but rather create something like a [JUnit Rule](https://github.com/junit-team/junit4/wiki/rules). An example JUnit Rule can be found [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/support/WriteLogsToDisk.java). Also have a look at [this blog post](http://code.haleby.se/2018/10/05/logging-to-disk-with-rest-assured/) for more details.
