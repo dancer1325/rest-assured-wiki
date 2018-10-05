@@ -113,4 +113,4 @@ try (FileWriter fileWriter = new FileWriter("/tmp/logging.txt");
 }
 ```
 
-Typically you don't wan to do this for every tests but rather create something like a [JUnit Rule](https://github.com/junit-team/junit4/wiki/rules). An example JUnit Rule can be found [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/support/WriteLogsToDisk.java). Also have a look at [this blog post](http://code.haleby.se/2018/10/05/logging-to-disk-with-rest-assured/) for more details.
+Typically you don't want to do this for every test but rather create something like a [JUnit Rule](https://github.com/junit-team/junit4/wiki/rules). An example JUnit Rule can be found [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/support/WriteLogsToDisk.java). Also have a look at [this blog post](http://code.haleby.se/2018/10/05/logging-to-disk-with-rest-assured/) for more details.
