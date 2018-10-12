@@ -100,17 +100,17 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
     1. [Param Config](#param-config)
 1. [Spring Mock Mvc Module](#spring-mock-mvc-module)
     1. [Bootstrapping RestAssuredMockMvc](#bootstrapping-restassuredmockmvc)
-    1. [Asynchronous Requests](#asynchronous-requests)
-    1. [Adding Request Post Processors](#adding-request-post-processors)
-    1. [Adding Result Handlers](#adding-result-handlers)
-    1. [Using Result Matchers](#using-result-matchers)
-    1. [Interceptors](#interceptors)
-    1. [Specifications](#specifications)
+    1. [Asynchronous Requests](#asynchronous-requests-mockmvc)
+    1. [Adding Request Post Processors](#adding-request-post-processors-mockmvc)
+    1. [Adding Result Handlers](#adding-result-handlers-mockmvc)
+    1. [Using Result Matchers](#using-result-matchers-mockmvc)
+    1. [Interceptors](#interceptors-mockmvc)
+    1. [Specifications](#specifications-mockmvc)
     1. [Resetting RestAssuredMockMvc](#resetting-restassuredmockmvc)
     1. [Spring MVC Authentication](#spring-mvc-authentication)
-        1. [Using Spring Security Test](#using-spring-security-test)
-        1. [Injecting a User](#injecting-a-user)
-    1. [Note on parameters](#note-on-parameters)
+        1. [Using Spring Security Test](#using-spring-security-test-mockmvc)
+        1. [Injecting a User](#injecting-a-user-mockmvc)
+    1. [Note on parameters](#note-on-parameters-mockmvc)
 1. [Scala Support Module](#scala-support-module)
 1. [Kotlin](#kotlin)
 1. [More Info](#more-info)
@@ -2431,7 +2431,7 @@ then().
         body("content", equalTo("Hello, Johan!"));  
 ```
 
-## Asynchronous Requests ##
+## Asynchronous Requests [MockMvc] ##
 As of version `2.5.0` RestAssuredMockMvc has support for asynchronous requests. For example let's say you have the following controller:
 ```java
 @Controller
@@ -2506,7 +2506,7 @@ then().
 
 Both request 1 and 2 will now use the default timeout of 100 milliseconds.
 
-## Adding Request Post Processors ##
+## Adding Request Post Processors [MockMvc] ##
 Spring MockMvc has support for [Request Post Processors](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html) and you can use these in RestAssuredMockMvc as well. For example:
 ```java
 given().postProcessors(myPostProcessor1, myPostProcessor2). ..
@@ -2518,7 +2518,7 @@ given().auth().with(httpBasic("username", "password")). ..
 ```
 where httpBasic is statically imported from [SecurityMockMvcRequestPostProcessor](http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html).
 
-## Adding Result Handlers ##
+## Adding Result Handlers [MockMvc] ##
 Spring MockMvc has support for [Result Handlers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultHandler.html) and you can use these in RestAssuredMockMvc as well. For example let's say you want to use the native MockMvc logging:
 
 ```java
@@ -2532,7 +2532,7 @@ given().resultHandlers(print()). ..
 ```
 but this was deprected in REST Assured 2.8.0.
 
-## Using Result Matchers ##
+## Using Result Matchers [MockMvc] ##
 Spring MockMvc provides a bunch of [Result Matchers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultMatcher.html) that you may find useful. RestAssuredMockMvc has support for these as well if needed. For example let's say that for some reason you want to verify that the status code is equal to 200 using a ResultMatcher:
 ```java
 given().
@@ -2546,14 +2546,14 @@ then().
 ```
 where `status` is statically imported from `org.springframework.test.web.servlet.result.MockMvcResultMatchers`. Note that you can also use the `expect` method which is the same as `assertThat` but more close to the syntax of native MockMvc.
 
-## Interceptors ##
+## Interceptors [MockMvc] ##
 For more advanced use cases you can also get ahold of and modify the [MockHttpServletRequestBuilder](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html) before the request is performed. To do this define a [MockHttpServletRequestBuilderInterceptor](http://static.javadoc.io/io.restassured/spring-mock-mvc/3.1.1/io/restassured/module/mockmvc/intercept/MockHttpServletRequestBuilderInterceptor.html) and use it with RestAssuredMockMvc:
 
 ```java
 given().interceptor(myInterceptor). ..
 ```
 
-## Specifications ##
+## Specifications [MockMvc] ##
 Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredMockMvc is called [MockMvcRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-mock-mvc/3.1.1/io/restassured/module/mockmvc/specification/MockMvcRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/3.1.1/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredMockMvc as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
 ```java
 RestAssuredMockMvc.requestSpecification = new MockMvcRequestSpecBuilder().addQueryParam("name", "Johan").build();
@@ -2584,7 +2584,7 @@ where the `principal` method is statically imported from [RestAssuredMockMvc](ht
 MockMvcRequestSpecification spec = new MockMvcRequestSpecBuilder.setAuth(principal("username", "password")).build();
 ```
 
-### Using Spring Security Test ###
+### Using Spring Security Test [MockMvc] ###
 
 Since version `2.5.0` there's also better support for Spring Security. If you have `spring-security-test` in classpath you can do for example:
 ```java
@@ -2654,7 +2654,7 @@ RestAssuredMockMvc.authentication = with(httpBasic("username", "password"));
 ```
 where `with` is statically imported from `io.restassured.module.mockmvc.RestAssuredMockMvc`. It's also possible to use a [request specification](#specifications).
 
-### Injecting a User ###
+### Injecting a User [MockMvc] ###
 
 It's also possible use to of Spring Security test annotations such as [@WithMockUser](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withmockuser) and [@WithUserDetails](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withuserdetails). For example let's say you want to test this controller:
 
@@ -2670,7 +2670,7 @@ public class UserAwareController {
             throw new IllegalArgumentException("Not authorized");
         }
 
-        return "Success");
+        return "Success";
     }
 }
 ```
@@ -2694,7 +2694,7 @@ spring_security_mock_annotations_example() {
 
 Note that it's also possible to not use annotations and instead use a [RequestPostProcessor](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html) such as [SecurityMockMvcRequestPostProcessors#user(java.lang.String)](http://docs.spring.io/autorepo/docs/spring-security/4.0.0.RELEASE/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html#user(java.lang.String)).
 
-## Note on parameters ##
+## Note on parameters [MockMvc] ##
 MockMvc doesn't differentiate between different kinds of parameters so `param`, `formParam` and `queryParam` currently just delegates to param in MockMvc. `formParam` adds the `application/x-www-form-urlencoded` content-type header automatically though just as standard Rest Assured does.
 
 # Scala Support Module #
