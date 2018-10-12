@@ -2431,7 +2431,7 @@ then().
         body("content", equalTo("Hello, Johan!"));  
 ```
 
-## Asynchronous Requests [MockMvc] ##
+## <a name="asynchronous-requests-mockmvc"></a> Asynchronous Requests ##
 As of version `2.5.0` RestAssuredMockMvc has support for asynchronous requests. For example let's say you have the following controller:
 ```java
 @Controller
