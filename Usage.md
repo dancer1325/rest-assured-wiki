@@ -2837,6 +2837,7 @@ when().
         get("/greeting").
 then().
         body("id", equalTo(1));
+```
 
 ### Resetting RestAssuredWebTestClient ##
 If you've used any static configuration you can easily reset RestAssuredWebTestClient to its default state by calling the `RestAssuredWebTestClient.reset()` method.
