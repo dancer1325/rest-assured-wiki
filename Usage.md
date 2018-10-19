@@ -111,9 +111,9 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
         1. [Spring MVC Authentication](#spring-mvc-authentication)
             1. [Using Spring Security Test](#using-spring-security-test)
             1. [Injecting a User](#injecting-a-user)
-    1. [Spring Web Client Test Module](#spring-web-client-test-module)
+    1. [Spring Web Test Client Module](#spring-web-test-client-module)
         1. [Bootstrapping RestAssuredWebTestClient](#bootstrapping-restassuredwebtestclient)
-        1. [Specifications](#spring-web-client-test-specifications)
+        1. [Specifications](#spring-web-test-client-specifications)
         1. [Resetting RestAssuredWebTestClient](#resetting-restassuredwebtestclient)
     1. [Common Spring Module Documentation](#common-spring-module-documentation)
         1. [Note on parameters](#note-on-parameters)
@@ -2363,7 +2363,7 @@ This is also supported in the [Spring Mock Mvc Module](#spring-mock-mvc-module) 
 REST Assured contains two support modules for testing Spring Controllers using the REST Assured API:
 
 * [spring-mock-mvc](#spring-mock-mvc-module) - For unit testing standard Spring [MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) Controllers
-* [spring-web-test-client](#spring-web-client-test-module) - For unit testing (reactive) Spring [Webflux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) Controllers
+* [spring-web-test-client](#spring-web-test-client-module) - For unit testing (reactive) Spring [Webflux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) Controllers
 
 ## Spring Mock Mvc Module 
 
@@ -2706,7 +2706,7 @@ spring_security_mock_annotations_example() {
 }
 ```
 
-### Spring Web Client Test Module 
+### Spring Web Test Client Module 
 
 REST Assured 3.2.0 introduced support for testing components of the [Spring Reactive Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) stack using the `spring-web-test-client` module. This means that you can unit test reactive Spring (Webflux) Controllers. For example given the following Spring Webflux controller:
 
@@ -2824,7 +2824,7 @@ then().
         body("content", equalTo("Hello, Johan!"));  
 ```
 
-### Spring Web Client Test Specifications ###
+### Spring Web Test Client Specifications ###
 Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredMockMvc is called [MockMvcRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-mock-mvc/3.1.1/io/restassured/module/mockmvc/specification/MockMvcRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/3.1.1/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredMockMvc as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
 
 ```java
