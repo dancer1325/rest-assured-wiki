@@ -5,6 +5,7 @@
   1. [XmlPath](#xmlpath)
   1. [JSON Schema Validation](#json-schema-validation)
   1. [Spring Mock MVC](#spring-mock-mvc)
+  1. [Spring Web Test Client](#spring-web-test-client)
   1. [Scala Module](#scala-support)
 1. [Non-maven users](#non-maven-users)
 1. [Static Imports](#static-imports)
@@ -91,7 +92,7 @@ testCompile 'io.rest-assured:json-schema-validator:3.1.1'
 Refer to the [documentation](Usage#json-schema-validation) for more info.
 
 ### Spring Mock Mvc ###
-If you're using Spring Mvc you can now unit test your controllers using the [RestAssuredMockMvc](http://static.javadoc.io/io.rest-assured/spring-mock-mvc/3.1.1/com/jayway/restassured/module/mockmvc/RestAssuredMockMvc.html) API in the [spring-mock-mvc](https://github.com/jayway/rest-assured/wiki/Usage#spring-mock-mvc-module) module. For this to work you need to depend on the `spring-mock-mvc` module:
+If you're using Spring Mvc you can now unit test your controllers using the [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/3.1.1/io/restassured/module/mockmvc/RestAssuredMockMvc.html) API in the [spring-mock-mvc](https://github.com/jayway/rest-assured/wiki/Usage#spring-mock-mvc-module) module. For this to work you need to depend on the `spring-mock-mvc` module:
 
 Maven:
 ```xml
@@ -106,6 +107,24 @@ Maven:
 Gradle:
 ```groovy
 testCompile 'io.rest-assured:spring-mock-mvc:3.1.1'
+```
+
+### Spring Web Test Client ###
+If you're using Spring Webflux you can now unit test your reactive controllers using the [RestAssuredWebTestClient](http://static.javadoc.io/io.restassured/spring-web-test-client/3.2.0/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) API in the [spring-mock-mvc](https://github.com/rest-assured/rest-assured/wiki/Usage#spring-mock-mvc-module) module. For this to work you need to depend on the `spring-web-test-client` module:
+
+Maven:
+```xml
+<dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>spring-web-test-client</artifactId>
+      <version>3.1.1</version>
+      <scope>test</scope>
+</dependency>
+```
+
+Gradle:
+```groovy
+testCompile 'io.rest-assured:spring-web-test-client:3.1.1'
 ```
 
 ### Scala Support ###
