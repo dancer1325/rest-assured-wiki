@@ -2750,16 +2750,29 @@ public class GreetingController {
 ```
 
 you can test it using [RestAssuredWebTestClient](http://static.javadoc.io/io.restassured/spring-web-test-client/3.2.0/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) like this:
+
 ```java
-given().
-        standaloneSetup(new GreetingController()).
-        param("name", "Johan").
-when().
-        get("/greeting").
-then().
-        statusCode(200).
-        body("id", equalTo(1)).
-        body("content", equalTo("Hello, Johan!"));  
+package io.restassured.module.webtestclient;
+
+import io.restassured.module.webtestclient.setup.GreetingController;
+import org.junit.Test;
+import static io.restassured.module.webtestclient.RestAssuredWebTestClient.given;
+
+public class GreetingControllerTest {
+    
+    @Test 
+    public void greeting_controller_returns_json_greeting() {
+        given().
+                standaloneSetup(new GreetingController()).
+                param("name", "Johan").
+        when().
+                get("/greeting").
+        then().
+                statusCode(200).
+                body("id", equalTo(1)).
+                body("content", equalTo("Hello, Johan!"));
+    }
+}
 ```
 i.e. it's very similar to the standard REST Assured syntax. This makes it really fast to run your tests and it's also easier to bootstrap the environment and use mocks (if needed) than standard REST Assured. Most things that you're used to in standard REST Assured works with RestAssured Mock Mvc as well. For example (certain) configuration, static specifications, logging etc etc. To use it you need to depend on the Spring Mock Mvc module:
 ```xml
