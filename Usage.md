@@ -2363,7 +2363,7 @@ This is also supported in the [Spring Mock Mvc Module](#spring-mock-mvc-module) 
 REST Assured contains two support modules for testing Spring Controllers using the REST Assured API:
 
 * [spring-mock-mvc](#spring-mock-mvc-module) - For unit testing standard Spring [MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) Controllers
-* [spring-web-test-client](#spring-web-test-client-module) - For unit testing (reactive) Spring [Webflux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) Controllers
+* [spring-web-test-client](#spring-web-client-test-module) - For unit testing (reactive) Spring [Webflux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) Controllers
 
 ## Spring Mock Mvc Module 
 
