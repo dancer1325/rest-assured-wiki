@@ -2708,9 +2708,7 @@ spring_security_mock_annotations_example() {
 
 ### Spring Web Test Client Module 
 
-REST Assured 3.2.0 introduced support for testing components of the [Spring Reactive Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) stack using the `spring-web-test-client` module. This means that you can unit test reactive Spring (Webflux) Controllers. For example given the following Spring Webflux controller:
-
-Let's say the server defines a controller that returns JSON using this DTO:
+REST Assured 3.2.0 introduced support for testing components of the [Spring Reactive Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) stack using the `spring-web-test-client` module. This means that you can unit test reactive Spring (Webflux) Controllers. For example let's say that the server defines a controller that returns JSON using this DTO:
 
 ```java
 public class Greeting {
@@ -2733,7 +2731,7 @@ public class Greeting {
 }
 ```
 
-A reactive Controller might look like this:  
+The reactive Controller might look like this:  
 
 ```java
 @RestController
@@ -2774,7 +2772,7 @@ public class GreetingControllerTest {
     }
 }
 ```
-i.e. it's very similar to the standard REST Assured syntax. This makes it really fast to run your tests and it's also easier to bootstrap the environment and use mocks (if needed) than standard REST Assured. Most things that you're used to in standard REST Assured works with RestAssured Mock Mvc as well. For example (certain) configuration, static specifications, logging etc etc. To use it you need to depend on the Spring Mock Mvc module:
+i.e. it's very similar to the standard REST Assured syntax. This makes it really fast to run your tests and it's also easier to bootstrap the environment and use mocks (if needed) than standard REST Assured. Most things that you're used to in standard REST Assured works with RestAssuredWebTestClient as well. For example (certain) configuration, static specifications, logging etc etc. To use it you need to depend on the `spring-web-test-client` module:
 ```xml
 <dependency>
       <groupId>io.rest-assured</groupId>
@@ -2783,7 +2781,7 @@ i.e. it's very similar to the standard REST Assured syntax. This makes it really
       <scope>test</scope>
 </dependency>
 ```
-Or [download](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-3.2.0-dist.zip) it from the download page if you're not using Maven.
+Or [download](http://dl.bintray.com/johanhaleby/generic/spring-web-test-client-3.2.0-dist.zip) it from the download page if you're not using Maven.
 
 ### Bootstrapping RestAssuredWebTestClient ##
 
@@ -2802,7 +2800,7 @@ io.restassured.matcher.RestAssuredMatchers.*
 
 Refer to [static import](#static-imports) section of the documentation for additional static imports.
 
-In order to start a test using RestAssuredWebTestClient you need to initialize it with a either a set of Controllers, a MockMvc instance or a WebApplicationContext from Spring. You can do this for a single request as seen in the previous example:
+In order to start a test using RestAssuredWebTestClient you need to initialize it with a either a set of Controllers, a WebTestClient instance or a WebApplicationContext from Spring. You can do this for a single request as seen in the previous example:
 
 ```java
 given().standaloneSetup(new GreetingController()). ..
@@ -2810,7 +2808,7 @@ given().standaloneSetup(new GreetingController()). ..
 or you can do it statically:
 
 ```java
-RestAssuredMockMvc.standaloneSetup(new GreetingController());
+RestAssuredWebTestClient.standaloneSetup(new GreetingController());
 ```
 If defined statically you don't have to specify any Controllers in the DSL. This means that the previous example can be written as:
 ```java
@@ -2825,7 +2823,7 @@ then().
 ```
 
 ### Spring Web Test Client Specifications ###
-Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredMockMvc is called [MockMvcRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-mock-mvc/3.2.0/io/restassured/module/mockmvc/specification/MockMvcRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/3.2.0/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredMockMvc as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
+Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredWebTestClient is called [WebTestClientRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-web-test-client/3.2.0/io/restassured/module/webtestclient/specification/WebTestClientRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/3.2.0/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredWebTestClient as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
 
 ```java
 RestAssuredWebTestClient.requestSpecification = new WebTestClientRequestSpecBuilder().addQueryParam("name", "Johan").build();
@@ -2845,7 +2843,7 @@ If you've used any static configuration you can easily reset RestAssuredWebTestC
 ## Common Spring Module Documentation ##
 
 ### Note on parameters ###
-Neither RestAssuredMockMvc not RestAssuredWebTestClient differentiates between parameters types, so `param`, `formParam` and `queryParam` currently just delegates to param in MockMvc. `formParam` adds the `application/x-www-form-urlencoded` content-type header automatically though just as standard Rest Assured does.
+Neither RestAssuredMockMvc nor RestAssuredWebTestClient differentiates between parameters types, so `param`, `formParam` and `queryParam` currently just delegates to param in MockMvc. `formParam` adds the `application/x-www-form-urlencoded` content-type header automatically though just as standard Rest Assured does.
 
 # Scala Support Module #
 REST Assured 2.6.0 introduced the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-3.2.0-dist.zip) module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/3.2.0/io/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/io.restassured/spring-mock-mvc/3.2.0/io/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `io.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
