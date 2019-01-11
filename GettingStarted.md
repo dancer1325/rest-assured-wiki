@@ -7,6 +7,7 @@
   1. [Spring Mock MVC](#spring-mock-mvc)
   1. [Spring Web Test Client](#spring-web-test-client)
   1. [Scala Module](#scala-support)
+  1. [Java 9+](#java-9)
 1. [Non-maven users](#non-maven-users)
 1. [Static Imports](#static-imports)
 1. [Version 2.x](#version-2x)
@@ -149,6 +150,22 @@ Gradle:
 ```xml
 testCompile 'io.rest-assured:scala-support:3.2.0'
 ```
+
+### Java 9 ###
+
+When using Java 9+ and find yourself having problems with [split packages](https://www.logicbig.com/tutorials/core-java-tutorial/modules/split-packages.html) you can depend on:
+
+```xml
+<dependency>
+   <groupId>io.rest-assured</groupId>
+   <artifactId>rest-assured-all</artifactId>
+   <version>3.2.0</version>
+   <scope>test</scope>
+</dependency>
+```
+
+instead of just `rest-assured`.
+
 ## Non-maven users ##
 Download [REST Assured](http://dl.bintray.com/johanhaleby/generic/rest-assured-3.2.0-dist.zip) and [Json Schema Validator](http://dl.bintray.com/johanhaleby/generic/json-schema-validator-3.2.0-dist.zip) (optional). You can also download [XmlPath](http://dl.bintray.com/johanhaleby/generic/xml-path-3.2.0-dist.zip) and/or [JsonPath](http://dl.bintray.com/johanhaleby/generic/json-path-3.2.0-dist.zip) separately if you don't need REST Assured. If you're using Spring Mvc then you can download the [spring-mock-mvc](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-3.2.0-dist.zip) module as well. If you're using Spring Web Test Client then you should download the [spring-web-test-client](http://dl.bintray.com/johanhaleby/generic/spring-web-test-client-3.2.0-dist.zip) module as well. If you're using Scala you may optionally download the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-3.2.0-dist.zip) module. Extract the distribution zip file and put the jar files in your class-path.
 
