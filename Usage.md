@@ -2364,6 +2364,17 @@ This is also supported in the [Spring Mock Mvc Module](#spring-mock-mvc-module) 
 Added in version 3.3.0 the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/3.3.0/io/restassured/config/FailureConfig.html) can be used to get callbacks when REST Assured validation fails. This is useful if you want to do some custom logging or store data available in the request/response specification or in the response itself somewhere. For example let's say that you want to be notified by email when the following test case fails because the status code is not 200:
 
 ```java
+given().
+	param("x", "y")
+when().
+	get("/hello")
+then().
+	statusCode(200);
+```
+
+You can then implement a [ResponseValidationFailureListener](http://static.javadoc.io/io.rest-assured/rest-assured/3.3.0/io/restassured/listener/ResponseValidationFailureListener.html) and add it to the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/3.3.0/io/restassured/config/FailureConfig.html):
+
+```java
 ResponseValidationFailureListener emailOnFailure = (reqSpec, respSpec, resp) -> emailService.sendEmail("email@gmail.com", "Important test failed! Status code was: " + resp.statusCode());
 
 given().
@@ -2374,10 +2385,6 @@ when().
 then().
 	statusCode(200);
 ```
-
-You can then implement a [ResponseValidationFailureListener](http://static.javadoc.io/io.rest-assured/rest-assured/3.3.0/io/restassured/listener/ResponseValidationFailureListener.html) and add it to the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/3.3.0/io/restassured/config/FailureConfig.html):
-
-
 
 # Spring Support
 
