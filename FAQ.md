@@ -114,3 +114,16 @@ try (FileWriter fileWriter = new FileWriter("/tmp/logging.txt");
 ```
 
 Typically you don't want to do this for every test but rather create something like a [JUnit Rule](https://github.com/junit-team/junit4/wiki/rules). An example JUnit Rule can be found [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/support/WriteLogsToDisk.java). Also have a look at [this blog post](http://code.haleby.se/2018/10/05/logging-to-disk-with-rest-assured/) for more details.
+
+## 5. Split Packages in Java 9+
+
+When using Java 9+ and find yourself having problems with [split packages](https://www.logicbig.com/tutorials/core-java-tutorial/modules/split-packages.html) you can replace the `rest-assured` dependency with `rest-assured-all`:
+
+```xml
+<dependency>
+   <groupId>io.rest-assured</groupId>
+   <artifactId>rest-assured-all</artifactId>
+   <version>${rest-assured.version}</version>
+   <scope>test</scope>
+</dependency>
+```
