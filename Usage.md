@@ -98,6 +98,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
     1. [HTTP Client Config](#http-client-config)
     1. [SSL Config](#ssl-config)
     1. [Param Config](#param-config)
+    1. [Failure Config](#failure-config)
 1. [Spring Support](#spring-support)
     1. [Spring Mock Mvc Module](#spring-mock-mvc-module)
         1. [Bootstrapping RestAssuredMockMvc](#bootstrapping-restassuredmockmvc)
@@ -2357,6 +2358,26 @@ given().config(config().paramConfig(paramConfig().replaceAllParameters())). ..
 ```
 
 This is also supported in the [Spring Mock Mvc Module](#spring-mock-mvc-module) (but the config there is called [MockMvcParamConfig](http://static.javadoc.io/io.restassured/spring-mock-mvc/3.2.0/io/restassured/module/mockmvc/config/MockMvcParamConfig.html).
+
+## Failure Config ##
+
+Added in version 3.3.0 the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/3.3.0/io/restassured/config/FailureConfig.html) can be used to get callbacks when REST Assured validation fails. This is useful if you want to do some custom logging or store data available in the request/response specification or in the response itself somewhere. For example let's say that you want to be notified by email when the following test case fails because the status code is not 200:
+
+```java
+ResponseValidationFailureListener emailOnFailure = (reqSpec, respSpec, resp) -> emailService.sendEmail("email@gmail.com", "Important test failed! Status code was: " + resp.statusCode());
+
+given().
+	config(RestAssured.config().failureConfig(failureConfig().with().failureListeners(emailOnFailure))).
+	param("x", "y")
+when().
+	get("/hello")
+then().
+	statusCode(200);
+```
+
+You can then implement a [ResponseValidationFailureListener](http://static.javadoc.io/io.rest-assured/rest-assured/3.3.0/io/restassured/listener/ResponseValidationFailureListener.html) and add it to the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/3.3.0/io/restassured/config/FailureConfig.html):
+
+
 
 # Spring Support
 
