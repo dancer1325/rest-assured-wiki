@@ -11,6 +11,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
     1. [Advanced](#example-3---complex-parsing-and-validation)
         1. [XML](#xml-example)
         2. [JSON](#json-example)
+    1. [De-serialization with Generics](#deserialization-with-generics)
     1. [Additional Examples](#additional-examples)
 1. [Note on floats and doubles](#note-on-floats-and-doubles)
 1. [Note on syntax](#note-on-syntax) ([syntactic sugar](#syntactic-sugar))
@@ -652,6 +653,62 @@ int sumOfAllAuthorLengths = from(response).getInt("store.book.author*.length().s
 // We can also assert that the sum is equal to 53 as expected.
 assertThat(sumOfAllAuthorLengths, is(53));
 ```
+
+## Deserialization with Generics
+
+REST Assured 3.3.0 introduces the `io.restassured.mapper.TypeRef` class that allows you to de-serialize the response to a container with a generic type. For example let's say that you have a service that returns the following JSON for a GET request to `/products`:
+
+```json
+[
+          {
+              "id": 2,
+              "name": "An ice sculpture",
+              "price": 12.50,
+              "tags": ["cold", "ice"],
+              "dimensions": {
+                  "length": 7.0,
+                  "width": 12.0,
+                  "height": 9.5
+              },
+              "warehouseLocation": {
+                  "latitude": -78.75,
+                  "longitude": 20.4
+              }
+          },
+          {
+              "id": 3,
+              "name": "A blue mouse",
+              "price": 25.50,
+                  "dimensions": {
+                  "length": 3.1,
+                  "width": 1.0,
+                  "height": 1.0
+              },
+              "warehouseLocation": {
+                  "latitude": 54.4,
+                  "longitude": -32.7
+              }
+          }
+      ]
+```
+
+You can then extract the root list to a `List<Map<String, Object>>` (or a any generic container of choice) using the `TypeRef`:
+
+```java
+// Extract
+List<Map<String, Object>> products = get("/products").as(new TypeRef<List<Map<String, Object>>>() {});
+
+// Now you can do validations on the extracted objects:
+assertThat(products, hasSize(2));
+assertThat(products.get(0).get("id"), equalTo(2));
+assertThat(products.get(0).get("name"), equalTo("An ice sculpture"));
+assertThat(products.get(0).get("price"), equalTo(12.5));
+assertThat(products.get(1).get("id"), equalTo(3));
+assertThat(products.get(1).get("name"), equalTo("A blue mouse"));
+assertThat(products.get(1).get("price"), equalTo(25.5));```
+```
+
+Note that currently this only works for JSON responses.
 
 ## Additional Examples ##
 Micha Kops has written a really good blog with several examples (including code examples that you can checkout). You can read it [here](http://www.hascode.com/2011/10/testing-restful-web-services-made-easy-using-the-rest-assured-framework/).
