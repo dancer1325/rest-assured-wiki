@@ -656,7 +656,7 @@ assertThat(sumOfAllAuthorLengths, is(53));
 
 ## Deserialization with Generics
 
-REST Assured 4.0.0 introduces the `io.restassured.mapper.TypeRef` class that allows you to de-serialize the response to a container with a generic type. For example let's say that you have a service that returns the following JSON for a GET request to `/products`:
+REST Assured 3.3.0 introduces the `io.restassured.mapper.TypeRef` class that allows you to de-serialize the response to a container with a generic type. For example let's say that you have a service that returns the following JSON for a GET request to `/products`:
 
 ```json
 [
@@ -2421,7 +2421,7 @@ This is also supported in the [Spring Mock Mvc Module](#spring-mock-mvc-module) 
 
 ## Failure Config ##
 
-Added in version 4.0.0 the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/4.0.0/io/restassured/config/FailureConfig.html) can be used to get callbacks when REST Assured validation fails. This is useful if you want to do some custom logging or store data available in the request/response specification or in the response itself somewhere. For example let's say that you want to be notified by email when the following test case fails because the status code is not 200:
+Added in version 3.3.0 the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/4.0.0/io/restassured/config/FailureConfig.html) can be used to get callbacks when REST Assured validation fails. This is useful if you want to do some custom logging or store data available in the request/response specification or in the response itself somewhere. For example let's say that you want to be notified by email when the following test case fails because the status code is not 200:
 
 ```java
 given().
