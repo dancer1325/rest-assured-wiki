@@ -1590,7 +1590,7 @@ This will configure the default control name to be "something-else" instead of "
 For additional info refer to [this](http://blog.jayway.com/2011/09/15/multipart-form-data-file-uploading-made-simple-with-rest-assured/) blog post.
 
 # Object Mapping #
-REST Assured supports mapping Java objects to and from JSON and XML. For JSON you need to have either Jackson or Gson in the classpath and for XML you need JAXB.
+REST Assured supports mapping Java objects to and from JSON and XML. For JSON you need to have either Jackson, Jackson2, Gson or Johnzon in the classpath and for XML you need JAXB.
 
 ## Serialization ##
 Let's say we have the following Java object:
@@ -1628,6 +1628,7 @@ In this example REST Assured will serialize the object to JSON since the request
   1. JSON using Jackson 2 (Faster Jackson (databind))
   1. JSON using Jackson (databind)
   1. JSON using Gson
+  1. JSON using Johnzon
   1. XML using JAXB
 
 REST Assured also respects the charset of the content-type. E.g.
