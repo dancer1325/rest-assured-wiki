@@ -2982,7 +2982,8 @@ Download the [distribution file](http://dl.bintray.com/johanhaleby/generic/scala
 Kotlin is a language developed by [JetBrains](https://www.jetbrains.com/) and it integrates very well with Java and REST Assured. When using it with REST Assured there's one thing that can be a bit annoying. That is you have to escape `when` since it's a reserved keyword in Kotlin. For example:
 
 ```kotlin
-Test fun kotlin_rest_assured_example() {
+@Test 
+fun `kotlin rest assured example`() {
     given().
             param("firstName", "Johan").
             param("lastName", "Haleby").
@@ -3006,7 +3007,8 @@ fun RequestSpecification.When(): RequestSpecification {
 The code can now be written like this:
 
 ```kotlin
-Test fun kotlin_rest_assured_example() {
+@Test 
+fun `kotlin rest assured example`() {
     given().
             param("firstName", "Johan").
             param("lastName", "Haleby").
