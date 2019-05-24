@@ -73,7 +73,7 @@
         * queryParameters
 
 ## Deprecations
-* Deprecated all short versions of "root", for example `root(..)`, `appendRoot(..)`, `detachRoot(..)`. Use `rootPath(..)`, `appendRootPath(..)`, `detachRootPath(..)` instead. This was introduced for better consistency and clearer intention..
+* Deprecated all short versions of "root", for example `root(..)`, `appendRoot(..)`, `detachRoot(..)`. Use `rootPath(..)`, `appendRootPath(..)`, `detachRootPath(..)` instead. This was introduced for better consistency and clearer intention.
 * `JsonPath#setRoot(..)` - Use `JsonPath#setRootPath(..)` instead
 * `XmlPath#setRoot(..)` - Use `XmlPath#setRootPath(..)` instead
 
