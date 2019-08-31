@@ -2979,7 +2979,10 @@ testCompile 'io.rest-assured:scala-support:4.0.0'
 Download the [distribution file](http://dl.bintray.com/johanhaleby/generic/scala-support-4.0.0-dist.zip) manually.
 
 # Kotlin #
-Kotlin is a language developed by [JetBrains](https://www.jetbrains.com/) and it integrates very well with Java and REST Assured. When using it with REST Assured there's one thing that can be a bit annoying. That is you have to escape `when` since it's a reserved keyword in Kotlin. For example:
+
+## Avoid Escaping "when" Keyword
+
+Kotlin is a language developed by [JetBrains](https://www.jetbrains.com/) and it integrates very well with Java and REST Assured. When using it with REST Assured there's one thing that can be a bit annoying. That is you have to escape `when` since it's a reserved keyword in Kotlin. You can do this either by using [Kotlin Extension Module](#kotlin-extension-module) (recommended) or you can simply create your own extension method (the approach shown below). For example:
 
 ```kotlin
 @Test 
@@ -3022,6 +3025,44 @@ fun `kotlin rest assured example`() {
 ```
 
 Notice that we don't need any escaping anymore. For more details refer to [this](http://code.haleby.se/2015/11/06/rest-assured-with-kotlin/) blog post.
+
+## Kotlin Extension Module
+
+REST Assured 4.1.0 introduced a new module called "kotlin-extensions". This modules provides some useful extension functions when working with REST Assured from Kotlin. First you need to add the module to the project:
+
+```xml
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>kotlin-extensions</artifactId>
+    <version>4.1.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+and then import `Given` from the `io.restassured.module.kotlin.extensions` package. You can then use it like this:
+
+```kotlin
+val message: String =
+Given {
+    port(7000)
+    header("Header", "Header")
+    body("hello")
+} When {
+    put("/the/path")
+} Then {
+    statusCode(200)
+    body("message", equalTo("Another World"))
+} Extract {
+    path("message")
+}
+```
+
+Besides a more pleasing API for Kotlin developers it also has a couple of major benefits to the Java API:
+  
+1. All failed expectations are reported at the same time
+2. Formatting the code in your IDE won't mess up indentation
+
+Note that the names of the extension functions are subject to change in the future (although it's probably not likely).
 
 # More info #
 For more information refer to the [javadoc](http://static.javadoc.io/io.rest-assured/rest-assured/4.0.0/index.html):
