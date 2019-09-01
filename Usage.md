@@ -658,7 +658,7 @@ assertThat(sumOfAllAuthorLengths, is(53));
 
 ## Deserialization with Generics
 
-REST Assured 3.3.0 introduces the `io.restassured.mapper.TypeRef` class that allows you to de-serialize the response to a container with a generic type. For example let's say that you have a service that returns the following JSON for a GET request to `/products`:
+REST Assured 3.3.0 introduced the `io.restassured.mapper.TypeRef` class that allows you to de-serialize the response to a container with a generic type. For example let's say that you have a service that returns the following JSON for a GET request to `/products`:
 
 ```json
 [
