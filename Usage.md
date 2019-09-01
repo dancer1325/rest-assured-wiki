@@ -2419,7 +2419,7 @@ REST Assured will now replace `param1` with `value2` (since it's written last) i
 given().config(config().paramConfig(paramConfig().replaceAllParameters())). ..
 ```
 
-This is also supported in the [Spring Mock Mvc Module](#spring-mock-mvc-module) (but the config there is called [MockMvcParamConfig](http://static.javadoc.io/io.restassured/spring-mock-mvc/4.0.0/io/restassured/module/mockmvc/config/MockMvcParamConfig.html).
+This is also supported in the [Spring Mock Mvc Module](#spring-mock-mvc-module) (but the config there is called [MockMvcParamConfig](http://static.javadoc.io/io.restassured/spring-mock-mvc/4.0.0/io/restassured/module/mockmvc/config/MockMvcParamConfig.html)).
 
 ## Failure Config ##
 
