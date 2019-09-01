@@ -7,6 +7,7 @@
    1. [Spring Mock MVC](#spring-mock-mvc)
    1. [Spring Web Test Client](#spring-web-test-client)
    1. [Scala Module](#scala-support)
+   1. [Kotlin Extensions Module](#kotlin)
    1. [Java 9+](#java-9)
 1. [Non-maven users](#non-maven-users)
 1. [Static Imports](#static-imports)
