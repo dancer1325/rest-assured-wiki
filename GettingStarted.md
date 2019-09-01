@@ -151,6 +151,27 @@ Gradle:
 testCompile 'io.rest-assured:scala-support:4.0.0'
 ```
 
+### Kotlin ###
+
+If you're using Kotlin then it's highly recommended to use the [Kotlin Extension Module]( https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module).This modules provides some useful extension functions when working with REST Assured from Kotlin. 
+
+Maven:
+```xml
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>kotlin-extensions</artifactId>
+    <version>4.1.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+Gradle:
+```xml
+testCompile 'io.rest-assured:kotlin-extensions:4.1.0'
+```
+
+Then import `Given` from the `io.restassured.module.kotlin.extensions` package.
+
 ### Java 9 ###
 
 When using Java 9+ and find yourself having problems with [split packages](https://www.logicbig.com/tutorials/core-java-tutorial/modules/split-packages.html) you can depend on:
