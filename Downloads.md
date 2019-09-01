@@ -12,7 +12,7 @@ Google no longer accepts uploading of new binaries to the Google Code page so th
 | [spring-web-test-client-4.0.0-dist.zip](http://dl.bintray.com/johanhaleby/generic/spring-web-test-client-4.0.0-dist.zip)  | Spring WebTestClient Module 4.0.0 (including source and javadocs and dependencies. Requires REST Assured!)  |
 | [json-schema-validator-4.0.0-dist.zip](http://dl.bintray.com/johanhaleby/generic/json-schema-validator-4.0.0-dist.zip)  | Json Schema Validator Module 4.0.0 (standalone, including source and javadocs and dependencies)  |
 | [scala-support-4.0.0-dist.zip](http://dl.bintray.com/johanhaleby/generic/scala-support-4.0.0-dist.zip)  | Scala Support Module 4.0.0 (standalone, including source and javadocs and dependencies)  |
-
+| [kotlin-extensions-4.1.0-dist.zip](http://dl.bintray.com/johanhaleby/generic/kotlin-extensions-4.1.0-dist.zip)  | Kotlin Extensions Module 4.1.0 (standalone, including source and javadocs and dependencies)  |
 
 ## Other versions ##
 If you want to download another version goto the REST Assured page on [Bintray](https://bintray.com/johanhaleby/generic/rest-assured).
