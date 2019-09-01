@@ -121,8 +121,8 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
         1. [Note on parameters](#note-on-parameters)
 1. [Scala Support Module](#scala-support-module)
 1. [Kotlin](#kotlin)
-  1. [Avoid Escaping "when" Keyword](#avoid-escaping-when-keyword)
-  1. [Kotlin Extension Module](#kotlin-extension-module)
+    1. [Avoid Escaping "when" Keyword](#avoid-escaping-when-keyword)
+    1. [Kotlin Extension Module](#kotlin-extension-module)
 1. [More Info](#more-info)
 
 ## Static imports ##
