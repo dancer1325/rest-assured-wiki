@@ -3064,7 +3064,7 @@ Besides a more pleasing API for Kotlin developers it also has a couple of major 
 1. All failed expectations are reported at the same time
 2. Formatting the code in your IDE won't mess up indentation
 
-Note that the names of the extension functions are subject to change in the future (although it's probably not likely).
+Note that the names of the extension functions are subject to change in the future (although it's probably not likely). You can read more about the rationale and benefits of the Kotlin API in [this](http://code.haleby.se/2019/09/06/rest-assured-in-kotlin/) blog post.
 
 # More info #
 For more information refer to the [javadoc](http://static.javadoc.io/io.rest-assured/rest-assured/4.1.1/index.html):
