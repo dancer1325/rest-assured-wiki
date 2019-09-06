@@ -32,7 +32,7 @@ Maven:
 
 Gradle:
 ```groovy
-testCompile 'io.rest-assured:rest-assured:4.1.1'
+testImplementation 'io.rest-assured:rest-assured:4.1.1'
 ```
 
 Notes
@@ -48,12 +48,13 @@ Maven:
       <groupId>io.rest-assured</groupId>
       <artifactId>json-path</artifactId>
       <version>4.1.1</version>
+      <scope>test</scope>
 </dependency>
 ```
 
 Gradle:
 ```groovy
-compile 'io.rest-assured:json-path:4.1.1'
+testImplementation 'io.rest-assured:json-path:4.1.1'
 ```
 
 ### XmlPath ###
@@ -65,12 +66,13 @@ Maven:
       <groupId>io.rest-assured</groupId>
       <artifactId>xml-path</artifactId>
       <version>4.1.1</version>
+      <scope>test</scope>
 </dependency>
 ```
 
 Gradle:
 ```groovy
-compile 'io.rest-assured:xml-path:4.1.1'
+testImplementation 'io.rest-assured:xml-path:4.1.1'
 ```
 
 ### JSON Schema Validation ###
@@ -88,7 +90,7 @@ Maven:
 
 Gradle:
 ```groovy
-testCompile 'io.rest-assured:json-schema-validator:4.1.1'
+testImplementation 'io.rest-assured:json-schema-validator:4.1.1'
 ```
 
 Refer to the [documentation](Usage#json-schema-validation) for more info.
@@ -108,7 +110,7 @@ Maven:
 
 Gradle:
 ```groovy
-testCompile 'io.rest-assured:spring-mock-mvc:4.1.1'
+testImplementation 'io.rest-assured:spring-mock-mvc:4.1.1'
 ```
 
 ### Spring Web Test Client ###
@@ -126,7 +128,7 @@ Maven:
 
 Gradle:
 ```groovy
-testCompile 'io.rest-assured:spring-web-test-client:4.1.1'
+testImplementation 'io.rest-assured:spring-web-test-client:4.1.1'
 ```
 
 ### Scala Support ###
@@ -149,7 +151,7 @@ Maven:
 
 Gradle:
 ```xml
-testCompile 'io.rest-assured:scala-support:4.1.1'
+testImplementation 'io.rest-assured:scala-support:4.1.1'
 ```
 
 ### Kotlin ###
@@ -168,7 +170,7 @@ Maven:
 
 Gradle:
 ```xml
-testCompile 'io.rest-assured:kotlin-extensions:4.1.1'
+testImplementation 'io.rest-assured:kotlin-extensions:4.1.1'
 ```
 
 Then import `Given` from the `io.restassured.module.kotlin.extensions` package.
