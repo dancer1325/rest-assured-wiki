@@ -3030,7 +3030,7 @@ Notice that we don't need any escaping anymore. For more details refer to [this]
 
 ## Kotlin Extension Module
 
-REST Assured 4.1.1 introduced a new module called "kotlin-extensions". This modules provides some useful extension functions when working with REST Assured from Kotlin. First you need to add the module to the project:
+REST Assured 4.1.0 introduced a new module called "kotlin-extensions". This modules provides some useful extension functions when working with REST Assured from Kotlin. First you need to add the module to the project:
 
 ```xml
 <dependency>
