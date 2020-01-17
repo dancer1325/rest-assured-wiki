@@ -113,6 +113,8 @@ Gradle:
 testImplementation 'io.rest-assured:spring-mock-mvc:4.2.0'
 ```
 
+Using Kotlin? Refer to the [documentation](https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module-for-spring-mockmvc) for Kotlin extension functions that makes it nicer to work with the [Spring Mock Mvc module](https://github.com/rest-assured/rest-assured/wiki/Usage#spring-mock-mvc-module).
+
 ### Spring Web Test Client ###
 If you're using Spring Webflux you can now unit test your reactive controllers using the [RestAssuredWebTestClient](http://static.javadoc.io/io.restassured/spring-web-test-client/4.2.0/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) API in the [spring-mock-mvc](https://github.com/rest-assured/rest-assured/wiki/Usage#spring-mock-mvc-module) module. For this to work you need to depend on the `spring-web-test-client` module:
 
