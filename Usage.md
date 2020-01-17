@@ -1631,6 +1631,7 @@ In this example REST Assured will serialize the object to JSON since the request
   1. JSON using Jackson (databind)
   1. JSON using Gson
   1. JSON using Johnzon
+  1. JSON-B using Eclipse Yasson
   1. XML using JAXB
 
 REST Assured also respects the charset of the content-type. E.g.
@@ -1775,7 +1776,7 @@ RestAssured.config = RestAssuredConfig.config().objectMapperConfig(objectMapperC
         ));
 ```
 
-There are pre-defined object mapper factories for GSON, JAXB, Jackson and Faster Jackson.
+There are pre-defined object mapper factories for GSON, JAXB, Jackson, Faster Jackson and Eclipse Yasson (JSON-B).
 
 ## Custom ##
 By default REST Assured will scan the classpath to find various object mappers. If you want to integrate an object mapper that is not supported by default or if you've rolled your own you can implement the
