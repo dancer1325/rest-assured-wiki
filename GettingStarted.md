@@ -156,7 +156,7 @@ testImplementation 'io.rest-assured:scala-support:4.2.0'
 
 ### Kotlin ###
 
-If you're using Kotlin then it's highly recommended to use the [Kotlin Extension Module]( https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module).This modules provides some useful extension functions when working with REST Assured from Kotlin. 
+If you're using Kotlin then it's highly recommended to use the [Kotlin Extension Module]( https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module). This modules provides some useful extension functions when working with REST Assured from Kotlin. 
 
 Maven:
 ```xml
@@ -174,6 +174,8 @@ testImplementation 'io.rest-assured:kotlin-extensions:4.2.0'
 ```
 
 Then import `Given` from the `io.restassured.module.kotlin.extensions` package.
+
+If you're using the [Spring MockMvc module](https://github.com/rest-assured/rest-assured/wiki/Usage#spring-mock-mvc-module) please refer to the documentation [here](https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module-for-spring-mockmvc) on how to use custom Kotlin extension functions for this module.
 
 ### Java 9 ###
 
