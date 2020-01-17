@@ -123,6 +123,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
 1. [Kotlin](#kotlin)
     1. [Avoid Escaping "when" Keyword](#avoid-escaping-when-keyword)
     1. [Kotlin Extension Module](#kotlin-extension-module)
+    1. [Kotlin Extension Module](#kotlin-extension-module-for-spring-mockmvc)
 1. [More Info](#more-info)
 
 ## Static imports ##
@@ -3066,6 +3067,51 @@ Besides a more pleasing API for Kotlin developers it also has a couple of major 
 2. Formatting the code in your IDE won't mess up indentation
 
 Note that the names of the extension functions are subject to change in the future (although it's probably not likely). You can read more about the rationale and benefits of the Kotlin API in [this](http://code.haleby.se/2019/09/06/rest-assured-in-kotlin/) blog post.
+
+## Kotlin Extension Module for Spring MockMvc
+
+REST Assured 4.2.0 introduced Kotlin extension support for the [Spring MockMvc](#spring-mock-mvc-module) module. This allows one to write tests like this:
+    
+    ```kotlin
+    class RestAssuredMockMvcKotlinExtensionsTest {
+
+        @Test
+        fun example() {
+            val mockMvc =
+                MockMvcBuilders.standaloneSetup(GreetingController())
+                    .build()
+
+            val id: Int =
+            Given {
+                mockMvc(mockMvc)
+                param("name", "Johan")
+            } When {
+                get("/greeting")
+            } Then {
+                body(
+                    "id", Matchers.equalTo(1),
+                    "content", Matchers.equalTo("Hello, Johan!")
+                )
+            } Extract {
+                path("id")
+            }
+
+            assertThat(id).isEqualTo(1)
+    }
+    ```
+
+    To use it depend on:
+
+    ```xml
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>spring-mock-mvc-kotlin-extensions</artifactId>
+        <version>4.2.0</version>
+        <scope>test</scope>
+    </dependency>
+    ```
+
+    and import the extension functions from the `io.restassured.module.mockmvc.kotlin.extensions` package.
 
 # More info #
 For more information refer to the [javadoc](http://static.javadoc.io/io.rest-assured/rest-assured/4.1.2/index.html):
