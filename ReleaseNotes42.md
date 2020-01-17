@@ -55,7 +55,7 @@
 	    <artifactId>yasson</artifactId>
 	     <version>${yasson.version}</version>
 	</dependency>
-	```xml
+	```
 
 	in your classpath and then configure REST Assured to use it as its default ObjectMapperType:
 
