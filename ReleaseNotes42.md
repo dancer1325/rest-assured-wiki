@@ -64,6 +64,29 @@
 	```
 
 	Thanks to [Andrew Guibert](https://github.com/aguibert) for pull request.
+* Added ability to blacklist headers so that they are not shown in the request or response log. Instead the header value will be replaced with `[ BLACKLISTED ]`. You can enable this per header basis using the [LogConfig](https://www.javadoc.io/doc/io.rest-assured/rest-assured/latest/io/restassured/config/LogConfig.html):
+
+	```java
+    given().config(config().logConfig(logConfig().blacklistHeader("Accept"))). ..
+    ```
+
+  The response log will the print:
+
+	  ```
+	  Request method:	GET
+	  Request URI:    http://localhost:8080/something
+	  Proxy:          <none>
+	  Request params: <none>
+	  Query params:   <none>
+	  Form params:    <none>
+	  Path params:    <none>
+	  Headers:        Accept=[ BLACKLISTED ]
+	  Cookies:        <none>
+	  Multiparts:     <none>
+	  Body:           <none>
+	  ```
+
+  Thanks to [Simone Ivan Conte](https://github.com/sic2) for the help and initial pull request.
 
 ## Minor changes ##
 
