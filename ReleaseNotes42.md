@@ -46,7 +46,7 @@
     </dependency>
     ```
 
-    and import the extension functions from the `io.restassured.module.mockmvc.kotlin.extensions` package.
+    and import the extension functions from the `io.restassured.module.mockmvc.kotlin.extensions` package. Thanks to [Myeonghyeon-Lee](https://github.com/mhyeon-lee) for pull request.
 * 
 
 ## Minor changes ##
