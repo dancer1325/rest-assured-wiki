@@ -72,7 +72,6 @@
 
   The response log will the print:
 
-	  ```
 	  Request method:	GET
 	  Request URI:    http://localhost:8080/something
 	  Proxy:          <none>
@@ -84,7 +83,6 @@
 	  Cookies:        <none>
 	  Multiparts:     <none>
 	  Body:           <none>
-	  ```
 
   Thanks to [Simone Ivan Conte](https://github.com/sic2) for the help and initial pull request.
 
