@@ -2430,11 +2430,11 @@ Added in version 3.3.0 the [FailureConfig](http://static.javadoc.io/io.rest-assu
 
 ```java
 given().
-	param("x", "y")
+    param("x", "y")
 when().
-	get("/hello")
+    get("/hello")
 then().
-	statusCode(200);
+    statusCode(200);
 ```
 
 You can then implement a [ResponseValidationFailureListener](http://static.javadoc.io/io.rest-assured/rest-assured/4.1.2/io/restassured/listener/ResponseValidationFailureListener.html) and add it to the [FailureConfig](http://static.javadoc.io/io.rest-assured/rest-assured/4.1.2/io/restassured/config/FailureConfig.html):
@@ -2443,12 +2443,12 @@ You can then implement a [ResponseValidationFailureListener](http://static.javad
 ResponseValidationFailureListener emailOnFailure = (reqSpec, respSpec, resp) -> emailService.sendEmail("email@gmail.com", "Important test failed! Status code was: " + resp.statusCode());
 
 given().
-	config(RestAssured.config().failureConfig(failureConfig().with().failureListeners(emailOnFailure))).
-	param("x", "y")
+    config(RestAssured.config().failureConfig(failureConfig().with().failureListeners(emailOnFailure))).
+    param("x", "y")
 when().
-	get("/hello")
+    get("/hello")
 then().
-	statusCode(200);
+    statusCode(200);
 ```
 
 # Spring Support
@@ -3073,46 +3073,46 @@ Note that the names of the extension functions are subject to change in the futu
 
 REST Assured 4.2.0 introduced Kotlin extension support for the [Spring MockMvc](#spring-mock-mvc-module) module. This allows one to write tests like this:
     
-    ```kotlin
-    class RestAssuredMockMvcKotlinExtensionsTest {
+```kotlin
+class RestAssuredMockMvcKotlinExtensionsTest {
 
-        @Test
-        fun example() {
-            val mockMvc =
-                MockMvcBuilders.standaloneSetup(GreetingController())
-                    .build()
+    @Test
+    fun example() {
+        val mockMvc =
+            MockMvcBuilders.standaloneSetup(GreetingController())
+                .build()
 
-            val id: Int =
-            Given {
-                mockMvc(mockMvc)
-                param("name", "Johan")
-            } When {
-                get("/greeting")
-            } Then {
-                body(
-                    "id", Matchers.equalTo(1),
-                    "content", Matchers.equalTo("Hello, Johan!")
-                )
-            } Extract {
-                path("id")
-            }
+        val id: Int =
+        Given {
+            mockMvc(mockMvc)
+            param("name", "Johan")
+        } When {
+            get("/greeting")
+        } Then {
+            body(
+                "id", Matchers.equalTo(1),
+                "content", Matchers.equalTo("Hello, Johan!")
+            )
+        } Extract {
+            path("id")
+        }
 
-            assertThat(id).isEqualTo(1)
-    }
-    ```
+        assertThat(id).isEqualTo(1)
+}
+```
 
-    To use it depend on:
+To use it depend on:
 
-    ```xml
-    <dependency>
-        <groupId>io.rest-assured</groupId>
-        <artifactId>spring-mock-mvc-kotlin-extensions</artifactId>
-        <version>4.2.0</version>
-        <scope>test</scope>
-    </dependency>
-    ```
+```xml
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>spring-mock-mvc-kotlin-extensions</artifactId>
+    <version>4.2.0</version>
+    <scope>test</scope>
+</dependency>
+```
 
-    and import the extension functions from the `io.restassured.module.mockmvc.kotlin.extensions` package.
+and import the extension functions from the `io.restassured.module.mockmvc.kotlin.extensions` package.
 
 # More info #
 For more information refer to the [javadoc](http://static.javadoc.io/io.rest-assured/rest-assured/4.1.2/index.html):
