@@ -47,7 +47,23 @@
     ```
 
     and import the extension functions from the `io.restassured.module.mockmvc.kotlin.extensions` package. Thanks to [Myeonghyeon-Lee](https://github.com/mhyeon-lee) for pull request.
-* 
+* Added a new object mapper type that supports the Jakarta EE JSON Binding (JSON-B) specification. By default it will use Eclipse Yasson as the JSON-B implementation. To use it simply include
+
+	```xml
+	<dependency>
+	    <groupId>org.eclipse</groupId>
+	    <artifactId>yasson</artifactId>
+	     <version>${yasson.version}</version>
+	</dependency>
+	```xml
+
+	in your classpath and then configure REST Assured to use it as its default ObjectMapperType:
+
+	```java
+	RestAssured.config = RestAssured.config.objectMapperConfig(ObjectMapperConfig.objectMapperConfig().defaultObjectMapperType(ObjectMapperType.JSONB));
+	```
+
+	Thanks to [Andrew Guibert](https://github.com/aguibert) for pull request.
 
 ## Minor changes ##
 
