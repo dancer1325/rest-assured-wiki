@@ -79,6 +79,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
     1. [Request Logging](#request-logging)
     1. [Response Logging](#response-logging)
     1. [Log if validation fails](#log-if-validation-fails)
+    1. [Blacklist Headers from Logging](#blacklist-headers-from-logging)
 1. [Root Path](#root-path)
     1. [Path Arguments](#path-arguments)
 1. [Session Support](#session-support)
@@ -2009,6 +2010,28 @@ There's also a shortcut for enabling logging of the request and response for all
 ```java
 RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 ```
+
+## Blacklist Headers from Logging ##
+
+As of REST Assured 4.2.0 it's possible to blacklist headers so that they are not shown in the request or response log. Instead the header value will be replaced with `[ BLACKLISTED ]`. You can enable this per header basis using the [LogConfig](https://www.javadoc.io/doc/io.rest-assured/rest-assured/latest/io/restassured/config/LogConfig.html):
+
+```java
+given().config(config().logConfig(logConfig().blacklistHeader("Accept"))). ..
+```
+
+The response log will the print:
+
+    Request method:   GET
+    Request URI:    http://localhost:8080/something
+    Proxy:          <none>
+    Request params: <none>
+    Query params:   <none>
+    Form params:    <none>
+    Path params:    <none>
+    Headers:        Accept=[ BLACKLISTED ]
+    Cookies:        <none>
+    Multiparts:     <none>
+    Body:           <none>
 
 # Root path #
 To avoid duplicated paths in body expectations you can specify a root path. E.g. instead of writing:
