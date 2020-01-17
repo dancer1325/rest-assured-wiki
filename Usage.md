@@ -113,6 +113,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
         1. [Spring MVC Authentication](#spring-mvc-authentication)
             1. [Using Spring Security Test](#using-spring-security-test)
             1. [Injecting a User](#injecting-a-user)
+        1. [Kotlin Extension Module for Spring MockMvc](#kotlin-extension-module-for-spring-mockmvc)
     1. [Spring Web Test Client Module](#spring-web-test-client-module)
         1. [Bootstrapping RestAssuredWebTestClient](#bootstrapping-restassuredwebtestclient)
         1. [Specifications](#spring-web-test-client-specifications)
@@ -123,7 +124,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
 1. [Kotlin](#kotlin)
     1. [Avoid Escaping "when" Keyword](#avoid-escaping-when-keyword)
     1. [Kotlin Extension Module](#kotlin-extension-module)
-    1. [Kotlin Extension Module](#kotlin-extension-module-for-spring-mockmvc)
+    1. [Kotlin Extension Module for Spring MockMvc](#kotlin-extension-module-for-spring-mockmvc)
 1. [More Info](#more-info)
 
 ## Static imports ##
