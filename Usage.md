@@ -3094,7 +3094,7 @@ Note that the names of the extension functions are subject to change in the futu
 
 ## Kotlin Extension Module for Spring MockMvc
 
-REST Assured 4.3.0 introduced Kotlin extension support for the [Spring MockMvc](#spring-mock-mvc-module) module. This allows one to write tests like this:
+REST Assured 4.1.0 introduced Kotlin extension support for the [Spring MockMvc](#spring-mock-mvc-module) module. This allows one to write tests like this:
     
 ```kotlin
 class RestAssuredMockMvcKotlinExtensionsTest {
