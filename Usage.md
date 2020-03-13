@@ -2013,7 +2013,7 @@ RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
 ## Blacklist Headers from Logging ##
 
-As of REST Assured 4.3.0 it's possible to blacklist headers so that they are not shown in the request or response log. Instead the header value will be replaced with `[ BLACKLISTED ]`. You can enable this per header basis using the [LogConfig](https://www.javadoc.io/doc/io.rest-assured/rest-assured/latest/io/restassured/config/LogConfig.html):
+As of REST Assured 4.2.0 it's possible to blacklist headers so that they are not shown in the request or response log. Instead the header value will be replaced with `[ BLACKLISTED ]`. You can enable this per header basis using the [LogConfig](https://www.javadoc.io/doc/io.rest-assured/rest-assured/latest/io/restassured/config/LogConfig.html):
 
 ```java
 given().config(config().logConfig(logConfig().blacklistHeader("Accept"))). ..
