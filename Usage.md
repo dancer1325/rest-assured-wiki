@@ -1635,6 +1635,7 @@ In this example REST Assured will serialize the object to JSON since the request
   1. JSON using Gson
   1. JSON using Johnzon
   1. JSON-B using Eclipse Yasson
+  1. XML using Jakarta EE
   1. XML using JAXB
 
 REST Assured also respects the charset of the content-type. E.g.
