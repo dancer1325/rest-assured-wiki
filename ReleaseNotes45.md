@@ -12,4 +12,4 @@ assured/rest-assured/issues/1510).
 
 ## Minor changes ##
 
-See [change log](http://github.com/jayway/rest-assured/raw/master/changelog.txt) for more details.
+See [change log](https://github.com/rest-assured/rest-assured/raw/master/changelog.txt) for more details.
