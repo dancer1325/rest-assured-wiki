@@ -2047,6 +2047,18 @@ There's also a shortcut for enabling logging of the request and response for all
 RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 ```
 
+As of version 4.5.0 you can also use the `onFailMessage` to specify a message that'll been shown when a test fails. For example:
+
+```java
+when().
+      get().
+then().
+      onFailMessage("Some specific message").
+      statusCode(200);
+```
+
+Now "Some specific message" will be shown in the error message. This is good if you want to e.g. distinguish more easily between tests if they fail.
+
 ## Blacklist Headers from Logging ##
 
 As of REST Assured 4.2.0 it's possible to blacklist headers so that they are not shown in the request or response log. Instead the header value will be replaced with `[ BLACKLISTED ]`. You can enable this per header basis using the [LogConfig](https://www.javadoc.io/doc/io.rest-assured/rest-assured/latest/io/restassured/config/LogConfig.html):
