@@ -1182,6 +1182,12 @@ given().contentType(ContentType.TEXT). ..
 given().contentType("application/json"). ..
 ```
 
+You can also instruct Rest Assured to don't include any (default) content-type at all:
+
+```java
+given().noContentType(). ..
+```
+
 
 ## Request Body ##
 ```java
