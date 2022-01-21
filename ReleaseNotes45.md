@@ -17,7 +17,18 @@
         statusCode(200);
    ```
   The "onFailMessage" will be shown in the error. This is good if you want to e.g. more easily distinguish between tests if they fail. (thanks to Victor Borovlev for pull request) (issue [1502](https://github.com/rest-assured/rest-assured/issues/1502))
-* Introduced a rest-assured bom project for maven. Depend on 'io.rest-assured:rest-assured-bom:4.5.0' to use it. The bom contains configuration details for the rest-assured project that imports the correct dependencies (and versions) and to build your project. (thanks to George Gastaldi for pull request)
+* Introduced a rest-assured bom project for maven. Depend on this artifact to use it: 
+
+    ```
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured-bom</artifactId>
+        <version>4.5.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+    </dependency>
+    ```
+  The bom contains configuration details for the rest-assured project that imports the correct dependencies (and versions) and to build your project. (thanks to George Gastaldi for pull request)
 
 
 ## Minor changes ##
