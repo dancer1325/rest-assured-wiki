@@ -1601,7 +1601,7 @@ REST Assured supports mapping Java objects to and from JSON and XML. For JSON yo
 
 ## Jakarta EE ##
 
-To use Jakarta EE for object mapping you need to include the following dependencies:
+To use Jakarta EE for XML object mapping you need to include the following dependencies:
 
 ```xml
 <dependency>
@@ -1617,7 +1617,7 @@ To use Jakarta EE for object mapping you need to include the following dependenc
 ```
 
 ## JAXB ##
-JAXB is not included by default if you're using a newer version of Java such as Java 17. If you still want to use JAXB you can depend on these two dependencies:
+JAXB can be used to serialize/deserialize XML with REST Assured. From version 4.5.0 it is not included by default, so if you're using a newer version of Java, such as Java 17, you need to add these two dependencies or use [Jakarta EE](#jakarta-ee):
 
 ```xml
 <dependency>
