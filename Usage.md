@@ -56,6 +56,8 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
         1. [OAuth2](#oauth-2)
 1. [Multi-part form data](#multi-part-form-data)
 1. [Object Mapping](#object-mapping)
+    1. [Jakarta EE](#jakarta-ee)
+    1. [JAXB](#jaxb)
     1. [Serialization](#serialization)
         1. [Content-Type based Serialization](#content-type-based-serialization)
         1. [Create JSON from a HashMap](#create-json-from-a-hashmap)
