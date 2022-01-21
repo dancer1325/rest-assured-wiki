@@ -1595,7 +1595,40 @@ This will configure the default control name to be "something-else" instead of "
 For additional info refer to [this](http://blog.jayway.com/2011/09/15/multipart-form-data-file-uploading-made-simple-with-rest-assured/) blog post.
 
 # Object Mapping #
-REST Assured supports mapping Java objects to and from JSON and XML. For JSON you need to have either Jackson, Jackson2, Gson or Johnzon in the classpath and for XML you need JAXB.
+REST Assured supports mapping Java objects to and from JSON and XML. For JSON you need to have either Jackson, Jackson2, Gson or Johnzon in the classpath and for XML you need Jakarta EE or JAXB.
+
+## Jakarta EE ##
+
+To use Jakarta EE for object mapping you need to include the following dependencies:
+
+```xml
+<dependency>
+    <groupId>jakarta.xml.bind</groupId>
+    <artifactId>jakarta.xml.bind-api</artifactId>
+    <version>3.0.1</version>
+</dependency>
+<dependency>
+    <groupId>org.glassfish.jaxb</groupId>
+    <artifactId>jaxb-runtime</artifactId>
+    <version>3.0.2</version>
+</dependency>
+```
+
+## JAXB ##
+JAXB is not included by default if you're using a newer version of Java such as Java 17. If you still want to use JAXB you can depend on these two dependencies:
+
+```xml
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.1</version>
+</dependency>
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-impl</artifactId>
+    <version>2.3.4</version>
+</dependency>
+```
 
 ## Serialization ##
 Let's say we have the following Java object:
