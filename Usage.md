@@ -1623,7 +1623,7 @@ To use Jakarta EE for XML object mapping you need to include the following depen
 ```
 
 ## JAXB ##
-JAXB can be used to serialize/deserialize XML with REST Assured. From version 4.5.1 it is not included by default, so if you're using a newer version of Java, such as Java 17, you need to add these two dependencies or use [Jakarta EE](#jakarta-ee):
+JAXB can be used to serialize/deserialize XML with REST Assured. From version 4.5.0 it is not included by default, so if you're using a newer version of Java, such as Java 17, you need to add these two dependencies or use [Jakarta EE](#jakarta-ee):
 
 ```xml
 <dependency>
@@ -2053,7 +2053,7 @@ There's also a shortcut for enabling logging of the request and response for all
 RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 ```
 
-As of version 4.5.1 you can also use the `onFailMessage` to specify a message that'll been shown when a test fails. For example:
+As of version 4.5.0 you can also use the `onFailMessage` to specify a message that'll been shown when a test fails. For example:
 
 ```java
 when().
