@@ -39,7 +39,7 @@
 	```
 	If you're using Gradle do like this:
 	```groovy
-	testCompile (group: 'io.rest-assured', name: 'rest-assured', version:'4.5.0') {
+	testCompile (group: 'io.rest-assured', name: 'rest-assured', version:'4.5.1') {
 	        exclude(module: 'groovy')
 	}
 	testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.6'
@@ -79,7 +79,7 @@
  > If you run into issues with Grapes such as:
 
   ```
-  General error during conversion: Conflicting module versions. Module [groovy-xml is loaded in version 2.4.6 and you are trying to load version 2.4.4". This happens when running rest-assured 4.5.0 in a groovy script with any recent version of groovy except 2.4.4.
+  General error during conversion: Conflicting module versions. Module [groovy-xml is loaded in version 2.4.6 and you are trying to load version 2.4.4". This happens when running rest-assured 4.5.1 in a groovy script with any recent version of groovy except 2.4.4.
   ```
 
   you should try excluding `org.codehaus.groovy:groovy-xml` and `org.codehaus.groovy:groovy-json`:
@@ -92,7 +92,7 @@
 
 ## 4. Logging REST Assured logs to disk
 
-By default when invoking `log().all()` (or any of the equivalents) in REST Assured logs are written to the console. To change this you can supply a custom [java.io.PrintStream](https://docs.oracle.com/javase/8/docs/api/java/io/PrintStream.html) instance to the [LogConfig](http://static.javadoc.io/io.rest-assured/rest-assured/4.5.0/io/restassured/config/LogConfig.html). For example:
+By default when invoking `log().all()` (or any of the equivalents) in REST Assured logs are written to the console. To change this you can supply a custom [java.io.PrintStream](https://docs.oracle.com/javase/8/docs/api/java/io/PrintStream.html) instance to the [LogConfig](http://static.javadoc.io/io.rest-assured/rest-assured/4.5.1/io/restassured/config/LogConfig.html). For example:
 
 ```java
 try (FileWriter fileWriter = new FileWriter("/tmp/logging.txt");
