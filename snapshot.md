@@ -10,4 +10,4 @@ In order to try out REST Assured versions before they are released you need to a
 </repositories>
 ```
 
-The latest snapshot version usually has the same version number as the latest released version but with an increased patch version. For example, if the latest released version is `5.0.1` then the latest snapshot release should be `5.0.2-SNAPSHOT`.
+The latest snapshot version usually has the same version number as the latest released version but with an increased patch version. For example, if the latest released version is `5.1.0` then the latest snapshot release should be `5.0.2-SNAPSHOT`.
