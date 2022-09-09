@@ -1,3 +1,4 @@
+1. Disable NordVPN (some tests call actual servers and they don't work the same way behind VPN)
 1. Update changelog with the date of the new release
 1. Switch to JDK 8
 1. Run `./mvn_release.sh` and follow the instructions.
