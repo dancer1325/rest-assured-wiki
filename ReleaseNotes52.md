@@ -2,6 +2,7 @@
 
 ## Contents
 1. [Highlights](#highlights)
+1. [Non-backward compatible changes](#non-backward-compatible-changes)
 1. [Minor Changes](#minor-changes)
 
 ## Highlights
@@ -64,6 +65,10 @@
    ```
 
    The reason for this is that the server returns a new CSRF token per request. So after the login request (with will use the CSRF token from the login page), REST Assured needs to make an additional GET request to /users to get a new CSRF token. This token will then finally be supplied with the "POST" request to "/users".
+
+## Non-backward compatible changes
+
+* Removed the CSRF settings from `io.restassured.authentication.FormAuthConfig` since they didn't work. Use new CSRF dsl (descibed in [highlights](#highlights)) or `io.restassured.config.CsrfConfig` to configure CSRF support.
 
 ## Minor changes ##
 * Using Jackson 2.13
