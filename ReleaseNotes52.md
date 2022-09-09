@@ -18,10 +18,10 @@
 	       statusCode(200);
    ```
 
-  This will first make a GET request to /users (due to csrf("/users")) to get an HTML page that contains the CSRF token.
-  Rest Assured will then automatically try to find the input field that contains the CSRF token and include in the POST to /users.
+  This will first make a `GET` request to `/users` (due to `csrf("/users")`) to get an HTML page that contains the CSRF token.
+  Rest Assured will then automatically try to find the input field that contains the CSRF token and include it in the POST to `/users`.
   
-  Here's an example of what Rest Assured expects as a response for the GET request to /users:
+  Here's an example of what Rest Assured expects as a response for the GET request to `/users`:
 
   ```
   <html>
@@ -49,7 +49,7 @@
   </html>
   ```
   The csrf input field name is called "_csrf", and it'll be automatically detected by REST Assured.
-* Fixed so that form authentication takes CSRF into account. The previous form authentication CSRF implementation didn't really work (sorry!). Now you can combine csrf with form authentication and it actually works as expected! Note that for requests other than GET or HEAD,
+* Fixed so that form authentication takes CSRF into account. The previous form authentication CSRF implementation didn't really work (sorry!). Now you can combine csrf with form authentication and it actually works as expected! Note that for requests other than `GET` or `HEAD`,
   you need to specify _both_ form authentication _and_ csrf, e.g.
 
   	```
@@ -64,14 +64,14 @@
 	       statusCode(200);
    ```
 
-   The reason for this is that the server returns a new CSRF token per request. So after the login request (with will use the CSRF token from the login page), REST Assured needs to make an additional GET request to /users to get a new CSRF token. This token will then finally be supplied with the "POST" request to "/users".
+   The reason for this is that the server returns a new CSRF token per request. So after the login request (with will use the CSRF token from the login page), REST Assured needs to make an additional `GET` request to `/users` to get a new CSRF token. This token will then finally be supplied with the "POST" request to `/users`.
 
 ## Non-backward compatible changes
 
-* Removed the CSRF settings from `io.restassured.authentication.FormAuthConfig` since they didn't work. Use new CSRF dsl (descibed in [highlights](#highlights)) or `io.restassured.config.CsrfConfig` to configure CSRF support.
+* Removed the CSRF settings from `io.restassured.authentication.FormAuthConfig` since they didn't work. Use new CSRF DSL (described in [highlights](#highlights)) or [io.restassured.config.CsrfConfig](https://github.com/rest-assured/rest-assured/wiki/Usage#csrf-config) to configure CSRF support.
 
 ## Minor changes ##
-* Support for PATCH in multipart uploads
+* Support for `PATCH` in multipart uploads
 * Upgraded Koltin module to using Kotlin 1.7.10 (previously 1.6.21 was used)
 * Improved FilterContext used in Filters by adding the method FilterContext#hasValue(name, object). This makes it easier to check if a value exists _and_ is equal to the expected object.
 
