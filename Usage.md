@@ -103,6 +103,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
     1. [SSL Config](#ssl-config)
     1. [Param Config](#param-config)
     1. [Failure Config](#failure-config)
+    1. [CSRF Config](#csrf-config)
 1. [Spring Support](#spring-support)
     1. [Spring Mock Mvc Module](#spring-mock-mvc-module)
         1. [Bootstrapping RestAssuredMockMvc](#bootstrapping-restassuredmockmvc)
@@ -2524,6 +2525,19 @@ given().
     param("x", "y")
 when().
     get("/hello")
+then().
+    statusCode(200);
+```
+
+## CSRF Config ##
+
+Added in version 5.2.0 the [CsrdConfig](http://static.javadoc.io/io.rest-assured/rest-assured/5.2.0/io/restassured/config/CsrfConfig.html) can be used to configure REST Assured to support CSRF. It provides more fine-grained control that is not available in the normal [DSL](#csrf).
+
+```java
+given().
+    config(config().csrfConfig(csrfConfig().with().csrfTokenPath("/loginPageWithCsrf").and().autoDetectCsrfInputFieldName().loggingEnabled(LogDetail.BODY))).
+when().
+    post("/loginPageWithCsrf").
 then().
     statusCode(200);
 ```
