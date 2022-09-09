@@ -1413,33 +1413,33 @@ You can enable CSRF support by doing the following:
 
 ```java
 given().
-        auth().form("John", "Doe", formAuthConfig().withAutoDetectionOfCsrf()).
+        csrf("/pageWithCsrfToken")
 when().
-        get("/formAuth");
+        post("/somewhere").
 then().
         statusCode(200);
 ```
 
-Now REST Assured will automatically try to detect if the webpage contains a CSRF token. In order to assist REST Assured and make the parsing more robust it's possible to supply the CSRF field name (here we imagine that we're using Spring Security default values and thus can make use of the predefined `springSecurity` FormAuthConfig):
+Now REST Assured will automatically try to detect if the webpage at `/pageWithCsrfToken`contains a CSRF token. In order to assist REST Assured and make the parsing more robust it's possible to supply the CSRF input field name:
 
 ```java
 given().
-        auth().form("John", "Doe", springSecurity().withCsrfFieldName("_csrf")).
+        csrf("/pageWithCsrfToken", "_csrf")
 when().
-        get("/formAuth");
+        post("/somewhere").
 then().
         statusCode(200);
 ```
 
-We've now told REST Assured to search for the CSRF field name called "_csrf" (which is it both faster and less prone to error).
+We've now told REST Assured to search for the CSRF field name called "_csrf" (which is recommended since it's less prone to error).
 
 By default the CSRF value is sent as a form parameter with the request but you can configure to send it as a header instead if that's required:
 
 ```java
 given().
-        auth().form("John", "Doe", springSecurity().withCsrfFieldName("_csrf").sendCsrfTokenAsHeader()).
+        config(RestAssured.config().csrf(csrfConfig().with().csrfTokenPath("/loginPageWithCsrf").and().autoDetectCsrfInputFieldName().and().sendCsrfTokenAsHeader()))
 when().
-        get("/formAuth");
+        post("/somewhere").
 then().
         statusCode(200);
 ```
