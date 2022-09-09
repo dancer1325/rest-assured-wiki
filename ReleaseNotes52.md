@@ -71,7 +71,8 @@
 * Removed the CSRF settings from `io.restassured.authentication.FormAuthConfig` since they didn't work. Use new CSRF dsl (descibed in [highlights](#highlights)) or `io.restassured.config.CsrfConfig` to configure CSRF support.
 
 ## Minor changes ##
-* Using Jackson 2.13
-* Fixed bug in bom-file generation, the example projects are now excluded.
+* Support for PATCH in multipart uploads
+* Upgraded Koltin module to using Kotlin 1.7.10 (previously 1.6.21 was used)
+* Improved FilterContext used in Filters by adding the method FilterContext#hasValue(name, object). This makes it easier to check if a value exists _and_ is equal to the expected object.
 
 See [change log](https://github.com/rest-assured/rest-assured/raw/master/changelog.txt) for more details.
