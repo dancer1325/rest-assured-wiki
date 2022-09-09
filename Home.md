@@ -2,7 +2,9 @@
 
 * [Getting Started](GettingStarted)
 * [Downloads](Downloads)
-* [Usage Guide](Usage) ([Legacy documentation](Usage_Legacy) (prior to v2.0))
+* [Usage Guide (Main)](Usage) ([Legacy documentation](Usage_Legacy) (prior to v2.0))
+* [Usage Guide (Spring)](Spring)
+* [Usage Guide (Kotlin)](Kotlin)
 * [Release Notes](ReleaseNotes) ([Change Log](https://raw.githubusercontent.com/jayway/rest-assured/master/changelog.txt))
 * [Snapshot dependencies](snapshot)
 * [FAQ](FAQ)
