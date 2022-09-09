@@ -48,24 +48,22 @@
   </html>
   ```
   The csrf input field name is called "_csrf", and it'll be automatically detected by REST Assured.
-* Fixed so that form authentication takes CSRF into account. The previous form authentication CSRF implementation didn't really work (sorry!).
-  Now you can combine csrf with form authentication and it actually works as expected! Note that for requests other than GET or HEAD,
+* Fixed so that form authentication takes CSRF into account. The previous form authentication CSRF implementation didn't really work (sorry!). Now you can combine csrf with form authentication and it actually works as expected! Note that for requests other than GET or HEAD,
   you need to specify _both_ form authentication _and_ csrf, e.g.
 
-    given().
-           csrf("/users").
-           formParm("firstName", "John").
-           formParm("lastName", "Doe").
-           auth().form("j_spring_security_check", "j_username", "j_password").
-    when().
-           post("/users").
-    then().
-           statusCode(200);
+  	```
+	given().
+	       csrf("/users").
+	       formParm("firstName", "John").
+	       formParm("lastName", "Doe").
+	       auth().form("j_spring_security_check", "j_username", "j_password").
+	when().
+	       post("/users").
+	then().
+	       statusCode(200);
+   ```
 
-   The reason for this is that the server returns a new CSRF token per request. So after the login request (with will use the CSRF token from the login page),
-   REST Assured needs to make an additional GET request to /users to get a new CSRF token. This token will then finally be supplied with the "POST" request
-   to "/users".
-
+   The reason for this is that the server returns a new CSRF token per request. So after the login request (with will use the CSRF token from the login page), REST Assured needs to make an additional GET request to /users to get a new CSRF token. This token will then finally be supplied with the "POST" request to "/users".
 
 ## Minor changes ##
 * Using Jackson 2.13
