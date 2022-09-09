@@ -1,5 +1,6 @@
 # Menu
 
+* [Release Notes 5.2.0](ReleaseNotes52)
 * [Release Notes 5.0.0](ReleaseNotes50)
 * [Release Notes 4.5.0](ReleaseNotes45)
 * [Release Notes 4.2.0](ReleaseNotes42)
