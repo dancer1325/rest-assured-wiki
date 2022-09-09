@@ -68,7 +68,7 @@
 
 ## Non-backward compatible changes
 
-* Removed the CSRF settings from `io.restassured.authentication.FormAuthConfig` since they didn't work. Use new CSRF DSL (described in [highlights](#highlights)) or [io.restassured.config.CsrfConfig](https://github.com/rest-assured/rest-assured/wiki/Usage#csrf-config) to configure CSRF support.
+* Removed the CSRF settings from `io.restassured.authentication.FormAuthConfig` since they didn't work. Use new [CSRF DSL](https://github.com/rest-assured/rest-assured/wiki/Usage#csrf) (described in [highlights](#highlights)) or [io.restassured.config.CsrfConfig](https://github.com/rest-assured/rest-assured/wiki/Usage#csrf-config) to configure CSRF support.
 
 ## Minor changes ##
 * Support for `PATCH` in multipart uploads
