@@ -1408,81 +1408,162 @@ then().
 ```
 
 ### CSRF ###
-Today it's common for the server to supply a [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) token with the response in order to avoid these kinds of attacks. REST Assured has support for automatically parsing and supplying the CSRF token to the server. In order for this to work REST Assured *must* make an additional request and parse (parts) of the website.
+Today it's common for the server to supply a [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) token with the response in order to avoid these kinds of attacks. REST Assured has support for automatically parsing and supplying the CSRF token to the server. In order for this to work REST Assured *must* make an additional request and parse (parts) of the website. 
 
-You can enable CSRF support by doing the following:
+REST Assured supports two ways of providing CSRF tokens to the server, either by submitting the CSRF token in a form, or as a header.
 
-```java
-given().
-        csrf("/pageWithCsrfToken")
-when().
-        post("/somewhere").
-then().
-        statusCode(200);
-```
+#### CSRF Form Token ####
 
-Now REST Assured will automatically try to detect if the webpage at `/pageWithCsrfToken`contains a CSRF token. In order to assist REST Assured and make the parsing more robust it's possible to supply the CSRF input field name:
-
-```java
-given().
-        csrf("/pageWithCsrfToken", "_csrf")
-when().
-        post("/somewhere").
-then().
-        statusCode(200);
-```
-
-We've now told REST Assured to search for the CSRF field name called "_csrf" (which is recommended since it's less prone to error).
-
-By default the CSRF value is sent as a form parameter with the request but you can configure to send it as a header instead if that's required:
-
-```java
-given().
-        config(RestAssured.config().csrf(csrfConfig().with().csrfTokenPath("/loginPageWithCsrf").and().autoDetectCsrfInputFieldName().and().sendCsrfTokenAsHeader()))
-when().
-        post("/somewhere").
-then().
-        statusCode(200);
-```
-
-### Include additional fields in Form Authentication ###
-
-Since version 3.1.0 REST Assured can include additional input fields when using form authentication. Just use the `FormAuthConfig` and specify the additional values to include. For example if you have an html page that looks like this:
+Consider that we have a simple website that adds a user:
 
 ```html
 <html>
 <head>
-   <title>Login</title>
+<title>Add User</title>
 </head>
 <body>
-<form action="/login" method="POST">
-   <table>
-       <tr>
-           <td>User:&nbsp;</td>
-           <td><input type="text" name="j_username"></td>
-       </tr>
-       <tr>
-           <td>Password:</td>
-           <td><input type="password" name="j_password"></td>
-       </tr>
-       <tr>
-           <td colspan="2"><input name="submit" type="submit"/></td>
-       </tr>
-   </table>
-   <input type="hidden" name="firstInputField" value="value1"/>
-   <input type="hidden" name="secondInputField" value="value2"/>
+<form action="/users" method="POST">
+<table>
+  <tr>
+      <td>First Name:&nbsp;</td>
+      <td><input type="text" name="firstName"></td>
+  </tr>
+  <tr>
+      <td>Last Name:</td>
+      <td><input type="text" name="lastName"></td>
+  </tr>
+  <tr>
+      <td colspan="2"><input name="submit" type="submit"/></td>
+  </tr>
+</table>
+<input type="hidden" name="_csrf" value="8adf2ea1-b246-40aa-8e13-a85fb7914341"/>
 </form>
 </body>
 </html>
 ```
-and you'd like to include the value of form parameters `firstInputField` and `secondInputField` you can do like this:
+
+We can see that the form contains a `hidden` input field with a CSRF token. If we want to test posting a new user to `/users` we need to include this CSRF token in the request.
+We can do this by doing:
 
 ```java
-given().auth().form("username", "password", formAuthConfig().withAdditionalFields("firstInputField", "secondInputField"). ..
+given().
+        csrf("/users", "_csrf")
+        formParam("firstName", "John")
+        formParam("lastName", "Doe")
+when().
+        post("/users").
+then().
+        statusCode(200);
 ```
 
-REST Assured will automatically parse the HTML page, find the values for the additional fields and include them as form parameters in the login request.
+REST Assured will now first perform a `GET` request to `/users` (the first argument to the `csrf` method) and it expects the form to have a (hidden) input field named `_csrf` (second argument to the `csrf` method). REST Assured will then find `8adf2ea1-b246-40aa-8e13-a85fb7914341` and include it as a form paramter in the `POST` request to `/users`. 
 
+Since `_csrf` is the default expect input field name for CSRF tokens in REST Assured, we could have skipped it and just do:
+
+```java
+given().
+        csrf("/users")
+        formParam("firstName", "John")
+        formParam("lastName", "Doe")
+when().
+        post("/users").
+then().
+        statusCode(200);
+```
+
+which would work as well. You can configure the default CSRF form token name in the config, e.g. to change the default name to `_mycsrf` you can do: `RestAssured.config = RestAssuredConfig.config().csrfConfig(csrfConfig().with().csrfInputFieldName("_mycsrf"));`
+
+The config also supports, among other things, to set a default resource to get CSRF token from for all requests.
+
+Note that it's common to get the CSRF token from one resource but `POST` to another resource. Let's say that, in the example above, the "add user" form is located at `/users/form`, you can do:
+
+```java
+given().
+        csrf("/users/form")
+        formParam("firstName", "John")
+        formParam("lastName", "Doe")
+when().
+        post("/users").
+then().
+        statusCode(200);
+```
+
+#### CSRF Header Token ####
+
+Besides sending CSRF tokens in forms, REST Assured also support sending a CSRF token in a header. For example, if you have a login page at `/login` that looks like this:
+  <html>
+  <head>
+      <title>Login</title>
+      <meta name="_csrf_header" content="ab8722b1-1f23-4dcf-bf63-fb8b94be4107"/>
+  </head>
+  <body>
+           ..
+  </body>
+  </html>
+  
+The csrf meta tag name is called `_csrf_header` (which is the default meta tag name used by REST Assured). You can do like this to POST to `/pageThatRequireHeaderCsrf` and make REST Assured include the CSRF token (`ab8722b1-1f23-4dcf-bf63-fb8b94be4107`) in a header called `X-CSRF-TOKEN`:
+
+```java
+given().
+        csrf("/login").
+when().
+        post("/pageThatRequireHeaderCsrf").
+then().
+        statusCode(200);
+```
+
+You can configure a different the meta name (if it's not called `_csrf_header`) like this:
+
+```java
+given().
+        config(RestAssuredConfig.config().csrfConfig(csrfConfig().csrfMetaTagName("_my_csrf_header"))).
+        csrf("/login").
+when().
+        post("/pageThatRequireHeaderCsrf").
+then().
+        statusCode(200);
+```
+
+Additionally, you can change the header name:
+
+```
+given().
+        config(RestAssuredConfig.config().csrfConfig(csrfConfig().csrfHeaderName("MyHeader"))).
+        csrf("/login").
+when().
+        post("/pageThatRequireHeaderCsrf").
+then().
+        statusCode(200);
+```
+
+REST Assured will now send the CSRF token in a header called `MyHeader` instead of the default, `X-CSRF-TOKEN`.
+
+
+#### CSRF and Authentication ###
+
+The page you GET to extract the CSRF token might be protected by authentication. REST Assured automatically applies authentication to the CSRF resource as well if defined in the DSL. For example, let's say that the `/users` (see above) resources requires basic authentication for both GET and POST. You can then specify authentication as you normally would and this would be applied to the CSRF request as well:
+
+```java
+given().
+        auth().preemptive().basic("username", "password")
+        csrf("/users")
+        formParam("firstName", "John")
+        formParam("lastName", "Doe")
+when().
+        post("/users").
+then().
+        statusCode(200);
+```
+
+#### CSRF Prioritization ###
+
+If the page you use to get the CSRF token both contains a header token _and_ a (different) CSRF form token you can instruct REST Assured which one to prioritize:
+
+```java
+given().config(RestAssuredConfig.config().csrfConfig(csrfConfig().csrfPrioritization(CsrfPrioritization.HEADER))). .. 
+```
+
+Change `CsrfPrioritization.HEADER` to `CsrfPrioritization.FORM` to prioritize form tokens instead.
 ## OAuth ##
 
 In order to use OAuth 1 and OAuth 2 (for query parameter signing) you need to add [Scribe](https://github.com/fernandezpablo85/scribe-java) to your classpath (if you're using version 2.1.0 or older of REST Assured then please refer to the [legacy](Usage_Legacy#OAuth) documentation). In Maven you can simply add the following dependency:
