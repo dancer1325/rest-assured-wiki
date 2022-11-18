@@ -2615,11 +2615,11 @@ then().
 
 ## CSRF Config ##
 
-Added in version 5.2.0 the [CsrdConfig](http://static.javadoc.io/io.rest-assured/rest-assured/5.2.0/io/restassured/config/CsrfConfig.html) can be used to configure REST Assured to support CSRF. It provides more fine-grained control that is not available in the normal [DSL](#csrf).
+Added in version 5.2.0 the [CsrfConfig](http://static.javadoc.io/io.rest-assured/rest-assured/5.2.0/io/restassured/config/CsrfConfig.html) can be used to configure REST Assured to support CSRF. It provides more fine-grained control that is not available in the normal [DSL](#csrf).
 
 ```java
 given().
-    config(config().csrfConfig(csrfConfig().with().csrfTokenPath("/loginPageWithCsrf").and().autoDetectCsrfInputFieldName().loggingEnabled(LogDetail.BODY))).
+    config(config().csrfConfig(csrfConfig().with().csrfTokenPath("/loginPageWithCsrf").and().loggingEnabled(LogDetail.BODY))).
 when().
     post("/loginPageWithCsrf").
 then().
