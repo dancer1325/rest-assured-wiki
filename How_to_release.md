@@ -33,5 +33,7 @@ The release is automatically synced to Maven central (the sync process runs hour
 1. Follow the [Sonatype release directions](https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide) in bullet 8.
 	* Remove all dist projects
 	* Remove the examples project
+1. You can now remove the local branch: `git br -D rest-assured-5.3.1-code`
+1. You can now remove the remote branch: `git push origin :rest-assured-5.3.1-code` 
 1. Update changelog.txt and README.md in master branch.
 1. Send email and twitter message if deemed appropriate
