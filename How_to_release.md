@@ -28,6 +28,7 @@ The release is automatically synced to Maven central (the sync process runs hour
 1. Disable NordVPN (some tests call actual servers and they don't work the same way behind VPN)
 1. Switch to JDK 8
 1. Create a branch, e.g. if you want to release version 5.3.1, call it e.g. `rest-assured-5.3.1-code`. The reason for not calling it `rest-assured-5.3.1` is that a tag will be generated with that name.
+1. Edit `pom.xml` and change SCM branch to `rest-assured-5.3.1-code`.
 1. Make the changes you want to make and then run `./mvn_release.sh` as normally.
 1. Log in to [Sonatype](https://oss.sonatype.org).
 1. Follow the [Sonatype release directions](https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide) in bullet 8.
