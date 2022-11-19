@@ -1494,15 +1494,18 @@ then().
 #### CSRF Header Token ####
 
 Besides sending CSRF tokens in forms, REST Assured also support sending a CSRF token in a header. For example, if you have a login page at `/login` that looks like this:
-  <html>
-  <head>
-      <title>Login</title>
-      <meta name="_csrf_header" content="ab8722b1-1f23-4dcf-bf63-fb8b94be4107"/>
-  </head>
-  <body>
-           ..
-  </body>
-  </html>
+
+```html
+<html>
+<head>
+  <title>Login</title>
+  <meta name="_csrf_header" content="ab8722b1-1f23-4dcf-bf63-fb8b94be4107"/>
+</head>
+<body>
+   ..
+</body>
+</html>
+```
   
 The csrf meta tag name is called `_csrf_header` (which is the default meta tag name used by REST Assured). You can do like this to POST to `/pageThatRequireHeaderCsrf` and make REST Assured include the CSRF token (`ab8722b1-1f23-4dcf-bf63-fb8b94be4107`) in a header called `X-CSRF-TOKEN`:
 
