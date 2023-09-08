@@ -5,14 +5,14 @@ Google no longer accepts uploading of new binaries to the Google Code page so th
 ## Current direct downloads ##
 | File | Description |
 |:-----|:------------|
-| [rest-assured-5.3.1-dist.zip](http://dl.bintray.com/johanhaleby/generic/rest-assured-5.3.1-dist.zip)  |   REST Assured 5.3.1 (including source and javadocs and dependencies, XmlPath and JsonPath) |
-| [json-path-5.3.1-dist.zip](http://dl.bintray.com/johanhaleby/generic/json-path-5.3.1-dist.zip)  | JsonPath 5.3.1 (standalone, including source and javadocs and dependencies) |
-| [xml-path-5.3.1-dist.zip](http://dl.bintray.com/johanhaleby/generic/xml-path-5.3.1-dist.zip)  | XmlPath 5.3.1 (standalone, including source and javadocs and dependencies) |
-| [spring-mock-mvc-5.3.1-dist.zip](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-5.3.1-dist.zip)  | Spring Mock MVC Module 5.3.1 (including source and javadocs and dependencies. Requires REST Assured!)  |
-| [spring-web-test-client-5.3.1-dist.zip](http://dl.bintray.com/johanhaleby/generic/spring-web-test-client-5.3.1-dist.zip)  | Spring WebTestClient Module 5.3.1 (including source and javadocs and dependencies. Requires REST Assured!)  |
-| [json-schema-validator-5.3.1-dist.zip](http://dl.bintray.com/johanhaleby/generic/json-schema-validator-5.3.1-dist.zip)  | Json Schema Validator Module 5.3.1 (standalone, including source and javadocs and dependencies)  |
-| [scala-support-5.3.1-dist.zip](http://dl.bintray.com/johanhaleby/generic/scala-support-5.3.1-dist.zip)  | Scala Support Module 5.3.1 (standalone, including source and javadocs and dependencies)  |
-| [kotlin-extensions-5.3.1-dist.zip](http://dl.bintray.com/johanhaleby/generic/kotlin-extensions-5.3.1-dist.zip)  | Kotlin Extensions Module 5.3.1 (standalone, including source and javadocs and dependencies)  |
+| [rest-assured-5.3.2-dist.zip](http://dl.bintray.com/johanhaleby/generic/rest-assured-5.3.2-dist.zip)  |   REST Assured 5.3.2 (including source and javadocs and dependencies, XmlPath and JsonPath) |
+| [json-path-5.3.2-dist.zip](http://dl.bintray.com/johanhaleby/generic/json-path-5.3.2-dist.zip)  | JsonPath 5.3.2 (standalone, including source and javadocs and dependencies) |
+| [xml-path-5.3.2-dist.zip](http://dl.bintray.com/johanhaleby/generic/xml-path-5.3.2-dist.zip)  | XmlPath 5.3.2 (standalone, including source and javadocs and dependencies) |
+| [spring-mock-mvc-5.3.2-dist.zip](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-5.3.2-dist.zip)  | Spring Mock MVC Module 5.3.2 (including source and javadocs and dependencies. Requires REST Assured!)  |
+| [spring-web-test-client-5.3.2-dist.zip](http://dl.bintray.com/johanhaleby/generic/spring-web-test-client-5.3.2-dist.zip)  | Spring WebTestClient Module 5.3.2 (including source and javadocs and dependencies. Requires REST Assured!)  |
+| [json-schema-validator-5.3.2-dist.zip](http://dl.bintray.com/johanhaleby/generic/json-schema-validator-5.3.2-dist.zip)  | Json Schema Validator Module 5.3.2 (standalone, including source and javadocs and dependencies)  |
+| [scala-support-5.3.2-dist.zip](http://dl.bintray.com/johanhaleby/generic/scala-support-5.3.2-dist.zip)  | Scala Support Module 5.3.2 (standalone, including source and javadocs and dependencies)  |
+| [kotlin-extensions-5.3.2-dist.zip](http://dl.bintray.com/johanhaleby/generic/kotlin-extensions-5.3.2-dist.zip)  | Kotlin Extensions Module 5.3.2 (standalone, including source and javadocs and dependencies)  |
 
 ## Other versions ##
 If you want to download another version goto the REST Assured page on [Bintray](https://bintray.com/johanhaleby/generic/rest-assured).

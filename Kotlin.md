@@ -60,7 +60,7 @@ REST Assured 4.1.0 introduced a new module called "kotlin-extensions". This modu
 <dependency>
     <groupId>io.rest-assured</groupId>
     <artifactId>kotlin-extensions</artifactId>
-    <version>5.3.1</version>
+    <version>5.3.2</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -128,7 +128,7 @@ To use it depend on:
 <dependency>
     <groupId>io.rest-assured</groupId>
     <artifactId>spring-mock-mvc-kotlin-extensions</artifactId>
-    <version>5.3.1</version>
+    <version>5.3.2</version>
     <scope>test</scope>
 </dependency>
 ```
