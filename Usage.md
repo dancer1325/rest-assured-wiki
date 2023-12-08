@@ -131,6 +131,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
     1. [Avoid Escaping "when" Keyword](Kotlin#avoid-escaping-when-keyword)
     1. [Kotlin Extension Module](Kotlin#kotlin-extension-module)
     1. [Kotlin Extension Module for Spring MockMvc](Kotlin#kotlin-extension-module-for-spring-mockmvc)
+    1. [Kotlin Extension Module for Spring WebTest](Kotlin#kotlin-extension-module-for-spring-webtest)
 1. [More Info](#more-info)
 
 ## Static imports ##
