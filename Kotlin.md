@@ -5,6 +5,7 @@
 1. [Avoid Escaping "when" Keyword](#avoid-escaping-when-keyword)
 1. [Kotlin Extension Module](#kotlin-extension-module)
 1. [Kotlin Extension Module for Spring MockMvc](#kotlin-extension-module-for-spring-mockmvc)
+1. [Kotlin Extension Module for Spring WebTest](#kotlin-extension-module-for-spring-webtest)
 
 ## Avoid Escaping "when" Keyword
 
