@@ -134,3 +134,46 @@ To use it depend on:
 ```
 
 and import the extension functions from the `io.restassured.module.mockmvc.kotlin.extensions` package.
+
+## Kotlin Extension Module for Spring WebTest
+
+REST Assured 5.4.0 introduced Kotlin extension support for the [Spring WebTest](https://github.com/rest-assured/rest-assured/wiki/Spring#spring-web-test-client-module) module. This allows one to write tests like this:
+    
+```kotlin
+class RestAssuredWebTestClientKotlinExtensionsTest {
+
+    val webTestClient = WebTestClient
+                        .bindToController(GreetingController())
+                        .build()
+
+    val id: Int =
+    Given {
+        webTestClient(webTestClient)
+        param("name", "Johan")
+    } When {
+        get("/greeting")
+    } Then {
+        body(
+                "id", Matchers.equalTo(1),
+                "content", Matchers.equalTo("Hello, Johan!")
+        )
+    } Extract {
+        path("id")
+    }
+
+    assertThat(id).isEqualTo(1)
+}
+```
+
+To use it, depend on:
+
+```xml
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>spring-web-test-client-kotlin-extensions</artifactId>
+    <version>5.4.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+and import the extension functions from the `io.restassured.module.webtestclient.kotlin.extensions` package.
