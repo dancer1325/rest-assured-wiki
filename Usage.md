@@ -124,6 +124,7 @@ REST Assured is a Java DSL for simplifying testing of REST based services built 
         1. [Bootstrapping RestAssuredWebTestClient](Spring#bootstrapping-restassuredwebtestclient)
         1. [Specifications](Spring#spring-web-test-client-specifications)
         1. [Resetting RestAssuredWebTestClient](Spring#resetting-restassuredwebtestclient)
+        1. [Kotlin Extension Module for Spring WebTest](Kotlin#kotlin-extension-module-for-spring-webtest)
     1. [Common Spring Module Documentation](Spring#common-spring-module-documentation)
         1. [Note on parameters](Spring#note-on-parameters)
 1. [Scala Support Module](#scala-support-module)
