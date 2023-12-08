@@ -44,7 +44,7 @@ public class GreetingController {
     }
 }
 ```
-you can test it using [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.3.2/io/restassured/module/mockmvc/RestAssuredMockMvc.html) like this:
+you can test it using [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.4.0/io/restassured/module/mockmvc/RestAssuredMockMvc.html) like this:
 ```java
 given().
         standaloneSetup(new GreetingController()).
@@ -61,11 +61,11 @@ i.e. it's very similar to the standard REST Assured syntax. This makes it really
 <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>spring-mock-mvc</artifactId>
-      <version>5.3.2</version>
+      <version>5.4.0</version>
       <scope>test</scope>
 </dependency>
 ```
-Or [download](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-5.3.2-dist.zip) it from the download page if you're not using Maven.
+Or [download](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-5.4.0-dist.zip) it from the download page if you're not using Maven.
 
 ### Bootstrapping RestAssuredMockMvc ##
 
@@ -223,14 +223,14 @@ then().
 where `status` is statically imported from `org.springframework.test.web.servlet.result.MockMvcResultMatchers`. Note that you can also use the `expect` method which is the same as `assertThat` but more close to the syntax of native MockMvc.
 
 ### Interceptors ###
-For more advanced use cases you can also get ahold of and modify the [MockHttpServletRequestBuilder](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html) before the request is performed. To do this define a [MockHttpServletRequestBuilderInterceptor](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.3.2/io/restassured/module/mockmvc/intercept/MockHttpServletRequestBuilderInterceptor.html) and use it with RestAssuredMockMvc:
+For more advanced use cases you can also get ahold of and modify the [MockHttpServletRequestBuilder](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html) before the request is performed. To do this define a [MockHttpServletRequestBuilderInterceptor](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.4.0/io/restassured/module/mockmvc/intercept/MockHttpServletRequestBuilderInterceptor.html) and use it with RestAssuredMockMvc:
 
 ```java
 given().interceptor(myInterceptor). ..
 ```
 
 ### <a name="specifications"></a> Spring Mock Mvc Specifications ###
-Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredMockMvc is called [MockMvcRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.3.2/io/restassured/module/mockmvc/specification/MockMvcRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.3.2/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredMockMvc as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
+Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredMockMvc is called [MockMvcRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.4.0/io/restassured/module/mockmvc/specification/MockMvcRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.4.0/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredMockMvc as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
 ```java
 RestAssuredMockMvc.requestSpecification = new MockMvcRequestSpecBuilder().addQueryParam("name", "Johan").build();
 RestAssuredMockMvc.responseSpecification = new ResponseSpecBuilder().expectStatusCode(200).expectBody("content", equalTo("Hello, Johan!")).build();
@@ -255,7 +255,7 @@ Some authentication methods require Spring Security to be on the classpath (opti
 ```java
 RestAssuredMockMvc.authentication = principal("username", "password");
 ```
-where the `principal` method is statically imported from [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.3.2/io/restassured/module/mockmvc/RestAssuredMockMvc.html). It's also possible to define an authentication scheme in a request builder:
+where the `principal` method is statically imported from [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.4.0/io/restassured/module/mockmvc/RestAssuredMockMvc.html). It's also possible to define an authentication scheme in a request builder:
 ```java
 MockMvcRequestSpecification spec = new MockMvcRequestSpecBuilder.setAuth(principal("username", "password")).build();
 ```
@@ -409,7 +409,7 @@ public class GreetingController {
 }
 ```
 
-you can test it using [RestAssuredWebTestClient](http://static.javadoc.io/io.restassured/spring-web-test-client/5.3.2/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) like this:
+you can test it using [RestAssuredWebTestClient](http://static.javadoc.io/io.restassured/spring-web-test-client/5.4.0/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) like this:
 
 ```java
 package io.restassured.module.webtestclient;
@@ -439,11 +439,11 @@ i.e. it's very similar to the standard REST Assured syntax. This makes it really
 <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>spring-web-test-client</artifactId>
-      <version>5.3.2</version>
+      <version>5.4.0</version>
       <scope>test</scope>
 </dependency>
 ```
-Or [download](http://dl.bintray.com/johanhaleby/generic/spring-web-test-client-5.3.2-dist.zip) it from the download page if you're not using Maven.
+Or [download](http://dl.bintray.com/johanhaleby/generic/spring-web-test-client-5.4.0-dist.zip) it from the download page if you're not using Maven.
 
 ### Bootstrapping RestAssuredWebTestClient ##
 
@@ -485,7 +485,7 @@ then().
 ```
 
 ### Spring Web Test Client Specifications ###
-Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredWebTestClient is called [WebTestClientRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-web-test-client/5.3.2/io/restassured/module/webtestclient/specification/WebTestClientRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.3.2/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredWebTestClient as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
+Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredWebTestClient is called [WebTestClientRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-web-test-client/5.4.0/io/restassured/module/webtestclient/specification/WebTestClientRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.4.0/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredWebTestClient as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
 
 ```java
 RestAssuredWebTestClient.requestSpecification = new WebTestClientRequestSpecBuilder().addQueryParam("name", "Johan").build();
