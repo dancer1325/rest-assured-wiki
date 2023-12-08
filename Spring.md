@@ -19,7 +19,7 @@ REST Assured contains two support modules for testing Spring Controllers using t
     1. [Spring MVC Authentication](#spring-mvc-authentication)
         1. [Using Spring Security Test](#using-spring-security-test)
         1. [Injecting a User](#injecting-a-user)
-    1. [Kotlin Extension Module for Spring MockMvc](#kotlin-extension-module-for-spring-mockmvc)
+    1. [Kotlin Extension Module for Spring MockMvc](Kotlin#kotlin-extension-module-for-spring-mockmvc)
 1. [Spring Web Test Client Module](#spring-web-test-client-module)
     1. [Bootstrapping RestAssuredWebTestClient](#bootstrapping-restassuredwebtestclient)
     1. [Specifications](#spring-web-test-client-specifications)
