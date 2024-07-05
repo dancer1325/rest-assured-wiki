@@ -5,7 +5,7 @@
 
 ## Scala Extension Module
 
-REST Assured 5.5.0 introduced a new module called "scala-extensions". This module provides some useful extension functions when working with REST Assured from Kotlin. First, you need to add the module to the project:
+REST Assured 5.5.0 introduced a new module called "scala-extensions" for Scala 3. This module provides some useful extension functions when working with REST Assured from Kotlin. First, you need to add the module to the project:
 
 #### SBT:
 ```scala
