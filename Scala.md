@@ -17,7 +17,7 @@ libraryDependencies += "io.rest-assured" % "scala-extensions" % "5.5.0"
 <dependency>
     <groupId>io.rest-assured</groupId>
     <artifactId>scala-extensions</artifactId>
-    <version>5.4.0</version>
+    <version>5.5.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -45,7 +45,7 @@ Given(req =>
 ```
 
 ## Scala Support Module ##
-REST Assured 2.6.0 introduced the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-5.4.0-dist.zip) module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/5.4.0/io/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.4.0/io/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `io.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
+REST Assured 2.6.0 introduced the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-5.5.0-dist.zip) module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `io.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
 
 ```java
 import io.restassured.RestAssured.when
@@ -68,7 +68,7 @@ To use it do like this:
 
 #### SBT:
 ```scala
-libraryDependencies += "io.rest-assured" % "scala-support" % "5.4.0"
+libraryDependencies += "io.rest-assured" % "scala-support" % "5.5.0"
 ```
 
 #### Maven:
@@ -76,15 +76,15 @@ libraryDependencies += "io.rest-assured" % "scala-support" % "5.4.0"
 <dependency>
     <groupId>io.rest-assured</groupId>
     <artifactId>scala-support</artifactId>
-    <version>5.4.0</version>
+    <version>5.5.0</version>
     <scope>test</scope>
 </dependency>
 ```
 
 #### Gradle:
 ```xml
-testImplementation 'io.rest-assured:scala-support:5.4.0'
+testImplementation 'io.rest-assured:scala-support:5.5.0'
 ```
 
 ### No build manager:
-Download the [distribution file](http://dl.bintray.com/johanhaleby/generic/scala-support-5.4.0-dist.zip) manually.
+Download the [distribution file](http://dl.bintray.com/johanhaleby/generic/scala-support-5.5.0-dist.zip) manually.

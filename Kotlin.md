@@ -61,7 +61,7 @@ REST Assured 4.1.0 introduced a new module called "kotlin-extensions". This modu
 <dependency>
     <groupId>io.rest-assured</groupId>
     <artifactId>kotlin-extensions</artifactId>
-    <version>5.4.0</version>
+    <version>5.5.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -129,7 +129,7 @@ To use it depend on:
 <dependency>
     <groupId>io.rest-assured</groupId>
     <artifactId>spring-mock-mvc-kotlin-extensions</artifactId>
-    <version>5.4.0</version>
+    <version>5.5.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -138,7 +138,7 @@ and import the extension functions from the `io.restassured.module.mockmvc.kotli
 
 ## Kotlin Extension Module for Spring WebTest
 
-REST Assured 5.4.0 introduced Kotlin extension support for the [Spring WebTest](https://github.com/rest-assured/rest-assured/wiki/Spring#spring-web-test-client-module) module. This allows one to write tests like this:
+REST Assured 5.5.0 introduced Kotlin extension support for the [Spring WebTest](https://github.com/rest-assured/rest-assured/wiki/Spring#spring-web-test-client-module) module. This allows one to write tests like this:
     
 ```kotlin
 class RestAssuredWebTestClientKotlinExtensionsTest {
@@ -172,7 +172,7 @@ To use it, depend on:
 <dependency>
     <groupId>io.rest-assured</groupId>
     <artifactId>spring-web-test-client-kotlin-extensions</artifactId>
-    <version>5.4.0</version>
+    <version>5.5.0</version>
     <scope>test</scope>
 </dependency>
 ```
