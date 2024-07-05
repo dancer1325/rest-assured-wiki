@@ -44,6 +44,8 @@ Given(req =>
 ) 
 ```
 
+You can find examples [here](https://github.com/rest-assured/rest-assured/blob/rest-assured-5.5.0/modules/scala-extensions/src/test/scala/io/restassured/module/scala/extensions/RestAssuredScalaExtensionsTest.scala).
+
 ## Scala Support Module ##
 REST Assured 2.6.0 introduced the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-5.5.0-dist.zip) module that adds an alias to the "then" method defined in the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/Response.html) or [MockMvcResponse](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/response/MockMvcResponse.html) called "Then". The reason for this is that `then` might be a reserved keyword in Scala in the future and the compiler issues a warning when using a method with this name. To enable the use of `Then` simply import the `io.restassured.module.scala.RestAssuredSupport.AddThenToResponse` class from the `scala-support` module. For example:
 
