@@ -18,7 +18,6 @@
 Add the following dependency to your pom.xml:
 
 ### REST Assured ###
-Includes [JsonPath](#jsonpath) and [XmlPath](#xmlpath)
 
 Maven:
 ```xml
@@ -35,9 +34,9 @@ Gradle:
 testImplementation 'io.rest-assured:rest-assured:5.5.0'
 ```
 
-Notes
-  1. You should place rest-assured before the JUnit dependency declaration in your pom.xml / build.gradle in order to make sure that the correct version of Hamcrest is used.
-  1. REST Assured includes JsonPath and XmlPath as transitive dependencies
+* `rest-assured` dependencies | "pom.xml" or "build.gradle" / ⚠️ before the JUnit dependency declaration ⚠️
+  * Reason: 🧠 make sure that correct version of Hamcrest is used 🧠
+* REST Assured includes "JsonPath" and "XmlPath" as transitive dependencies
 
 ### JsonPath ###
 Standalone JsonPath (included if you depend on the `rest-assured` artifact). Makes it easy to parse JSON documents. Note that this JsonPath implementation uses <a href='http://groovy-lang.org/processing-xml.html#_gpath'>Groovy's GPath</a> syntax and is not to be confused with Kalle Stenflo's <a href='https://github.com/json-path/JsonPath'>JsonPath</a> implementation.
@@ -96,24 +95,31 @@ testImplementation 'io.rest-assured:json-schema-validator:5.5.0'
 Refer to the [documentation](Usage#json-schema-validation) for more info.
 
 ### Spring Mock Mvc ###
-If you're using Spring Mvc you can now unit test your controllers using the [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/RestAssuredMockMvc.html) API in the [spring-mock-mvc](https://github.com/jayway/rest-assured/wiki/Usage#spring-mock-mvc-module) module. For this to work you need to depend on the `spring-mock-mvc` module:
+* use case
+  * you're using Spring Mvc
+* allows
+  * unit testing your controllers
+* goal
+  * [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/RestAssuredMockMvc.html) API | [spring-mock-mvc](https://github.com/jayway/rest-assured/wiki/Usage#spring-mock-mvc-module) module
+* how to set up
 
-Maven:
-```xml
-<dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>spring-mock-mvc</artifactId>
-      <version>5.5.0</version>
-      <scope>test</scope>
-</dependency>
-```
+    Maven:
+    ```xml
+    <dependency>
+          <groupId>io.rest-assured</groupId>
+          <artifactId>spring-mock-mvc</artifactId>
+          <version>5.5.0</version>
+          <scope>test</scope>
+    </dependency>
+    ```
+    
+    Gradle:
+    ```groovy
+    testImplementation 'io.rest-assured:spring-mock-mvc:5.5.0'
+    ```
 
-Gradle:
-```groovy
-testImplementation 'io.rest-assured:spring-mock-mvc:5.5.0'
-```
-
-Using Kotlin? Refer to the [documentation](https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module-for-spring-mockmvc) for Kotlin extension functions that makes it nicer to work with the [Spring Mock Mvc module](https://github.com/rest-assured/rest-assured/wiki/Usage#spring-mock-mvc-module).
+* if you use Kotlin -> check [documentation](https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module-for-spring-mockmvc)
+  * == Kotlin extension functions
 
 ### Spring Web Test Client ###
 If you're using Spring Webflux you can now unit test your reactive controllers using the [RestAssuredWebTestClient](http://static.javadoc.io/io.restassured/spring-web-test-client/5.5.0/io/restassured/module/webtestclient/RestAssuredWebTestClient.html) API in the [spring-mock-mvc](https://github.com/rest-assured/rest-assured/wiki/Usage#spring-mock-mvc-module) module. For this to work you need to depend on the `spring-web-test-client` module:
@@ -158,7 +164,8 @@ testImplementation 'io.rest-assured:scala-support:5.5.0'
 
 ### Kotlin ###
 
-If you're using Kotlin then it's highly recommended to use the [Kotlin Extension Module]( https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module). This modules provides some useful extension functions when working with REST Assured from Kotlin. 
+* if you're using Kotlin -> use the [Kotlin Extension Module]( https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module)
+  * Reason: 🧠provides some useful extension functions 🧠	 
 
 Maven:
 ```xml
@@ -175,13 +182,12 @@ Gradle:
 testImplementation 'io.rest-assured:kotlin-extensions:5.5.0'
 ```
 
-Then import `Given` from the `io.restassured.module.kotlin.extensions` package.
-
-If you're using the [Spring MockMvc module](https://github.com/rest-assured/rest-assured/wiki/Usage#spring-mock-mvc-module) please refer to the documentation [here](https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module-for-spring-mockmvc) on how to use custom Kotlin extension functions for this module.
+* `Given` -- must be imported from the -- `io.restassured.module.kotlin.extensions` package
+* if you're using the [Spring MockMvc module](https://github.com/rest-assured/rest-assured/wiki/Usage#spring-mock-mvc-module) -> [check here](https://github.com/rest-assured/rest-assured/wiki/Usage#kotlin-extension-module-for-spring-mockmvc)
 
 ### Java 9 ###
 
-When using Java 9+ and find yourself having problems with [split packages](https://www.logicbig.com/tutorials/core-java-tutorial/modules/split-packages.html) you can depend on:
+* if you are using Java 9+ & have problems with [split packages](https://www.logicbig.com/tutorials/core-java-tutorial/modules/split-packages.html) -> 👁️ rather than `rest-assured`👁️, use
 
 ```xml
 <dependency>
@@ -192,7 +198,6 @@ When using Java 9+ and find yourself having problems with [split packages](https
 </dependency>
 ```
 
-instead of just `rest-assured`.
 
 ## Non-maven users ##
 Download [REST Assured](http://dl.bintray.com/johanhaleby/generic/rest-assured-5.5.0-dist.zip) and [Json Schema Validator](http://dl.bintray.com/johanhaleby/generic/json-schema-validator-5.5.0-dist.zip) (optional). You can also download [XmlPath](http://dl.bintray.com/johanhaleby/generic/xml-path-5.5.0-dist.zip) and/or [JsonPath](http://dl.bintray.com/johanhaleby/generic/json-path-5.5.0-dist.zip) separately if you don't need REST Assured. If you're using Spring Mvc then you can download the [spring-mock-mvc](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-5.5.0-dist.zip) module as well. If you're using Spring Web Test Client then you should download the [spring-web-test-client](http://dl.bintray.com/johanhaleby/generic/spring-web-test-client-5.5.0-dist.zip) module as well. If you're using Scala you may optionally download the [scala-support](http://dl.bintray.com/johanhaleby/generic/scala-support-5.5.0-dist.zip) module. Kotlin users should download the [kotlin-extensions](http://dl.bintray.com/johanhaleby/generic/kotlin-extensions-5.5.0-dist.zip) module. Extract the distribution zip file and put the jar files in your class-path.
@@ -226,4 +231,4 @@ io.restassured.matcher.RestAssuredMatchers.*
 If you need to depend on an older version replace groupId `io.rest-assured` with `com.jayway.restassured`.
 
 # Documentation #
-When you've successfully downloaded and configured REST Assured in your classpath please refer to the [usage guide](Usage) for examples.
+* if REST Assured is configured properly | your classpath -> check [usage guide](Usage)
