@@ -151,34 +151,32 @@
 
 ## Static imports ##
 
-In order to use REST assured effectively it's recommended to statically import methods from the following classes:
+* recommendations
+  * 👁️ statically import methods / from the classes 👁️
 
-```java
-io.restassured.RestAssured.*
-io.restassured.matcher.RestAssuredMatchers.*
-org.hamcrest.Matchers.*
-```
+    ```java
+    io.restassured.RestAssured.*
+    io.restassured.matcher.RestAssuredMatchers.*
+    org.hamcrest.Matchers.*
+    ```
+  * if you want to use [Json Schema](http://json-schema.org/) validation (check [Json Schema Validation](#json-schema-validation)) -> ALSO statically import
 
-If you want to use [Json Schema](http://json-schema.org/) validation you should also statically import these methods:
+    ```java
+    io.restassured.module.jsv.JsonSchemaValidator.*
+    ```
 
-```java
-io.restassured.module.jsv.JsonSchemaValidator.*
-```
+  * if you're using Spring MVC -> use the [spring-mock-mvc](#spring-mock-mvc-module) module -> statically import the methods from [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/RestAssuredMockMvc.html) != methods from `io.restassured.RestAssured`
 
-Refer to [Json Schema Validation](#json-schema-validation) section for more info.
-
-If you're using Spring MVC you can use the [spring-mock-mvc](#spring-mock-mvc-module) module to unit test your Spring Controllers using the Rest Assured DSL. To do this statically import the methods from [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/RestAssuredMockMvc.html) _instead_ of importing the methods from `io.restassured.RestAssured`:
-
-```java
-io.restassured.module.mockmvc.RestAssuredMockMvc.*
-```
+    ```java
+    io.restassured.module.mockmvc.RestAssuredMockMvc.*
+    ```
 
 # Examples
 
 ## Example 1 - JSON ##
-Assume that the GET request (to http://localhost:8080/lotto) returns JSON as:
+* GET http://localhost:8080/lotto / returns JSON 
 
-```javascript
+```json
 {
 "lotto":{
  "lottoId":5,
@@ -194,14 +192,12 @@ Assume that the GET request (to http://localhost:8080/lotto) returns JSON as:
 }
 ```
 
-REST assured can then help you to easily make the GET request and verify the response. E.g. if you want to verify that lottoId is equal to 5 you can do like this:
+* rest-assured can help you to make the GET request & verify the response.
 
 ```java
+// make the GET request & verify the body
 get("/lotto").then().body("lotto.lottoId", equalTo(5));
-```
-or perhaps you want to check that the winnerId's are 23 and 54:
-
-```java
+// or
 get("/lotto").then().body("lotto.winners.winnerId", hasItems(23, 54));
 ```
 
