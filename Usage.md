@@ -176,126 +176,139 @@
 ## Example 1 - JSON ##
 * GET http://localhost:8080/lotto / returns JSON 
 
-```json
-{
-"lotto":{
- "lottoId":5,
- "winning-numbers":[2,45,34,23,7,5,3],
- "winners":[{
-   "winnerId":23,
-   "numbers":[2,45,34,23,3,5]
- },{
-   "winnerId":54,
-   "numbers":[52,3,12,11,18,22]
- }]
-}
-}
-```
+    ```json
+    {
+    "lotto":{
+     "lottoId":5,
+     "winning-numbers":[2,45,34,23,7,5,3],
+     "winners":[{
+       "winnerId":23,
+       "numbers":[2,45,34,23,3,5]
+     },{
+       "winnerId":54,
+       "numbers":[52,3,12,11,18,22]
+     }]
+    }
+    }
+    ```
 
 * rest-assured can help you to make the GET request & verify the response.
 
-```java
-// make the GET request & verify the body
-get("/lotto").then().body("lotto.lottoId", equalTo(5));
-// or
-get("/lotto").then().body("lotto.winners.winnerId", hasItems(23, 54));
-```
+    ```java
+    // make the GET request & verify the body
+    get("/lotto").then().body("lotto.lottoId", equalTo(5));
+    // or
+    get("/lotto").then().body("lotto.winners.winnerId", hasItems(23, 54));
+    // `equalTo` & `hasItems` are Hamcrest matchers / -- should statically be imported from -- `org.hamcrest.Matchers`
+    ```
 
-Note: `equalTo` and `hasItems` are Hamcrest matchers which you should statically import from `org.hamcrest.Matchers`.
+* "json path" syntax
+  * -- uses -- <a href='http://groovy-lang.org/processing-xml.html#_gpath'>Groovy's GPath</a> notation
+  * != Jayway's <a href='https://github.com/jayway/JsonPath'>JsonPath</a> syntax
 
-Note that the "json path" syntax uses <a href='http://groovy-lang.org/processing-xml.html#_gpath'>Groovy's GPath</a> notation and is not to be confused with Jayway's <a href='https://github.com/jayway/JsonPath'>JsonPath</a> syntax.
+### Returning floats and doubles as BigDecimal | Json Numbers ###
 
-### Returning floats and doubles as BigDecimal ###
+* let's have
 
-You can configure Rest Assured and JsonPath to return BigDecimal's instead of float and double for Json Numbers. For example consider the following JSON document:
+    ```json
+    {
+        "price":12.12 
+    }
+    ```
 
-```javascript
-{
+* by default  you validate -- as a -- float
 
-    "price":12.12 
+    ```java
+    get("/price").then().body("price", is(12.12f));
+    ```
 
-}
-```
+* Json numbers -- via JsonConfig, can be transformed to -- BigDecimal
 
-By default  you validate that price is equal to 12.12 as a float like this:
+    ```
+    jsonConfig().numberReturnType(BIG_DECIMAL)
+    ```
 
-```java
-get("/price").then().body("price", is(12.12f));
-```
-
-but if you like you can configure REST Assured to use a JsonConfig that returns all Json numbers as BigDecimal:
-
-```java
-given().
-        config(RestAssured.config().jsonConfig(jsonConfig().numberReturnType(BIG_DECIMAL))).
-when().
-        get("/price").
-then().
-        body("price", is(new BigDecimal(12.12));
-```
+    ```java
+    given().
+            config(RestAssured.config().jsonConfig(jsonConfig().numberReturnType(BIG_DECIMAL))).
+    when().
+            get("/price").
+    then().
+            body("price", is(new BigDecimal(12.12));
+    ```
 
 ### JSON Schema validation ###
 
-From version `2.1.0` REST Assured has support for [Json Schema](http://json-schema.org/) validation. For example given the following schema located in the classpath as `products-schema.json`:
-```javascript
-{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Product set",
-    "type": "array",
-    "items": {
-        "title": "Product",
-        "type": "object",
-        "properties": {
-            "id": {
-                "description": "The unique identifier for a product",
-                "type": "number"
-            },
-            "name": {
-                "type": "string"
-            },
-            "price": {
-                "type": "number",
-                "minimum": 0,
-                "exclusiveMinimum": true
-            },
-            "tags": {
-                "type": "array",
-                "items": {
+* From REST Assured `v.2.1.0+`
+* [Json Schema](http://json-schema.org/) validation
+* how to set up | your project
+  * [downloading](http://dl.bintray.com/johanhaleby/generic/json-schema-validator-5.5.0-dist.zip) or
+  * add 
+
+    ```xml
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>json-schema-validator</artifactId>
+        <version>5.5.0</version>
+    </dependency>
+    ```
+
+* _Example:_ let's have schema | classpath as `products-schema.json`:
+
+    ```json
+    {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Product set",
+        "type": "array",
+        "items": {
+            "title": "Product",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "The unique identifier for a product",
+                    "type": "number"
+                },
+                "name": {
                     "type": "string"
                 },
-                "minItems": 1,
-                "uniqueItems": true
-            },
-            "dimensions": {
-                "type": "object",
-                "properties": {
-                    "length": {"type": "number"},
-                    "width": {"type": "number"},
-                    "height": {"type": "number"}
+                "price": {
+                    "type": "number",
+                    "minimum": 0,
+                    "exclusiveMinimum": true
                 },
-                "required": ["length", "width", "height"]
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
+                },
+                "dimensions": {
+                    "type": "object",
+                    "properties": {
+                        "length": {"type": "number"},
+                        "width": {"type": "number"},
+                        "height": {"type": "number"}
+                    },
+                    "required": ["length", "width", "height"]
+                },
+                "warehouseLocation": {
+                    "description": "Coordinates of the warehouse with the product",
+                    "$ref": "http://json-schema.org/geo"
+                }
             },
-            "warehouseLocation": {
-                "description": "Coordinates of the warehouse with the product",
-                "$ref": "http://json-schema.org/geo"
-            }
-        },
-        "required": ["id", "name", "price"]
+            "required": ["id", "name", "price"]
+        }
     }
-}
-```
-you can validate that a resource (`/products`) conforms with the schema:
-```java
-get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
-```
-`matchesJsonSchemaInClasspath` is statically imported from `io.restassured.module.jsv.JsonSchemaValidator` and it's recommended to statically import all methods from this class. However in order to use it you need to depend on the `json-schema-validator` module by either [downloading](http://dl.bintray.com/johanhaleby/generic/json-schema-validator-5.5.0-dist.zip) it from the download page or add the following dependency from Maven:
-```xml
-<dependency>
-    <groupId>io.rest-assured</groupId>
-    <artifactId>json-schema-validator</artifactId>
-    <version>5.5.0</version>
-</dependency>
-```
+    ```
+
+    validate that a resource (`/products`) -- matches with the -- schema
+
+    ```java
+    // `matchesJsonSchemaInClasspath` is statically imported from `io.restassured.module.jsv.JsonSchemaValidator` 
+    get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
+    ```
 
 ### JSON Schema Validation Settings ###
 
