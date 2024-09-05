@@ -1345,19 +1345,31 @@ then().
 Please note that response time measurement should be performed when the JVM is hot! (i.e. running a response time measurement when only running a single test will yield erroneous results). Also note that you can only vaguely regard these measurments to correlate with the server request processing time (since the response time will include the HTTP round trip and REST Assured processing time among other things).
 
 # Authentication #
-REST assured also supports several authentication schemes, for example OAuth, digest, certificate, form and preemptive basic authentication. You can either set authentication for each request:
-```java
-given().auth().basic("username", "password"). ..
-```
 
-but you can also define authentication for all requests:
-```java
-RestAssured.authentication = basic("username", "password");
-```
-or you can use a [specification](#specification-re-use).
+* built-in authentication schemes
+  * OAuth,
+  * digest,
+  * certificate,
+  * form
+  * preemptive basic authentication
+* authentication can be set 
+  * / each request:
+
+    ```java
+    // authentication specified / request
+    given().auth().basic("username", "password"). ..
+    ```
+
+  * / ALL requests:
+
+    ```java
+    RestAssured.authentication = basic("username", "password");
+    ```
+  * [specification](#specification-re-use)
 
 ## Basic Authentication ##
 
+* TODO:
 There are two types of basic authentication, preemptive and "challenged basic authentication".
 
 ### Preemptive Basic Authentication ###
