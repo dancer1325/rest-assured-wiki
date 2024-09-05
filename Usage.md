@@ -1,6 +1,18 @@
-Note that if you're using version 1.9.0 or earlier please refer to the [legacy](Usage_Legacy) documentation.
+* if you're using `rest-assured` v1.9.0- -> check [legacy documentation](Usage_Legacy)
 
-REST Assured is a Java DSL for simplifying testing of REST based services built on top of HTTP Builder. It supports POST, GET, PUT, DELETE, OPTIONS, PATCH and HEAD requests and can be used to validate and verify the response of these requests.
+* REST Assured
+  * := Java DSL /
+    * simplify testing of REST based services
+      * validate & verify the response of requests
+    * built | HTTP Builder
+    * supports
+      * POST,
+      * GET,
+      * PUT,
+      * DELETE,
+      * OPTIONS,
+      * PATCH
+      * HEAD 
 
 # Contents
 1. [Static imports](#static-imports)
@@ -160,6 +172,7 @@ If you're using Spring MVC you can use the [spring-mock-mvc](#spring-mock-mvc-mo
 ```java
 io.restassured.module.mockmvc.RestAssuredMockMvc.*
 ```
+
 # Examples
 
 ## Example 1 - JSON ##
@@ -471,7 +484,7 @@ get("/videos").then().assertThat().body(matchesDtd(dtd));
 ```
 
 The <code>matchesXsd</code> and <code>matchesDtd</code> methods are Hamcrest matchers which you can import from <a href="http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/matcher/RestAssuredMatchers.html">io.restassured.matcher.RestAssuredMatchers</a>.<br>
-</p>
+
 
 ## Example 3 - Complex parsing and validation ##
 This is where REST Assured really starts to shine! Since REST Assured is implemented in Groovy it can be really beneficial to take advantage of Groovy’s collection API. Let’s begin by looking at an example in Groovy:
