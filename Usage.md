@@ -2112,20 +2112,34 @@ RestAssured.reset();
 
 # Filters #
 
-* TODO:
-A filter allows you to inspect and alter a request before it's actually committed and also inspect and [alter](#response-builder) the response before it's returned to the expectations. You can regard it as an "around advice" in AOP terms. Filters can be used to implement custom authentication schemes, session management, logging etc. To create a filter you need to implement the [io.restassured.filter.Filter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/Filter.html) interface. To use a filter you can do:
+* allows
+  * inspecting and altering
+    * request | before it's ACTUALLY committed
+    * response | before it's returned to the expectations 
+* == "around advice" | AOP 
+* use cases
+  * implement
+    * custom authentication schemes,
+    * session management,
+    * logging 
+* requirements to create one
+  * implement the [io.restassured.filter.Filter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/Filter.html) interface 
+* _Examples:_ how to use it
 
-```java
-given().filter(new MyFilter()). ..
-```
-
-There are a couple of filters provided by REST Assured that are ready to use:
-  1. `io.restassured.filter.log.RequestLoggingFilter`: A filter that'll print the request specification details.
-  1. `io.restassured.filter.log.ResponseLoggingFilter`: A filter that'll print the response details if the response matches a given status code.
-  1. `io.restassured.filter.log.ErrorLoggingFilter`: A filter that'll print the response body if an error occurred (status code is between 400 and 500).
+    ```java
+    given().filter(new MyFilter()). ..
+    ```
+* built-in filters / provided by REST Assured
+  * `io.restassured.filter.log.RequestLoggingFilter`
+    * print the request specification details
+  * `io.restassured.filter.log.ResponseLoggingFilter`
+    * if the response matches a given status code -> print the response details 
+  * `io.restassured.filter.log.ErrorLoggingFilter`
+    * if status code is [400, 500] -> print the response body 
 
 ### Ordered Filters
 
+* TODO:
 As of REST Assured 3.0.2 you can implement the [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/OrderedFilter.html) interface if you need to control the filter ordering. Here you implement the `getOrder` method to return an integer representing the precedence of the filter. A lower value gives higher precedence. The highest precedence you can define is `Integer.MIN_VALUE` and the lowest precedence is `Integer.MAX_VALUE`. Filters not implementing [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/OrderedFilter.html) will have a default precedence of `1000`. Click [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/OrderedFilterITest.java) for some examples.
 
 ### Response Builder ###
