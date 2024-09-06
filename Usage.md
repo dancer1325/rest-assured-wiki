@@ -2193,23 +2193,42 @@ RestAssured.reset();
 
 # Logging #
 
-* TODO:
-In many cases it can be useful to print the response and/or request details in order to help you create the correct expectations and send the correct requests. To do help you do this you can use one of the predefined [filters](#filters) supplied with REST Assured or you can use one of the shortcuts.
+* you can log
+  * response
+  * request
+* uses
+  * help you create the correct expectations & send the correct requests
+* ways to get
+  * use predefined [filters](#filters)
+  * use one of the shortcuts
 
 ## Request Logging ##
-Since version 1.5 REST Assured supports logging the _[request specification](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/specification/RequestSpecification.html)_ before it's sent to the server using the [RequestLoggingFilter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/log/RequestLoggingFilter.html). Note that the HTTP Builder and HTTP Client may add additional headers then what's printed in the log. The filter will _only_ log details specified in the request specification. I.e. you can NOT regard the details logged by the [RequestLoggingFilter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/log/RequestLoggingFilter.html) to be what's actually sent to the server. Also subsequent filters may alter the request _after_ the logging has taken place. If you need to log what's _actually_ sent on the wire refer to the [HTTP Client logging docs](http://hc.apache.org/httpcomponents-client-ga/logging.html) or use an external tool such [Wireshark](http://www.wireshark.org/). Examples:
 
-```java
-given().log().all(). .. // Log all request specification details including parameters, headers and body
-given().log().params(). .. // Log only the parameters of the request
-given().log().body(). .. // Log only the request body
-given().log().headers(). .. // Log only the request headers
-given().log().cookies(). .. // Log only the request cookies
-given().log().method(). .. // Log only the request method
-given().log().path(). .. // Log only the request path
-```
+* requirements
+  * REST Assured v.1.5+
+* == logging the _[request specification](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/specification/RequestSpecification.html)_ | before it's -- sent to the -- server
+  * HTTP Builder and HTTP Client -- may add -- additional headers -> NOT printed | log
+    * Reason: 🧠 filter ONLY log details / specified | request specification  🧠
+* way to get
+  * use the [RequestLoggingFilter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/log/RequestLoggingFilter.html)
+  * if you want to log / _actually_  sent | wire
+    * [HTTP Client logging docs](http://hc.apache.org/httpcomponents-client-ga/logging.html)
+    * external tool -- _Example:_ [Wireshark](http://www.wireshark.org/) --
+* Examples:
+
+    ```java
+    given().log().all(). .. // Log all request specification details including parameters, headers and body
+    given().log().params(). .. // Log only the parameters of the request
+    given().log().body(). .. // Log only the request body
+    given().log().headers(). .. // Log only the request headers
+    given().log().cookies(). .. // Log only the request cookies
+    given().log().method(). .. // Log only the request method
+    given().log().path(). .. // Log only the request path
+    ```
 
 ## Response Logging ##
+
+* TODO:
 If you want to print the response body regardless of the status code you can do:
 
 ```java
