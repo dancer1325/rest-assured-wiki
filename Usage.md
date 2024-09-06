@@ -999,28 +999,36 @@ Options are `xmlPath`, `jsonPath` and `htmlPath`.
 
 ## Headers, cookies, status etc ##
 
-You can also get headers, cookies, status line and status code:
-```java
-Response response = get("/lotto");
+* apart from previous ones, you can get
+  * headers,
+  * cookies,
+  * status line
+  * status code
 
-// Get all headers
-Headers allHeaders = response.getHeaders();
-// Get a single header value:
-String headerName = response.getHeader("headerName");
+* _Example:_
 
-// Get all cookies as simple name-value pairs
-Map<String, String> allCookies = response.getCookies();
-// Get a single cookie value:
-String cookieValue = response.getCookie("cookieName");
-
-// Get status line
-String statusLine = response.getStatusLine();
-// Get status code
-int statusCode = response.getStatusCode();
-```
+    ```java
+    Response response = get("/lotto");
+    
+    // Get all headers
+    Headers allHeaders = response.getHeaders();
+    // Get a single header value:
+    String headerName = response.getHeader("headerName");
+    
+    // Get all cookies as simple name-value pairs
+    Map<String, String> allCookies = response.getCookies();
+    // Get a single cookie value:
+    String cookieValue = response.getCookie("cookieName");
+    
+    // Get status line
+    String statusLine = response.getStatusLine();
+    // Get status code
+    int statusCode = response.getStatusCode();
+    ```
 
 ## Multi-value headers and cookies ##
-A header and a cookie can contain several values for the same name.
+
+* == 👁️ header & cookie -- can contain -- >1 values / SAME name 👁️
 
 ### Multi-value headers ###
 To get all values for a header you need to first get the [Headers](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/http/Headers.html) object from the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/Response.html) object. From the `Headers` instance you can get all values using the [Headers.getValues(<header name>)](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/http/Headers.html#getValues(java.lang.String)) method which returns a `List` with all header values.
@@ -1029,12 +1037,22 @@ To get all values for a header you need to first get the [Headers](http://static
 To get all values for a cookie you need to first get the [Cookies](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/http/Cookies.html) object from the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/Response.html) object. From the `Cookies` instance you can get all values using the [Cookies.getValues(<cookie name>)](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/http/Cookies.html#getValues(java.lang.String)) method which returns a `List` with all cookie values.
 
 ## Detailed Cookies ##
-If you need to get e.g. the comment, path or expiry date etc from a cookie you need get a [detailed cookie](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/http/Cookie.html) from REST Assured. To do this you can use the [Response.getDetailedCookie(java.lang.String)](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/ResponseOptions.html#getDetailedCookie-java.lang.String-) method. The detailed cookie then contains all attributes from the cookie.
 
-You can also get all detailed response [cookies](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/http/Cookies.html) using the [Response.getDetailedCookies()](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/ResponseOptions.html#getDetailedCookies--) method.
+* [detailed cookie](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/http/Cookie.html)
+  * ALL cookie's attributes
+    * comment,
+    * path
+    * expiry date
+    * ...
+  * way to get
+    * [Response.getDetailedCookie(java.lang.String)](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/ResponseOptions.html#getDetailedCookie-java.lang.String-)
+* [ALL detailed response cookies](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/http/Cookies.html)
+  * way to get
+    * [Response.getDetailedCookies()](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/ResponseOptions.html#getDetailedCookies--)
 
 # Specifying Request Data #
 
+* TODO:
 Besides specifying request parameters you can also specify headers, cookies, body and content type.
 
 ## Invoking HTTP resources ##
@@ -1146,30 +1164,36 @@ Here `roomNumber` will be replaced with `23`.
 Note that specifying too few or too many parameters will result in an error message. For advanced use cases you can add, change, remove (even redundant path parameters) from a [filter](#filters).
 
 ## Cookies ##
-In its simplest form you specify cookies like this:
-```java
-given().cookie("username", "John").when().get("/cookie").then().body(equalTo("username"));
-```
 
-You can also specify a multi-value cookie like this:
-```java
-given().cookie("cookieName", "value1", "value2"). ..
-```
-This will create _two_ cookies, `cookieName=value1` and `cookieName=value2`.
+* way to specify
+  * simplest cookies
 
-You can also specify a detailed cookie using:
-```java
-Cookie someCookie = new Cookie.Builder("some_cookie", "some_value").setSecured(true).setComment("some comment").build();
-given().cookie(someCookie).when().get("/cookie").then().assertThat().body(equalTo("x"));
-```
+    ```java
+    given().cookie("username", "John").when().get("/cookie").then().body(equalTo("username"));
+    ```
 
-or several detailed cookies at the same time:
-```java
-Cookie cookie1 = Cookie.Builder("username", "John").setComment("comment 1").build();
-Cookie cookie2 = Cookie.Builder("token", 1234).setComment("comment 2").build();
-Cookies cookies = new Cookies(cookie1, cookie2);
-given().cookies(cookies).when().get("/cookie").then().body(equalTo("username, token"));
-```
+  * multi-value cookie
+
+    ```java
+    given().cookie("cookieName", "value1", "value2"). ..
+    // cookies created are `cookieName=value1` and `cookieName=value2` 
+    ```
+
+  * detailed cookie
+
+    ```java
+    Cookie someCookie = new Cookie.Builder("some_cookie", "some_value").setSecured(true).setComment("some comment").build();
+    given().cookie(someCookie).when().get("/cookie").then().assertThat().body(equalTo("x"));
+    ```
+
+  * several detailed cookies
+
+    ```java
+    Cookie cookie1 = Cookie.Builder("username", "John").setComment("comment 1").build();
+    Cookie cookie2 = Cookie.Builder("token", 1234).setComment("comment 2").build();
+    Cookies cookies = new Cookies(cookie1, cookie2);
+    given().cookies(cookies).when().get("/cookie").then().body(equalTo("username, token"));
+    ```
 
 ## Headers ##
 ```java
