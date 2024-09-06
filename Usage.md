@@ -2056,55 +2056,63 @@ RestAssured.reset();
 ```
 
 # Specification Re-use #
-Instead of having to duplicate response expectations and/or request parameters for different tests you can re-use an entire specification. To do this you define a specification using either the [RequestSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/RequestSpecBuilder.html) or [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/ResponseSpecBuilder.html).
 
-E.g. let's say you want to make sure that the expected status code is 200 and that the size of the JSON array "x.y" has size 2 in several tests you can define a ResponseSpecBuilder like this:
+* allows
+  * re-using a specification for
+    * request parameters  -- [RequestSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/RequestSpecBuilder.html)
+    * response expectations -- [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/ResponseSpecBuilder.html)
 
-```java
-ResponseSpecBuilder builder = new ResponseSpecBuilder();
-builder.expectStatusCode(200);
-builder.expectBody("x.y.size()", is(2));
-ResponseSpecification responseSpec = builder.build();
+* _Examples:_
+  * _Example1:_
 
-// Now you can re-use the "responseSpec" in many different tests:
-when().
-       get("/something").
-then().
-       spec(responseSpec).
-       body("x.y.z", equalTo("something"));
-```
+      ```java
+      // expected status code is 200 & size of the JSON array "x.y" is 2 
+      ResponseSpecBuilder builder = new ResponseSpecBuilder();
+      builder.expectStatusCode(200);
+      builder.expectBody("x.y.size()", is(2));
+      ResponseSpecification responseSpec = builder.build();
+    
+      // Now you can re-use the "responseSpec" in many different tests:
+      when().
+             get("/something").
+      then().
+             spec(responseSpec).
+             body("x.y.z", equalTo("something"));
+      ```
 
-In this example the data defined in "responseSpec" is merged with the additional body expectation and all expectations must be fulfilled in order for the test to pass.
+  * _Example2:_ "requestSpec" -- can be merged with -- additional body expectation
 
-You can do the same thing if you need to re-use request data in different tests. E.g.
-```java
-RequestSpecBuilder builder = new RequestSpecBuilder();
-builder.addParam("parameter1", "parameterValue");
-builder.addHeader("header1", "headerValue");
-RequestSpecification requestSpec = builder.build();
-  
-given().
-        spec(requestSpec).
-        param("parameter2", "paramValue").
-when().
-        get("/something").
-then().
-        body("x.y.z", equalTo("something"));        
-```
-
-Here the request's data is merged with the data in the "requestSpec" so the request will contain two parameters ("parameter1" and "parameter2") and one header ("header1").
+    ```java
+    RequestSpecBuilder builder = new RequestSpecBuilder();
+    builder.addParam("parameter1", "parameterValue");
+    builder.addHeader("header1", "headerValue");
+    RequestSpecification requestSpec = builder.build();
+      
+    given().
+            spec(requestSpec).
+            param("parameter2", "paramValue").      // add more details to the defined "requestSpec" 
+    when().
+            get("/something").
+    then().
+            body("x.y.z", equalTo("something"));        
+    ```
 
 ## Querying RequestSpecification ##
-Sometimes it's useful to be able to query/extract values form a RequestSpecification. For this reason you can use the `io.restassured.specification.SpecificationQuerier`. For example:
- 
-```java
-RequestSpecification spec = ...
-QueryableRequestSpecification queryable = SpecificationQuerier.query(spec);
-String headerValue = queryable.getHeaders().getValue("header");
-String param = queryable.getFormParams().get("someparam");
-```
+
+* == query/extract values -- , via `io.restassured.specification.SpecificationQuerier`, from a -- RequestSpecification
+* _Examples:_
+
+    ```java
+    RequestSpecification spec = ...
+    QueryableRequestSpecification queryable = SpecificationQuerier.query(spec); // Define QueryableRequestSpecification
+    // start extracting values
+    String headerValue = queryable.getHeaders().getValue("header");
+    String param = queryable.getFormParams().get("someparam");
+    ```
 
 # Filters #
+
+* TODO:
 A filter allows you to inspect and alter a request before it's actually committed and also inspect and [alter](#response-builder) the response before it's returned to the expectations. You can regard it as an "around advice" in AOP terms. Filters can be used to implement custom authentication schemes, session management, logging etc. To create a filter you need to implement the [io.restassured.filter.Filter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/Filter.html) interface. To use a filter you can do:
 
 ```java
