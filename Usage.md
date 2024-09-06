@@ -1369,85 +1369,108 @@ Please note that response time measurement should be performed when the JVM is h
 
 ## Basic Authentication ##
 
-* TODO:
-There are two types of basic authentication, preemptive and "challenged basic authentication".
+* types
+  * preemptive
+  * "challenged basic authentication"
 
 ### Preemptive Basic Authentication ###
-This will send the basic authentication credential even before the server gives an unauthorized response in certain situations, thus reducing the overhead of making an additional connection. This is typically what you want to use in most situations unless you're testing the servers ability to challenge. Example:
 
-```java
-given().auth().preemptive().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
-```
+* 👁️basic authentication credential -- is sent BEFORE the -- server gives an unauthorized response | certain situations 👁️
+  * -> reducing the overhead of making an additional connection
+* use cases
+  * most of them
+* ❌NO use ❌	
+  * you're testing the servers ability to challenge
+    * _Example:_
+
+    ```java
+    given().auth().preemptive().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
+    ```
 
 ### Challenged Basic Authentication ###
-When using "challenged basic authentication" REST Assured will not supply the credentials unless the server has explicitly asked for it. This means that REST Assured will make an additional request to the server in order to be challenged and then follow up with the same request once more but this time setting the basic credentials in the header.
 
-```java
-given().auth().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
-```
+* ONLY if the server explicitly asks for the credentials -> supply them
+  * == steps
+    * additional request to the server / get the credentials
+    * same request AGAIN / basic credentials | header
+
+    ```java
+    given().auth().basic("username", "password").when().get("/secured/hello").then().statusCode(200);
+    ```
 
 ## Digest Authentication ##
-Currently only "challenged digest authentication" is supported. Example:
 
-```java
-given().auth().digest("username", "password").when().get("/secured"). ..
-```
+* ONLY supported "challenged digest authentication"
+
+    ```java
+    given().auth().digest("username", "password").when().get("/secured"). ..
+    ```
 
 ## Form Authentication ##
 
-[Form authentication](https://en.wikipedia.org/wiki/Form-based_authentication) is very popular on the internet. It's typically associated with a user filling out his credentials (username and password) on a webpage and then pressing a login button of some sort. A very simple HTML page that provide the basis for form authentication may look like this:
-```html
-<html>
-  <head>
-    <title>Login</title>
-  </head>
+* [Form authentication](https://en.wikipedia.org/wiki/Form-based_authentication) is very popular | internet
+  * == credentials (username and password) | webpage & pressing a login button
+  * _Example:_ HTML page / provide the basis for form authentication
 
-  <body>
-    <form action="j_spring_security_check" method="POST">
-      <table>
-        <tr><td>User:&nbsp;</td><td><input type='text' name='j_username'></td></tr>
-        <tr><td>Password:</td><td><input type='password' name='j_password'></td></tr>
-          <tr><td colspan='2'><input name="submit" type="submit"/></td></tr>
-       </table>
-        </form>
-      </body>
- </html>
-```
+    ```html
+    <html>
+      <head>
+        <title>Login</title>
+      </head>
+    
+      <body>
+        <form action="j_spring_security_check" method="POST">
+          <table>
+            <tr><td>User:&nbsp;</td><td><input type='text' name='j_username'></td></tr>
+            <tr><td>Password:</td><td><input type='password' name='j_password'></td></tr>
+              <tr><td colspan='2'><input name="submit" type="submit"/></td></tr>
+           </table>
+            </form>
+          </body>
+     </html>
+    ```
 
-I.e. the server expects the user to fill-out the "j_username" and "j_password" input fields and then press "submit" to login. With REST Assured you can test a service protected by form authentication like this:
+* ways
+  * NOT providing the details | form authentication set up
+    * -> additional request to the server -- in order to retrieve the -- webpage with the login details
+        ```java
+        // NOT optimal
+        given().
+                auth().form("John", "Doe").
+        when().
+                get("/formAuth");
+        then().
+                statusCode(200);
+        ``` 
+      
+  * supply the details | setting up the form authentication
+    * -> NOT additional request needed
 
-```java
-given().
-        auth().form("John", "Doe").
-when().
-        get("/formAuth");
-then().
-        statusCode(200);
-```
+      ```java
+      given().
+              auth().form("John", "Doe", new FormAuthConfig("/j_spring_security_check", "j_username", "j_password")).    
+      when().
+              get("/formAuth");
+      then().
+              statusCode(200);
+      ```
 
-While this may work it's not optimal. What happens when form authentication is used like this in REST Assured an additional request have to made to the server in order to retrieve the webpage with the login details. REST Assured will then try to parse this page and look for two input fields (with username and password) as well as the form action URI. This may work or fail depending on the complexity of the webpage. A better option is to supply the these details when setting up the form authentication. In this case one could do:
+* FormAuthConfig.`springSecurity`
+  * uses
+    * if you use default Spring Security properties
 
-```java
-given().
-        auth().form("John", "Doe", new FormAuthConfig("/j_spring_security_check", "j_username", "j_password")).
-when().
-        get("/formAuth");
-then().
-        statusCode(200);
-```
-
-This way REST Assured doesn't need to make an additional request and parse the webpage. There's also a predefined FormAuthConfig called `springSecurity` that you can use if you're using the default Spring Security properties:
-
-```java
-given().
-        auth().form("John", "Doe", FormAuthConfig.springSecurity()).
-when().
-        get("/formAuth");
-then().
-        statusCode(200);
-```
+    ```java
+    given().
+            auth().form("John", "Doe", FormAuthConfig.springSecurity()).
+    when().
+            get("/formAuth");
+    then().
+            statusCode(200);
+    ```
 
 ### CSRF ###
+
+* TODO:
 Today it's common for the server to supply a [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) token with the response in order to avoid these kinds of attacks. REST Assured has support for automatically parsing and supplying the CSRF token to the server. In order for this to work REST Assured *must* make an additional request and parse (parts) of the website. 
 
 REST Assured supports two ways of providing CSRF tokens to the server, either by submitting the CSRF token in a form, or as a header.
