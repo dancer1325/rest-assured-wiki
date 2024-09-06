@@ -2156,12 +2156,20 @@ RestAssured.reset();
 
 ### Response Builder ###
 
-If you need to change the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/Response.html) from a filter you can use the [ResponseBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/ResponseBuilder.html) to create a new Response based on the original response. For example if you want to change the body of the original response to something else you can do:
-```java
-Response newResponse = new ResponseBuilder().clone(originalResponse).setBody("Something").build();
-```
+* [ResponseBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/ResponseBuilder.html)
+* allows
+  * creating a new Response / -- based on the -- original response
+* use cases
+  * you need to change the [Response](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/response/Response.html) -- from a -- filter
+* _Examples:_ change the body of the original response
+
+    ```java
+    Response newResponse = new ResponseBuilder().clone(originalResponse).setBody("Something").build();
+    ```
 
 # Logging #
+
+* TODO:
 In many cases it can be useful to print the response and/or request details in order to help you create the correct expectations and send the correct requests. To do help you do this you can use one of the predefined [filters](#filters) supplied with REST Assured or you can use one of the shortcuts.
 
 ## Request Logging ##
