@@ -2139,8 +2139,20 @@ RestAssured.reset();
 
 ### Ordered Filters
 
-* TODO:
-As of REST Assured 3.0.2 you can implement the [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/OrderedFilter.html) interface if you need to control the filter ordering. Here you implement the `getOrder` method to return an integer representing the precedence of the filter. A lower value gives higher precedence. The highest precedence you can define is `Integer.MIN_VALUE` and the lowest precedence is `Integer.MAX_VALUE`. Filters not implementing [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/OrderedFilter.html) will have a default precedence of `1000`. Click [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/OrderedFilterITest.java) for some examples.
+* [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/OrderedFilter.html) interface
+  * requirements
+    * REST Assured v3.0.2+
+  * use cases
+    * control the filter ordering 
+* `int getOrder()`
+  * return an integer / == precedence of the filter 
+    * lower value == higher precedence
+* `Integer.MIN_VALUE`
+  * == highest precedence
+* `Integer.MAX_VALUE`
+  * == lowest precedence 
+* Filters / NOT implementing [io.restassured.filter.OrderedFilter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/OrderedFilter.html) -> default precedence of `1000`
+* _Examples:_ [here](https://github.com/rest-assured/rest-assured/blob/master/examples/rest-assured-itest-java/src/test/java/io/restassured/itest/java/OrderedFilterITest.java)
 
 ### Response Builder ###
 
