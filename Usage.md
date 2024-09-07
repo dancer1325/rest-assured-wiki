@@ -2408,40 +2408,46 @@ then().
 ```
 
 # Session support #
-REST Assured provides a simplified way for managing sessions. You can define a session id value in the DSL:
-```java
-given().sessionId("1234"). .. 
-```
 
-This is actually just a short-cut for:
-```java
-given().cookie("JSESSIONID", "1234"). .. 
-```
+* ways to specify
+  * 
 
-You can also specify a default `sessionId` that'll be supplied with all subsequent requests:
-```java
-RestAssured.sessionId = "1234";
-```
+    ```java
+    given().sessionId("1234"). ..
+    // shortcut of
+    given().cookie("JSESSIONID", "1234"). .. 
+    ```
 
-By default the session id name is `JSESSIONID` but you can change it using the [SessionConfig](#session-config):
-```java
-RestAssured.config = RestAssured.config().sessionConfig(new SessionConfig().sessionIdName("phpsessionid"));
-```
+  * default / ALL subsequent requests
 
-You can also specify a sessionId using the `RequestSpecBuilder` and reuse it in many tests:
-```java
-RequestSpecBuilder spec = new RequestSpecBuilder().setSessionId("value1").build();
-   
-// Make the first request with session id equal to value1
-given().spec(spec). .. 
-// Make the second request with session id equal to value1
-given().spec(spec). .. 
-```
+    ```java
+    RestAssured.sessionId = "1234";
+    ```
+  
+  * -- through -- `RequestSpecBuilder` / can be reused | many tests
+    
+    ```java
+    RequestSpecBuilder spec = new RequestSpecBuilder().setSessionId("value1").build();
+           
+    // Make the first request with session id equal to value1
+    given().spec(spec). .. 
+    // Make the second request with session id equal to value1
+    given().spec(spec). .. 
+    ```
 
-It's also possible to get the session id from the response object:
-```java
-String sessionId = get("/something").sessionId();
-```
+* session id name
+  * by default, `JSESSIONID`
+  * can be configured -- via -- [SessionConfig](#session-config)
+
+    ```java
+    RestAssured.config = RestAssured.config().sessionConfig(new SessionConfig().sessionIdName("phpsessionid"));
+    ```
+
+* get the session id -- from the -- response object
+
+    ```java
+    String sessionId = get("/something").sessionId();
+    ```
 
 ## Session Filter ##
 As of version 2.0.0 you can use a [session filter](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/filter/session/SessionFilter.html) to automatically capture and apply the session, for example:
