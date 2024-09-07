@@ -213,20 +213,22 @@ given().auth().with(httpBasic("username", "password")). ..
 ```
 where httpBasic is statically imported from [SecurityMockMvcRequestPostProcessor](http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html).
 
-
 ### Adding Result Handlers ###
-Spring MockMvc has support for [Result Handlers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultHandler.html) and you can use these in RestAssuredMockMvc as well. For example let's say you want to use the native MockMvc logging:
 
-```java
-.. .then().apply(print()). .. 
-```
+* Spring MockMvc has support for [Result Handlers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultHandler.html)
+  * 👁️can be used | RestAssuredMockMvc 👁️
+* _Example:_ use the native MockMvc logging
 
-where `print` is statically imported from `org.springframework.test.web.servlet.result.MockMvcResultHandlers`. Note that if you're using REST Assured 2.6.0 or older you used the `resultHandlers` method:
+    ```java
+    // required to import statically
+    import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;  
+    ...then().apply(print())... 
+    ```
 
-```java
-given().resultHandlers(print()). .. 
-```
-but this was deprected in REST Assured 2.8.0.
+    ```java
+    // if you're using REST Assured v2.6.0- -> you use `resultHandlers()`  
+    given().resultHandlers(print()). .. 
+    ```
 
 ### Using Result Matchers ###
 Spring MockMvc provides a bunch of [Result Matchers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultMatcher.html) that you may find useful. RestAssuredMockMvc has support for these as well if needed. For example let's say that for some reason you want to verify that the status code is equal to 200 using a ResultMatcher:
