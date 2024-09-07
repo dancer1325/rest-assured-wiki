@@ -126,82 +126,82 @@
 
 ### Asynchronous Requests ###
 
-* TODO:
-Both RestAssuredMockMvc and  As of version `2.5.0` RestAssuredMockMvc has support for asynchronous requests. For example let's say you have the following controller:
-```java
-@Controller
-public class PostAsyncController {
+* RestAssuredMockMvc `v2.5.0+`
+* timeout
+  * by default, it's 1"
+  * configure the timeout
+    * `.with().timeout(anyNumber, TimeUnit.SECONDS).`
+    * [AsyncConfig](http://static.javadoc.io/io.restassured/spring-mock-mvc/2.4.1/io/restassured/module/mockmvc/config/AsyncConfig.html)
+      * `withTimeout`
+        * statically imported -- from -- `io.restassured.module.mockmvc.config.AsyncConfig`
+        * shortcut for creating an `AsyncConfig` 
+* _Example:_
 
-    @RequestMapping(value = "/stringBody", method = POST)
-    public @ResponseBody
-    Callable<String> stringBody(final @RequestBody String body) {
-        return new Callable<String>() {
-            public String call() throws Exception {
-                return body;
-            }
-        };
+    ```java
+    @Controller
+    public class PostAsyncController {
+    
+        @RequestMapping(value = "/stringBody", method = POST)
+        public @ResponseBody
+        Callable<String> stringBody(final @RequestBody String body) {
+            return new Callable<String>() {
+                public String call() throws Exception {
+                    return body;
+                }
+            };
+        }
     }
-}
-```
+    ```
 
-You can test this like so:
+    ```java
+    given().
+            body("a string").
+    when().
+            async().post("/stringBody").
+    then().
+            body(equalTo("a string"));
+    // configuring the timeOut
+    // 1. with().timeout()
+    given().
+            body("a string").
+    when().
+            async().with().timeout(20, TimeUnit.SECONDS).post("/stringBody").
+    then().
+            body(equalTo("a string")); 
+    // 2. config().asyncConfig(withTimeout()))
+    given().
+            config(config().asyncConfig(withTimeout(100, TimeUnit.MILLISECONDS))).
+            body("a string").
+    when().
+            async().post("/stringBody").
+    then().
+            body(equalTo("a string"));
+    ```
 
-```java
-given().
-        body("a string").
-when().
-        async().post("/stringBody").
-then().
-        body(equalTo("a string"));
-```
-
-This will use the default timeout of 1 second. You can change the timeout by using the DSL:
-```java
-given().
-        body("a string").
-when().
-        async().with().timeout(20, TimeUnit.SECONDS).post("/stringBody").
-then().
-        body(equalTo("a string"));    
-```
-
-It's also possible to configure a default timeout by using the [AsyncConfig](http://static.javadoc.io/io.restassured/spring-mock-mvc/2.4.1/io/restassured/module/mockmvc/config/AsyncConfig.html), for example:
-
-```java
-given().
-        config(config().asyncConfig(withTimeout(100, TimeUnit.MILLISECONDS))).
-        body("a string").
-when().
-        async().post("/stringBody").
-then().
-        body(equalTo("a string"));
-```
-
-`withTimeout` is statically imported from `io.restassured.module.mockmvc.config.AsyncConfig` and is just a shortcut for creating an `AsyncConfig` with a given timeout. Apply the config globally to apply to all requests:
-
-```java
-RestAssuredMockMvc.config = RestAssuredMockMvc.config().asyncConfig(withTimeout(100, TimeUnit.MILLISECONDS));
-
-// Request 1
-given().
-        body("a string").
-when().
-        async().post("/stringBody").
-then().
-        body(equalTo("a string"));
-
-// Request 2
-given().
-        body("another string").
-when().
-        async().post("/stringBody").
-then().
-        body(equalTo("a string"));
-```
-
-Both request 1 and 2 will now use the default timeout of 100 milliseconds.
+    ```java
+    // Apply the asyncConfig globally == ALL requests
+    RestAssuredMockMvc.config = RestAssuredMockMvc.config().asyncConfig(withTimeout(100, TimeUnit.MILLISECONDS));
+    
+    // Request 1
+    given().
+            body("a string").
+    when().
+            async().post("/stringBody").
+    then().
+            body(equalTo("a string"));
+    
+    // Request 2
+    given().
+            body("another string").
+    when().
+            async().post("/stringBody").
+    then().
+            body(equalTo("a string"));
+    ```
 
 ### Adding Request Post Processors ###
+
+* TODO:
 Spring MockMvc has support for [Request Post Processors](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html) and you can use these in RestAssuredMockMvc as well. For example:
 ```java
 given().postProcessors(myPostProcessor1, myPostProcessor2). ..
