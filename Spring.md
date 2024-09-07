@@ -1,9 +1,10 @@
 # Spring Support
 
-REST Assured contains two support modules for testing Spring Controllers using the REST Assured API:
-
-* [spring-mock-mvc](#spring-mock-mvc-module) - For unit testing standard Spring [MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) Controllers
-* [spring-web-test-client](#spring-web-test-client-module) - For unit testing (reactive) Spring [Webflux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) Controllers
+* built-in REST Assured modules -- for -- testing Spring Controllers
+  * [spring-mock-mvc](#spring-mock-mvc-module)
+    * unit testing standard Spring [MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) Controllers
+  * [spring-web-test-client](#spring-web-test-client-module)
+    * unit testing (reactive) Spring [Webflux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) Controllers
 
 ## Contents
 
@@ -29,84 +30,103 @@ REST Assured contains two support modules for testing Spring Controllers using t
 
 ## Spring Mock Mvc Module 
 
-REST Assured 2.2.0 introduced support for [Spring Mock Mvc](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/web/servlet/MockMvc.html) using the `spring-mock-mvc` module. This means that you can unit test Spring Mvc Controllers. For example given the following Spring controller:
-```java
-@Controller
-public class GreetingController {
+* REST Assured v2.2.0+ 
+* allows
+  * unit testing Spring Mvc Controllers
+* syntax == standard REST Assured syntax
+* vs standard REST Assured
+  * easier to
+    * bootstrap the environment
+    * use mocks
+  * most things work
+    * configuration
+    * static specification
+    * logging
+* _Example:_ 
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
-
-    @RequestMapping(value = "/greeting", method = GET)
-    public @ResponseBody Greeting greeting(
-            @RequestParam(value="name", required=false, defaultValue="World") String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+    ```java
+    @Controller
+    public class GreetingController {
+    
+        private static final String template = "Hello, %s!";
+        private final AtomicLong counter = new AtomicLong();
+    
+        @RequestMapping(value = "/greeting", method = GET)
+        public @ResponseBody Greeting greeting(
+                @RequestParam(value="name", required=false, defaultValue="World") String name) {
+            return new Greeting(counter.incrementAndGet(), String.format(template, name));
+        }
     }
-}
-```
-you can test it using [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/RestAssuredMockMvc.html) like this:
-```java
-given().
-        standaloneSetup(new GreetingController()).
-        param("name", "Johan").
-when().
-        get("/greeting").
-then().
-        statusCode(200).
-        body("id", equalTo(1)).
-        body("content", equalTo("Hello, Johan!"));  
-```
-i.e. it's very similar to the standard REST Assured syntax. This makes it really fast to run your tests and it's also easier to bootstrap the environment and use mocks (if needed) than standard REST Assured. Most things that you're used to in standard REST Assured works with RestAssured Mock Mvc as well. For example (certain) configuration, static specifications, logging etc etc. To use it you need to depend on the Spring Mock Mvc module:
-```xml
-<dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>spring-mock-mvc</artifactId>
-      <version>5.5.0</version>
-      <scope>test</scope>
-</dependency>
-```
-Or [download](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-5.5.0-dist.zip) it from the download page if you're not using Maven.
+    ```
+
+    ```java
+    given().        // syntax == standard REST Assured syntax
+            standaloneSetup(new GreetingController()).
+            param("name", "Johan").
+    when().
+            get("/greeting").
+    then().
+            statusCode(200).
+            body("id", equalTo(1)).
+            body("content", equalTo("Hello, Johan!"));  
+    ```
+
+* ways to use it
+  * add dependency
+  
+    ```xml
+    <dependency>
+          <groupId>io.rest-assured</groupId>
+          <artifactId>spring-mock-mvc</artifactId>
+          <version>5.5.0</version>
+          <scope>test</scope>
+    </dependency>
+    ```
+  * [download](http://dl.bintray.com/johanhaleby/generic/spring-mock-mvc-5.5.0-dist.zip) it 
 
 ### Bootstrapping RestAssuredMockMvc ##
 
-First of all you should statically import methods in:
-```java
-io.restassured.module.mockmvc.RestAssuredMockMvc.*
-io.restassured.module.mockmvc.matcher.RestAssuredMockMvcMatchers.*
-```
+* statically import module-specific methods
+  * check [static import](#static-imports)
 
-instead of those defined in
+      ```java
+      io.restassured.module.mockmvc.RestAssuredMockMvc.*
+      io.restassured.module.mockmvc.matcher.RestAssuredMockMvcMatchers.*
+      // NOT import, standard Rest Assured ones  
+      // io.restassured.RestAssured.*
+      // io.restassured.matcher.RestAssuredMatchers.*
+      ```
 
-```java
-io.restassured.RestAssured.*
-io.restassured.matcher.RestAssuredMatchers.*
-```
+* ways to initialize a test -- via -- RestAssuredMockMvc
+  * / add 
+    * set of Controllers,
+    * MockMvc instance
+    * WebApplicationContext from Spring
+  * scope
+    * / 1! request
 
-Refer to [static import](#static-imports) section of the documentation for additional static imports.
+    ```java
+    given().standaloneSetup(new GreetingController())... // set a Controller
+    ```
+        
+    * statically
 
-In order to start a test using RestAssuredMockMvc you need to initialize it with a either a set of Controllers, a MockMvc instance or a WebApplicationContext from Spring. You can do this for a single request as seen in the previous example:
-
-```java
-given().standaloneSetup(new GreetingController()). ..
-```
-or you can do it statically:
-
-```java
-RestAssuredMockMvc.standaloneSetup(new GreetingController());
-```
-If defined statically you don't have to specify any Controllers (or MockMvc or WebApplicationContext instance) in the DSL. This means that the previous example can be written as:
-```java
-given().
-        param("name", "Johan").
-when().
-        get("/greeting").
-then().
-        statusCode(200).
-        body("id", equalTo(1)).
-        body("content", equalTo("Hello, Johan!"));  
-```
+    ```java
+    RestAssuredMockMvc.standaloneSetup(new GreetingController()); // set a Controller
+    // -> NOT needed to specify the Controller or MockMvc or WebApplicationContext instance | DSL
+    given().
+            param("name", "Johan").
+    when().
+            get("/greeting").
+    then().
+            statusCode(200).
+            body("id", equalTo(1)).
+            body("content", equalTo("Hello, Johan!"));  
+    ```
 
 ### Asynchronous Requests ###
+
+* TODO:
 Both RestAssuredMockMvc and  As of version `2.5.0` RestAssuredMockMvc has support for asynchronous requests. For example let's say you have the following controller:
 ```java
 @Controller
