@@ -201,7 +201,7 @@
 
 ### Adding Request Post Processors ###
 
-* Spring MockMvc has support for [Request Post Processors](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html)
+* Spring MockMvc provides [Request Post Processors](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html)
   * 👁️can be used | RestAssuredMockMvc 👁️
 * _Example:_
 
@@ -221,7 +221,7 @@
 
 ### Adding Result Handlers ###
 
-* Spring MockMvc has support for [Result Handlers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultHandler.html)
+* Spring MockMvc provides [Result Handlers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultHandler.html)
   * 👁️can be used | RestAssuredMockMvc 👁️
 * _Example:_ use the native MockMvc logging
 
@@ -238,22 +238,26 @@
 
 ### Using Result Matchers ###
 
-* TODO:
-* Spring MockMvc provides a bunch of [Result Matchers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultMatcher.html) that you may find useful. RestAssuredMockMvc has support for these as well if needed. For example let's say that for some reason you want to verify that the status code is equal to 200 using a ResultMatcher:
-```java
-given().
-        param("name", "Johan").
-when().
-        get("/greeting").
-then().
-        assertThat(status().isOk()).
-        body("id", equalTo(1)).
-        body("content", equalTo("Hello, Johan!"));  
-```
-where `status` is statically imported from `org.springframework.test.web.servlet.result.MockMvcResultMatchers`. Note that you can also use the `expect` method which is the same as `assertThat` but more close to the syntax of native MockMvc.
+* Spring MockMvc -- provides a bunch of -- [Result Matchers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultMatcher.html)
+  * 👁️can be used | RestAssuredMockMvc 👁️
+* _Example:_ verify status code = 200 -- via -- ResultMatcher
+
+    ```java
+    import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+    
+    given().
+            param("name", "Johan").
+    when().
+            get("/greeting").
+    then().
+            assertThat(status().isOk()).    // `.expect` can also be used / == MockMvc syntax
+            body("id", equalTo(1)).
+            body("content", equalTo("Hello, Johan!"));  
+    ```
 
 ### Interceptors ###
 
+* TODO:
 * For more advanced use cases you can also get ahold of and modify the [MockHttpServletRequestBuilder](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html) before the request is performed. To do this define a [MockHttpServletRequestBuilderInterceptor](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/intercept/MockHttpServletRequestBuilderInterceptor.html) and use it with RestAssuredMockMvc:
 
 ```java
