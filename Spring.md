@@ -201,17 +201,23 @@
 
 ### Adding Request Post Processors ###
 
-* TODO:
-Spring MockMvc has support for [Request Post Processors](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html) and you can use these in RestAssuredMockMvc as well. For example:
-```java
-given().postProcessors(myPostProcessor1, myPostProcessor2). ..
-```
+* Spring MockMvc has support for [Request Post Processors](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/RequestPostProcessor.html)
+  * 👁️can be used | RestAssuredMockMvc 👁️
+* _Example:_
 
-Note that it's recommended the add `RequestPostProcessors` from `org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors` (i.e. authentication `RequestPostProcessors`) to `auth` instead for better readability (result will be the same):
-```java
-given().auth().with(httpBasic("username", "password")). ..
-```
-where httpBasic is statically imported from [SecurityMockMvcRequestPostProcessor](http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html).
+    ```java
+    given().postProcessors(myPostProcessor1, myPostProcessor2). ..
+    ```
+
+* recommendations
+  * use `org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors` rather than directly your own implementation
+    * _Example:_
+
+    ```java
+    import static ...SecurityMockMvcRequestPostProcessor.httpBasic;
+    
+    given().auth().with(httpBasic("username", "password")). ..
+    ```
 
 ### Adding Result Handlers ###
 
@@ -231,7 +237,9 @@ where httpBasic is statically imported from [SecurityMockMvcRequestPostProcessor
     ```
 
 ### Using Result Matchers ###
-Spring MockMvc provides a bunch of [Result Matchers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultMatcher.html) that you may find useful. RestAssuredMockMvc has support for these as well if needed. For example let's say that for some reason you want to verify that the status code is equal to 200 using a ResultMatcher:
+
+* TODO:
+* Spring MockMvc provides a bunch of [Result Matchers](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultMatcher.html) that you may find useful. RestAssuredMockMvc has support for these as well if needed. For example let's say that for some reason you want to verify that the status code is equal to 200 using a ResultMatcher:
 ```java
 given().
         param("name", "Johan").
@@ -245,7 +253,8 @@ then().
 where `status` is statically imported from `org.springframework.test.web.servlet.result.MockMvcResultMatchers`. Note that you can also use the `expect` method which is the same as `assertThat` but more close to the syntax of native MockMvc.
 
 ### Interceptors ###
-For more advanced use cases you can also get ahold of and modify the [MockHttpServletRequestBuilder](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html) before the request is performed. To do this define a [MockHttpServletRequestBuilderInterceptor](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/intercept/MockHttpServletRequestBuilderInterceptor.html) and use it with RestAssuredMockMvc:
+
+* For more advanced use cases you can also get ahold of and modify the [MockHttpServletRequestBuilder](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html) before the request is performed. To do this define a [MockHttpServletRequestBuilderInterceptor](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/intercept/MockHttpServletRequestBuilderInterceptor.html) and use it with RestAssuredMockMvc:
 
 ```java
 given().interceptor(myInterceptor). ..
@@ -527,4 +536,7 @@ If you've used any static configuration you can easily reset RestAssuredWebTestC
 ## Common Spring Module Documentation ##
 
 ### Note on parameters ###
-Neither RestAssuredMockMvc nor RestAssuredWebTestClient differentiates between parameters types, so `param`, `formParam` and `queryParam` currently just delegates to param in MockMvc. `formParam` adds the `application/x-www-form-urlencoded` content-type header automatically though just as standard Rest Assured does.
+
+* `RestAssuredMockMvc` & `RestAssuredWebTestClient` do NOT differentiate parameters types
+  * -> `param`, `formParam` and `queryParam` -- just delegates to -- param | MockMvc
+  * `formParam` adds automatically the `application/x-www-form-urlencoded` content-type header == standard Rest Assured does
