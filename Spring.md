@@ -265,146 +265,183 @@ given().interceptor(myInterceptor). ..
 ```
 
 ### <a name="specifications"></a> Spring Mock Mvc Specifications ###
-Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredMockMvc is called [MockMvcRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/specification/MockMvcRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredMockMvc as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
-```java
-RestAssuredMockMvc.requestSpecification = new MockMvcRequestSpecBuilder().addQueryParam("name", "Johan").build();
-RestAssuredMockMvc.responseSpecification = new ResponseSpecBuilder().expectStatusCode(200).expectBody("content", equalTo("Hello, Johan!")).build();
 
-given().
-        standaloneSetup(new GreetingController()).
-when().
-        get("/greeting").
-then().
-        body("id", equalTo(1));
-```
+* [specifications](#specification_re-use) can be used | Spring Mock Mvc
+  * can be defined statically   
+* [MockMvcRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/specification/MockMvcRequestSpecBuilder.html)
+  * == request specification builder | RestAssuredMockMvc
+* [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/ResponseSpecBuilder.html)
+  * can be used | RestAssuredMockMvc
+* _Example:_ 
+
+    ```java
+    // specifications statically defined
+    RestAssuredMockMvc.requestSpecification = new MockMvcRequestSpecBuilder().addQueryParam("name", "Johan").build();
+    RestAssuredMockMvc.responseSpecification = new ResponseSpecBuilder().expectStatusCode(200).expectBody("content", equalTo("Hello, Johan!")).build();
+    
+    given().
+            standaloneSetup(new GreetingController()).
+    when().
+            get("/greeting").
+    then().
+            body("id", equalTo(1));
+    ```
 
 ### Resetting RestAssuredMockMvc ##
-If you've used any static configuration you can easily reset RestAssuredMockMvc to its default state by calling the `RestAssuredMockMvc.reset()` method.
+
+* `RestAssuredMockMvc.reset()`
+  * reset ANY static configuration -- to -- its default state
 
 ## Spring MVC Authentication ##
-Version `2.3.0` of `spring-mock-mvc` supports authentication. For example:
-```java
-given().auth().principal(..). ..
-```
-Some authentication methods require Spring Security to be on the classpath (optional). It's also possible to define authentication statically:
-```java
-RestAssuredMockMvc.authentication = principal("username", "password");
-```
-where the `principal` method is statically imported from [RestAssuredMockMvc](http://static.javadoc.io/io.restassured/spring-mock-mvc/5.5.0/io/restassured/module/mockmvc/RestAssuredMockMvc.html). It's also possible to define an authentication scheme in a request builder:
-```java
-MockMvcRequestSpecification spec = new MockMvcRequestSpecBuilder.setAuth(principal("username", "password")).build();
-```
+
+* requirements
+  * REST Asssured `spring-mock-mvc` v`2.3.0+`
+*  _Example:_
+
+    ```java
+    given().auth().principal(..). ..
+    ```
+* recommendations
+  * add Spring Security | classpath
+    * Reason: 🧠Some authentication methods require it 🧠
+* ways to define authentication
+  * statically
+
+    ```java
+      import static io.restassured.springmockmvc....principal;
+    
+      RestAssuredMockMvc.authentication = principal("username", "password");
+    ```
+  * authentication scheme | request builder
+    
+    ```java
+      MockMvcRequestSpecification spec = new MockMvcRequestSpecBuilder.setAuth(principal("username", "password")).build();
+      ```
 
 ### Using Spring Security Test ###
 
-Since version `2.5.0` there's also better support for Spring Security. If you have `spring-security-test` in classpath you can do for example:
-```java
-given().auth().with(httpBasic("username", "password")). ..
-```
-where `httpBasic` is statically imported from [SecurityMockMvcRequestPostProcessor](http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html). This will apply basic authentication to the request. For this to work you need apply the [SecurityMockMvcConfigurer](http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/test/web/servlet/setup/SecurityMockMvcConfigurers.html) to the MockMvc instance. You can either do this manually:
-```java
-MockMvc mvc = MockMvcBuilders.webAppContextSetup(context).apply(SecurityMockMvcConfigurers.springSecurity()).build();
-```
+* better support for Spring Security | REST Asssured `spring-mock-mvc` v`2.5.0+`
+* recommendations
+  * add `spring-security-test` | classpath
+* _Example:_
 
-or RESTAssuredMockMvc will automatically try to apply the `springSecurity` configurer automatically if you initalize it with an instance of [AbstractMockMvcBuilder](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/web/servlet/setup/AbstractMockMvcBuilder.html), for example when configuring a "web app context":
-```java
-given().webAppContextSetup(context).auth().with(httpBasic("username", "password")). ..
-```
+    ```java
+    import static ...springsecurity...httpBasic;
+    // ways to apply SecurityMockMvcConfigurers.springSecurity() | MockMvc instance         required to apply basic auth afterward 
+    // 1. manually
+    MockMvc mvc = MockMvcBuilders.webAppContextSetup(context).apply(SecurityMockMvcConfigurers.springSecurity()).build();
+    
+    // httpBasic        apply basic authentication | request
+    given().auth().with(httpBasic("username", "password"))...
+  
+  
+    // or
+    // 2. automatically by RESTAssuredMockMvc  -> you need to initialize with an instance of AbstractMockMvcBuilder -- Example: configuring a "web app context"
+    given().webAppContextSetup(context).auth().with(httpBasic("username", "password")). ..
+    ```
 
-Here's a full example:
-```java
-import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.context.WebApplicationContext;
+* _Example:_ full example
 
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MyConfiguration.class)
-@WebAppConfiguration
-public class BasicAuthExample {
-
-    @Autowired
-    private WebApplicationContext context;
-
-    @Before public void
-    rest_assured_is_initialized_with_the_web_application_context_before_each_test() {
-        RestAssuredMockMvc.webAppContextSetup(context);
+    ```java
+    import io.restassured.module.mockmvc.RestAssuredMockMvc;
+    import org.junit.After;
+    import org.junit.Before;
+    import org.junit.Test;
+    import org.junit.runner.RunWith;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.test.context.ContextConfiguration;
+    import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+    import org.springframework.test.context.web.WebAppConfiguration;
+    import org.springframework.web.context.WebApplicationContext;
+    
+    import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+    import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+    import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
+    
+    @RunWith(SpringJUnit4ClassRunner.class)
+    @ContextConfiguration(classes = MyConfiguration.class)
+    @WebAppConfiguration
+    public class BasicAuthExample {
+    
+        @Autowired
+        private WebApplicationContext context;
+    
+        @Before public void
+        rest_assured_is_initialized_with_the_web_application_context_before_each_test() {
+            RestAssuredMockMvc.webAppContextSetup(context);
+        }
+    
+        @After public void
+        rest_assured_is_reset_after_each_test() {
+            RestAssuredMockMvc.reset();
+        }
+    
+        @Test public void
+        basic_auth_example() {
+            given().
+                    auth().with(httpBasic("username", "password")).
+            when().
+                    get("/secured/x").
+            then().
+                    statusCode(200).
+                    expect(authenticated().withUsername("username"));
+        }
     }
+    ```
 
-    @After public void
-    rest_assured_is_reset_after_each_test() {
-        RestAssuredMockMvc.reset();
-    }
+* define authentication | ALL request
+    
+  ```java
+    import static io.restassured.module.mockmvc.RestAssuredMockMvc.with;
+    
+    RestAssuredMockMvc.authentication = with(httpBasic("username", "password"));
+    ```
 
-    @Test public void
-    basic_auth_example() {
-        given().
-                auth().with(httpBasic("username", "password")).
-        when().
-                get("/secured/x").
-        then().
-                statusCode(200).
-                expect(authenticated().withUsername("username"));
-    }
-}
-```
-
-You can also define authentication for all request, for example:
-```java
-RestAssuredMockMvc.authentication = with(httpBasic("username", "password"));
-```
-where `with` is statically imported from `io.restassured.module.mockmvc.RestAssuredMockMvc`. It's also possible to use a [request specification](#specifications).
+* check [request specification](#specifications)
 
 ### Injecting a User ###
 
-It's also possible use to of Spring Security test annotations such as [@WithMockUser](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withmockuser) and [@WithUserDetails](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withuserdetails). For example let's say you want to test this controller:
+* Spring Security test annotations
+  * [@WithMockUser](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withmockuser)
+  * [@WithUserDetails](http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test-method-withuserdetails)
+* _Example:_
 
-```java
-@Controller
-public class UserAwareController {
-
-    @RequestMapping(value = "/user-aware", method = GET)
-    public
-    @ResponseBody
-    String userAware(@AuthenticationPrincipal User user) {
-        if (user == null || !user.getUsername().equals("authorized_user")) {
-            throw new IllegalArgumentException("Not authorized");
+    ```java
+    @Controller
+    public class UserAwareController {
+    
+        @RequestMapping(value = "/user-aware", method = GET)
+        public
+        @ResponseBody
+        String userAware(@AuthenticationPrincipal User user) {
+            // @AuthenticationPrincipal     -> user is injected
+            if (user == null || !user.getUsername().equals("authorized_user")) {
+                throw new IllegalArgumentException("Not authorized");
+            }
+    
+            return "Success";
         }
-
-        return "Success";
     }
-}
-```
+    ```
 
-As you can see the `userAware` method takes a [User](http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/core/userdetails/User.html) as argument and we let Spring Security inject it by using the [@AuthenticationPrincipal](http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/web/bind/annotation/AuthenticationPrincipal.html) annotation. To generate a test user we could do like this:
-
-```java
-@WithMockUser(username = "authorized_user")
-@Test public void
-spring_security_mock_annotations_example() {
-    given().
-            webAppContextSetup(context).
-     when().
-            get("/user-aware").
-     then().
-            statusCode(200).
-            body(equalTo("Success")).
-            expect(authenticated().withUsername("authorized_user"));
-}
-```
+    ```java
+    @WithMockUser(username = "authorized_user")     // generate a test user
+    @Test public void
+    spring_security_mock_annotations_example() {
+        given().
+                webAppContextSetup(context).
+         when().
+                get("/user-aware").
+         then().
+                statusCode(200).
+                body(equalTo("Success")).
+                expect(authenticated().withUsername("authorized_user"));
+    }
+    ```
 
 ### Spring Web Test Client Module 
 
+* TODO:
 REST Assured 3.2.0 introduced support for testing components of the [Spring Reactive Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) stack using the `spring-web-test-client` module. This means that you can unit test reactive Spring (Webflux) Controllers. For example let's say that the server defines a controller that returns JSON using this DTO:
 
 ```java
@@ -482,57 +519,61 @@ Or [download](http://dl.bintray.com/johanhaleby/generic/spring-web-test-client-5
 
 ### Bootstrapping RestAssuredWebTestClient ##
 
-First of all you should statically import methods in:
-```java
-io.restassured.module.webtestclient.RestAssuredWebTestClient.*
-io.restassured.module.webtestclient.matcher.RestAssuredWebTestClientMatchers.*
-```
+* check [static import](#static-imports)
 
-instead of those defined in
+    ```java
+    import static io.restassured.module.webtestclient.RestAssuredWebTestClient.*
+    import static io.restassured.module.webtestclient.matcher.RestAssuredWebTestClientMatchers.*
+    
+    // NOT use
+    //io.restassured.RestAssured.*
+    //io.restassured.matcher.RestAssuredMatchers.*
+    ```
+* start a test -- via -- RestAssuredWebTestClient
+  * -> needed to initialize it with
+    * set of Controllers,
+    * `WebTestClient` instance or a `WebApplicationContext` from Spring
+  * _Example:_
 
-```java
-io.restassured.RestAssured.*
-io.restassured.matcher.RestAssuredMatchers.*
-```
-
-Refer to [static import](#static-imports) section of the documentation for additional static imports.
-
-In order to start a test using RestAssuredWebTestClient you need to initialize it with a either a set of Controllers, a WebTestClient instance or a WebApplicationContext from Spring. You can do this for a single request as seen in the previous example:
-
-```java
-given().standaloneSetup(new GreetingController()). ..
-```
-or you can do it statically:
-
-```java
-RestAssuredWebTestClient.standaloneSetup(new GreetingController());
-```
-If defined statically you don't have to specify any Controllers in the DSL. This means that the previous example can be written as:
-```java
-given().
-        param("name", "Johan").
-when().
-        get("/greeting").
-then().
-        statusCode(200).
-        body("id", equalTo(1)).
-        body("content", equalTo("Hello, Johan!"));  
-```
+    ```java
+    // 1.    / single request
+    given().standaloneSetup(new GreetingController())...
+    
+    // 2.  statically
+    RestAssuredWebTestClient.standaloneSetup(new GreetingController());
+    // -> NOT need to specify any Controllers | DSL
+    given().
+            param("name", "Johan").
+    when().
+            get("/greeting").
+    then().
+            statusCode(200).
+            body("id", equalTo(1)).
+            body("content", equalTo("Hello, Johan!"));
+    ```
 
 ### Spring Web Test Client Specifications ###
-Just as with standard Rest Assured you can use [specifications](#specification_re-use) to allow for better re-use. Note that the request specification builder for RestAssuredWebTestClient is called [WebTestClientRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-web-test-client/5.5.0/io/restassured/module/webtestclient/specification/WebTestClientRequestSpecBuilder.html). The same [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/ResponseSpecBuilder.html) can be used in RestAssuredWebTestClient as well though. Specifications can be defined statically as well just as with standard Rest Assured. For example:
 
-```java
-RestAssuredWebTestClient.requestSpecification = new WebTestClientRequestSpecBuilder().addQueryParam("name", "Johan").build();
-RestAssuredWebTestClient.responseSpecification = new ResponseSpecBuilder().expectStatusCode(200).expectBody("content", equalTo("Hello, Johan!")).build();
+* [specifications](#specification_re-use) allowed | Spring Web Test Client
+  * can be defined statically
+* [WebTestClientRequestSpecBuilder](http://static.javadoc.io/io.restassured/spring-web-test-client/5.5.0/io/restassured/module/webtestclient/specification/WebTestClientRequestSpecBuilder.html)
+  * == request specification builder | RestAssuredWebTestClient
+* [ResponseSpecBuilder](http://static.javadoc.io/io.rest-assured/rest-assured/5.5.0/io/restassured/builder/ResponseSpecBuilder.html)
+  * -- can be -- used | RestAssuredWebTestClient
+* _Example:_
 
-given().
-        standaloneSetup(new GreetingController()).
-when().
-        get("/greeting").
-then().
-        body("id", equalTo(1));
-```
+    ```java
+    // define statically
+    RestAssuredWebTestClient.requestSpecification = new WebTestClientRequestSpecBuilder().addQueryParam("name", "Johan").build();
+    RestAssuredWebTestClient.responseSpecification = new ResponseSpecBuilder().expectStatusCode(200).expectBody("content", equalTo("Hello, Johan!")).build();
+    
+    given().
+            standaloneSetup(new GreetingController()).
+    when().
+            get("/greeting").
+    then().
+            body("id", equalTo(1));
+    ```
 
 ### Resetting RestAssuredWebTestClient ##
 If you've used any static configuration you can easily reset RestAssuredWebTestClient to its default state by calling the `RestAssuredWebTestClient.reset()` method.
